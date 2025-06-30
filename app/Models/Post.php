@@ -70,6 +70,11 @@ class Post extends Model
         return $this->author_type === 'admin' ? $this->admin() : $this->user();
     }
 
+    public function isAdminPost()
+    {
+        return $this->author_type === 'admin';
+    }
+
     public function getAuthorNameAttribute()
     {
         if ($this->author_type === 'admin') {
