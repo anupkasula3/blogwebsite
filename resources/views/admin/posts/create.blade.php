@@ -37,7 +37,8 @@
             </div>
         @endif --}}
 
-        <form method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data" class="p-6" id="postForm">
+        <form method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data" class="p-6"
+            id="postForm">
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -83,8 +84,10 @@
                     <div class="bg-gray-50 rounded-lg p-4">
                         <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Featured
                             Image</label>
-                        <input type="file" name="featured_image" id="featured_image" accept="image/*"
+                        <input type="file" name="featured_image" onchange="loadFile(event)" id="featured_image"
+                            accept="image/*"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('featured_image') border-red-500 @enderror">
+                        <img id="output" style="width: 70px; margin-bottom: 2px;" />
                         <p class="text-sm text-gray-500 mt-1">Recommended size: 1200x630px</p>
                         @error('featured_image')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

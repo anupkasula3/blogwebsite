@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\FileService\ImageService;
 
 class CategoryController extends Controller
 {
+    public function __construct(
+        protected ImageService $imageService
+
+    ) {}
+
     public function index()
     {
         $categories = Category::withCount('posts')->latest()->paginate(15);
@@ -44,7 +50,7 @@ class CategoryController extends Controller
         $data['color'] = $request->input('color_hex', $request->input('color', null));
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('categories', 'public');
+            $imagePath = $this->imageservice->fileUpload($request->image, "category");
             $data['image'] = $imagePath;
         }
 
@@ -83,7 +89,10 @@ class CategoryController extends Controller
         $data['color'] = $request->input('color_hex', $request->input('color', null));
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('categories', 'public');
+            if ($category->image) {
+                $this->imageservice->imageDelete($category->image);
+            }
+            $imagePath = $this->imageservice->fileUpload($request->image, "category");
             $data['image'] = $imagePath;
         }
 
@@ -95,6 +104,9 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if ($category->image) {
+            $this->imageservice->imageDelete($category->image);
+        }
         $category->delete();
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category deleted successfully!');

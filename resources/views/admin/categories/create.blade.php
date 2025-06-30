@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.categories.store') }}" method="POST" class="p-6">
+    <form action="{{ route('admin.categories.store') }}" method="POST" class="p-6" enctype="multipart/form-data">
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">

@@ -8,9 +8,14 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\FileService\ImageService;
 
 class PostController extends Controller
 {
+    public function __construct(
+        protected ImageService $imageService
+
+    ) {}
     public function index()
     {
         $posts = Post::with(['category', 'user', 'admin'])
@@ -57,7 +62,9 @@ class PostController extends Controller
 
             // Handle featured image
             if ($request->hasFile('featured_image')) {
-                $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
+                $imagePath = $this->imageService->fileUpload($request->featured_image, "post");
+                // $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
+                $data['featured_image'] = $imagePath;
             }
 
             $post = Post::create($data);
@@ -119,25 +126,28 @@ class PostController extends Controller
         // Handle featured image
         if ($request->hasFile('featured_image')) {
             if ($post->featured_image) {
-                Storage::disk('public')->delete($post->featured_image);
+                $this->imageService->imageDelete($post->featured_image);
             }
-            $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
+            $imagePath = $this->imageService->fileUpload($request->featured_image, "post");
+            $data['featured_image'] = $imagePath;
         }
 
         // Handle OG image
         if ($request->hasFile('og_image')) {
             if ($post->og_image) {
-                Storage::disk('public')->delete($post->og_image);
+                $this->imageService->imageDelete($post->og_image);
             }
-            $data['og_image'] = $request->file('og_image')->store('posts/og', 'public');
+            $ogimagepath = $this->imageService->fileUpload($request->og_image, "ogimage");
+            $data['og_image'] = $ogimagepath;
         }
 
         // Handle Twitter image
         if ($request->hasFile('twitter_image')) {
             if ($post->twitter_image) {
-                Storage::disk('public')->delete($post->twitter_image);
+                $this->imageService->imageDelete($post->twitter_image);
             }
-            $data['twitter_image'] = $request->file('twitter_image')->store('posts/twitter', 'public');
+            $twitterimagepath = $this->imageService->fileUpload($request->twitter_image, "twitterimage");
+            $data['twitter_image'] = $twitterimagepath;
         }
 
         $post->update($data);
@@ -152,13 +162,13 @@ class PostController extends Controller
 
         // Delete associated images
         if ($post->featured_image) {
-            Storage::disk('public')->delete($post->featured_image);
+            $this->imageService->imageDelete($post->featured_image);
         }
         if ($post->og_image) {
-            Storage::disk('public')->delete($post->og_image);
+            $this->imageService->imageDelete($post->og_image);
         }
         if ($post->twitter_image) {
-            Storage::disk('public')->delete($post->twitter_image);
+            $this->imageService->imageDelete($post->twitter_image);
         }
 
         $post->delete();
