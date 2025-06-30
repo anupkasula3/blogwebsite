@@ -44,7 +44,7 @@
                             <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
                                 @if ($post->featured_image)
                                     <img class="h-10 w-10 rounded-lg object-cover border"
-                                        src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}">
+                                        src="{{ asset('/uploads/' . $post->featured_image) }}" alt="{{ $post->title }}">
                                 @else
                                     <div
                                         class="h-10 w-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
