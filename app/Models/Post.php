@@ -83,14 +83,15 @@ class Post extends Model
         return $this->author_type === 'admin' ? 'Admin' : 'User';
     }
 
-    public function isAdminPost()
+    public function getContentHtmlAttribute()
     {
-        return $this->author_type === 'admin';
+        return Str::markdown($this->content);
     }
 
-    public function isUserPost()
+    public function getReadingTimeAttribute()
     {
-        return $this->author_type === 'user';
+        $wordCount = str_word_count(strip_tags($this->content));
+        return ceil($wordCount / 200);
     }
 
     public function getRouteKeyName()
@@ -104,15 +105,6 @@ class Post extends Model
             return $value;
         }
         return Str::limit(strip_tags($this->content), 150);
-    }
-
-    public function getReadingTimeAttribute($value)
-    {
-        if ($value) {
-            return $value;
-        }
-        $wordCount = str_word_count(strip_tags($this->content));
-        return ceil($wordCount / 200); // Average reading speed: 200 words per minute
     }
 
     public function getSeoScoreAttribute($value)

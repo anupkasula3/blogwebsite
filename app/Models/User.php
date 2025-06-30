@@ -95,6 +95,11 @@ class User extends Authenticatable
         return $this->posts()->approved()->count();
     }
 
+    public function getPendingPostsCountAttribute()
+    {
+        return $this->posts()->pending()->count();
+    }
+
     public function getTotalViewsAttribute()
     {
         return $this->posts()->sum('views_count');

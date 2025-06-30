@@ -11,7 +11,7 @@
 @endif
 
 <!-- Main Header -->
-<header class="bg-white shadow-sm sticky top-0 z-50">
+<header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ open: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
@@ -87,7 +87,7 @@
                     </button>
                     <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                         <div class="py-2">
-                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">
+                            <a href="{{ route('user.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">
                                 <i class="fas fa-user mr-2"></i>Profile
                             </a>
                             <form method="POST" action="{{ route('logout') }}">
@@ -109,14 +109,14 @@
                 @endauth
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-700 hover:text-purple-600" x-data="{ open: false }" @click="open = !open">
+                <button class="md:hidden text-gray-700 hover:text-purple-600" @click="open = !open">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Navigation -->
-        <div class="md:hidden" x-data="{ open: false }" x-show="open" x-transition>
+        <div class="md:hidden" x-show="open" @click.outside="open = false" x-transition>
             <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
                 <a href="{{ route('home') }}" class="block px-3 py-2 text-gray-700 hover:text-purple-600 font-medium">
                     Home

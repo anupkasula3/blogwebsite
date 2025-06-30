@@ -90,8 +90,12 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/posts/{post}/edit', [UserDashboardController::class, 'editPost'])->name('posts.edit');
     Route::put('/posts/{post}', [UserDashboardController::class, 'updatePost'])->name('posts.update');
     Route::delete('/posts/{post}', [UserDashboardController::class, 'deletePost'])->name('posts.destroy');
+    Route::get('/posts/{post}', [UserDashboardController::class, 'showPost'])->name('posts.show');
+    Route::post('/posts/{post}/publish', [UserDashboardController::class, 'publishPost'])->name('posts.publish');
+    Route::post('/posts/{post}/draft', [UserDashboardController::class, 'draftPost'])->name('posts.draft');
     Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');
     Route::put('/profile', [UserDashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/change-password', [UserDashboardController::class, 'showChangePasswordForm'])->name('password.change.form');
     Route::put('/password', [UserDashboardController::class, 'changePassword'])->name('password.change');
     Route::get('/analytics', [UserDashboardController::class, 'analytics'])->name('analytics');
 

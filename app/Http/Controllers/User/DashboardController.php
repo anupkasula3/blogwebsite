@@ -68,13 +68,18 @@ class DashboardController extends Controller
             'schema_markup' => 'nullable|string',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('action');
         $data['user_id'] = auth()->id();
         $data['author_type'] = 'user';
         $data['admin_id'] = null;
         $data['slug'] = \Str::slug($request->title);
-        $data['status'] = 'draft';
-        $data['is_approved'] = false;
+        $data['is_approved'] = false; // Always requires re-approval
+
+        if ($request->action === 'draft') {
+            $data['status'] = 'draft';
+        } else {
+            $data['status'] = 'pending'; // Submit for review
+        }
 
         // Handle featured image
         if ($request->hasFile('featured_image')) {
@@ -94,8 +99,10 @@ class DashboardController extends Controller
         $post = Post::create($data);
 
         // Notify admins about new user post
-        $user = auth()->user();
-        Notification::notifyUserPost($user, $post);
+        if ($post->status === 'pending') {
+            $user = auth()->user();
+            Notification::notifyUserPost($user, $post);
+        }
 
         return redirect()->route('user.posts.index')
             ->with('success', 'Post created successfully! It will be reviewed by admin before publishing.');
@@ -136,12 +143,16 @@ class DashboardController extends Controller
             'schema_markup' => 'nullable|string',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('action');
         $data['slug'] = \Str::slug($request->title);
 
         // Reset approval status when post is updated
-        if ($post->is_approved) {
-            $data['is_approved'] = false;
+        $data['is_approved'] = false;
+
+        if ($request->action === 'draft') {
+            $data['status'] = 'draft';
+        } else {
+            $data['status'] = 'pending';
         }
 
         // Handle featured image
@@ -170,6 +181,11 @@ class DashboardController extends Controller
 
         $post->update($data);
 
+        // Notify admins if post is submitted for review
+        if ($post->status === 'pending') {
+            // You might want to create a different notification for updates
+        }
+
         return redirect()->route('user.posts.index')
             ->with('success', 'Post updated successfully! It will be reviewed by admin before publishing.');
     }
@@ -195,6 +211,44 @@ class DashboardController extends Controller
 
         return redirect()->route('user.posts.index')
             ->with('success', 'Post deleted successfully!');
+    }
+
+    public function publishPost(Post $post)
+    {
+        if ($post->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $post->update(['status' => 'pending', 'is_approved' => false]);
+
+        // Notify admins
+        $user = auth()->user();
+        Notification::notifyUserPost($user, $post);
+
+
+        return redirect()->route('user.posts.index')
+            ->with('success', 'Post submitted for review!');
+    }
+
+    public function draftPost(Post $post)
+    {
+        if ($post->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $post->update(['status' => 'draft']);
+
+        return redirect()->route('user.posts.index')
+            ->with('success', 'Post moved to drafts.');
+    }
+
+    public function showPost(Post $post)
+    {
+        if ($post->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        return view('user.posts.show', compact('post'));
     }
 
     public function profile()
@@ -244,20 +298,40 @@ class DashboardController extends Controller
             ->with('success', 'Password changed successfully!');
     }
 
+    public function showChangePasswordForm()
+    {
+        return view('user.profile.change-password');
+    }
+
     public function analytics()
     {
         $user = auth()->user();
 
-        $analytics = [
+        $stats = [
             'total_posts' => $user->total_posts_count,
             'approved_posts' => $user->approved_posts_count,
             'pending_posts' => $user->pending_posts_count,
             'total_views' => $user->total_views,
-            'average_views' => $user->average_views,
-            'popular_posts' => $user->popularPosts,
-            'recent_posts' => $user->recentPosts,
+            'average_views' => round($user->average_views),
         ];
 
-        return view('user.analytics.index', compact('analytics'));
+        // Dummy data for the chart
+        $chartData = [
+            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            'data' => [
+                rand(10,100),
+                rand(10,100),
+                rand(10,100),
+                rand(10,100),
+                rand(10,100),
+                rand(10,100),
+                rand(10,100)
+            ],
+        ];
+
+        $popularPosts = $user->popularPosts;
+        $recentPosts = $user->recentPosts;
+
+        return view('user.analytics.index', compact('stats', 'chartData', 'popularPosts', 'recentPosts'));
     }
 }

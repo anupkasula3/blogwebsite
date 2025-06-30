@@ -25,17 +25,21 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    @include('user.layouts.navbar')
-    <div class="flex">
+<body class="bg-gray-50" x-data="{ sidebarOpen: false }">
+    <div class="flex h-screen bg-gray-50">
         @include('user.layouts.sidebar')
-        <div class="flex-1">
-            @yield('content')
+
+        <div class="flex flex-col flex-1">
+            @include('user.layouts.navbar')
+            <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+                @yield('content')
+            </main>
         </div>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @stack('scripts')
 </body>
