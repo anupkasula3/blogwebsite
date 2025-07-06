@@ -20,11 +20,12 @@ return new class extends Migration
             $table->string('featured_image')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->enum('status', ['draft', 'pending', 'published', 'archived'])->default('draft');
             $table->timestamp('published_at')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->boolean('is_featured')->default(false);
+            $table->boolean('is_editors_pick')->default(false)->nullable();
             $table->integer('views_count')->default(0);
             $table->timestamps();
         });

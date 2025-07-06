@@ -30,7 +30,7 @@
                 <tr class="hover:bg-purple-50 even:bg-gray-50 transition-all">
                     <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
                         @if($ad->image)
-                        <img class="h-10 w-10 rounded-lg object-cover border" src="{{ Storage::url($ad->image) }}" alt="{{ $ad->title }}">
+                        <img class="h-10 w-10 rounded-lg object-cover border" src="{{ asset('uploads/' . $ad->image) }}" alt="{{ $ad->title }}">
                         @else
                         <div class="h-10 w-10 bg-gray-200 rounded-lg flex items-center justify-center">
                             <i class="fas fa-ad text-gray-400"></i>

@@ -32,6 +32,28 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
+        $editorsPick = Post::with(['category', 'user', 'admin'])
+            ->published()
+            ->where('is_editors_pick', true)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        $techReviews = Post::with(['category', 'user', 'admin'])
+            ->published()
+            ->whereHas('category', function($q) {
+                $q->where('name', 'like', '%review%');
+            })
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        $mustRead = Post::with(['category', 'user', 'admin'])
+            ->published()
+            ->orderBy('views_count', 'desc')
+            ->take(3)
+            ->get();
+
         $latestPosts = Post::with(['category', 'user', 'admin'])
             ->published()
             ->latest('published_at')
@@ -50,17 +72,31 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
+        $categoriesWithPosts = Category::where('is_active', true)
+            ->with(['posts' => function($q) {
+                $q->published()->latest('published_at')->take(3);
+            }])
+            ->get()
+            ->sortByDesc(function($category) {
+                return $category->posts->sum('views_count');
+            });
+
         // Advertisements for different positions
         $headerAd = Advertisement::active()->byPosition('header')->first();
+
         $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
         $footerAd = Advertisement::active()->byPosition('footer')->first();
         $contentAd = Advertisement::active()->byPosition('content')->first();
 
         return view('frontend.homepage.home', compact(
             'featuredPosts',
+            'editorsPick',
+            'techReviews',
+            'mustRead',
             'latestPosts',
             'popularPosts',
             'categories',
+            'categoriesWithPosts',
             'headerAd',
             'sidebarAd',
             'footerAd',

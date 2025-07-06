@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\FileService\ImageService;
 
 class AdvertisementController extends Controller
 {
+
+    public function __construct(
+        protected ImageService $imageService
+    ) {}
+
     public function index()
     {
         $advertisements = Advertisement::latest()->paginate(15);
@@ -37,7 +43,8 @@ class AdvertisementController extends Controller
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('advertisements', 'public');
+            $imagePath = $this->imageService->fileUpload($request->image, "advertisement");
+            $data['image'] = $imagePath;
         }
 
         Advertisement::create($data);
@@ -74,9 +81,10 @@ class AdvertisementController extends Controller
 
         if ($request->hasFile('image')) {
             if ($advertisement->image) {
-                Storage::disk('public')->delete($advertisement->image);
+                $this->imageService->imageDelete($advertisement->image);
             }
-            $data['image'] = $request->file('image')->store('advertisements', 'public');
+            $imagePath = $this->imageService->fileUpload($request->image, "advertisement");
+            $data['image'] = $imagePath;
         }
 
         $advertisement->update($data);
@@ -88,7 +96,7 @@ class AdvertisementController extends Controller
     public function destroy(Advertisement $advertisement)
     {
         if ($advertisement->image) {
-            Storage::disk('public')->delete($advertisement->image);
+                $this->imageService->imageDelete($advertisement->image);
         }
 
         $advertisement->delete();

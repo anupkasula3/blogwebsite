@@ -36,6 +36,7 @@ class Post extends Model
         'schema_markup',
         'views_count',
         'is_featured',
+        'is_editors_pick',
         'is_approved',
         'reading_time',
         'seo_score'
@@ -45,6 +46,7 @@ class Post extends Model
         'published_at' => 'datetime',
         'views_count' => 'integer',
         'is_featured' => 'boolean',
+        'is_editors_pick' => 'boolean',
         'is_approved' => 'boolean',
         'reading_time' => 'integer',
         'seo_score' => 'integer',

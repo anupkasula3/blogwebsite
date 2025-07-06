@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use App\FileService\ImageService;
 
 class DashboardController extends Controller
 {
+    protected $imageService;
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
     public function index()
     {
         $user = auth()->user();
@@ -83,17 +90,17 @@ class DashboardController extends Controller
 
         // Handle featured image
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
+            $data['featured_image'] = $this->imageService->fileUpload($request->featured_image, "post");
         }
 
         // Handle OG image
         if ($request->hasFile('og_image')) {
-            $data['og_image'] = $request->file('og_image')->store('posts/og', 'public');
+            $data['og_image'] = $this->imageService->fileUpload($request->og_image, "ogimage");
         }
 
         // Handle Twitter image
         if ($request->hasFile('twitter_image')) {
-            $data['twitter_image'] = $request->file('twitter_image')->store('posts/twitter', 'public');
+            $data['twitter_image'] = $this->imageService->fileUpload($request->twitter_image, "twitterimage");
         }
 
         $post = Post::create($data);
@@ -158,25 +165,25 @@ class DashboardController extends Controller
         // Handle featured image
         if ($request->hasFile('featured_image')) {
             if ($post->featured_image) {
-                Storage::disk('public')->delete($post->featured_image);
+                $this->imageService->imageDelete($post->featured_image);
             }
-            $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
+            $data['featured_image'] = $this->imageService->fileUpload($request->featured_image, "post");
         }
 
         // Handle OG image
         if ($request->hasFile('og_image')) {
             if ($post->og_image) {
-                Storage::disk('public')->delete($post->og_image);
+                $this->imageService->imageDelete($post->og_image);
             }
-            $data['og_image'] = $request->file('og_image')->store('posts/og', 'public');
+            $data['og_image'] = $this->imageService->fileUpload($request->og_image, "ogimage");
         }
 
         // Handle Twitter image
         if ($request->hasFile('twitter_image')) {
             if ($post->twitter_image) {
-                Storage::disk('public')->delete($post->twitter_image);
+                $this->imageService->imageDelete($post->twitter_image);
             }
-            $data['twitter_image'] = $request->file('twitter_image')->store('posts/twitter', 'public');
+            $data['twitter_image'] = $this->imageService->fileUpload($request->twitter_image, "twitterimage");
         }
 
         $post->update($data);
@@ -198,13 +205,13 @@ class DashboardController extends Controller
 
         // Delete associated images
         if ($post->featured_image) {
-            Storage::disk('public')->delete($post->featured_image);
+            $this->imageService->imageDelete($post->featured_image);
         }
         if ($post->og_image) {
-            Storage::disk('public')->delete($post->og_image);
+            $this->imageService->imageDelete($post->og_image);
         }
         if ($post->twitter_image) {
-            Storage::disk('public')->delete($post->twitter_image);
+            $this->imageService->imageDelete($post->twitter_image);
         }
 
         $post->delete();

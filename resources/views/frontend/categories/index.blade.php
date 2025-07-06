@@ -23,7 +23,7 @@
                class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                 @if($category->image)
                 <div class="h-48 bg-gray-200">
-                    <img src="{{ Storage::url($category->image) }}"
+                    <img src="{{ asset('uploads/' . $category->image) }}"
                          alt="{{ $category->name }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
@@ -82,7 +82,7 @@
                onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')"
                class="block hover:opacity-90 transition-opacity">
                 @if($sidebarAd->image)
-                <img src="{{ Storage::url($sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="mx-auto mb-4 max-h-32">
+                <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="mx-auto mb-4 max-h-32">
                 @endif
                 <h3 class="text-2xl font-bold mb-3">{{ $sidebarAd->title }}</h3>
                 <p class="text-lg mb-4">{{ $sidebarAd->description }}</p>

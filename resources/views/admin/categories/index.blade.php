@@ -35,7 +35,7 @@
                             <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
                                 @if ($category->image)
                                     <img class="h-10 w-10 rounded-lg object-cover border"
-                                        src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}">
+                                        src="{{ asset('uploads/' . $category->image) }}" alt="{{ $category->name }}">
                                 @else
                                     <div
                                         class="h-10 w-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">

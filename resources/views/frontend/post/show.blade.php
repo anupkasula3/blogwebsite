@@ -229,7 +229,7 @@
                        onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')"
                        class="block hover:opacity-90 transition-opacity">
                         @if($sidebarAd->image)
-                        <img src="{{ Storage::url($sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="mx-auto mb-4 max-h-32">
+                        <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="mx-auto mb-4 max-h-32">
                         @endif
                         <h3 class="font-bold text-lg mb-2">{{ $sidebarAd->title }}</h3>
                         <p class="text-sm mb-4">{{ $sidebarAd->description }}</p>

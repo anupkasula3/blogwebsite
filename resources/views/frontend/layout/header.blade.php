@@ -1,157 +1,114 @@
-<!-- Header Advertisement Banner -->
+<!-- Top Banner Ad -->
 @if(isset($headerAd) && $headerAd)
-<div class="ad-banner py-2 px-4 text-center text-sm font-medium">
-    <a href="{{ $headerAd->link }}" target="_blank"
-       onclick="trackAdClick({{ $headerAd->id }}, 'header')"
-       class="flex items-center justify-center space-x-2 hover:opacity-90 transition-opacity">
-        <span>{{ $headerAd->title }}</span>
-        <i class="fas fa-external-link-alt text-xs"></i>
+  <div class="w-full bg-white flex justify-center items-center py-2 border-b">
+    <a href="{{ $headerAd->link }}" target="_blank" class="block">
+      <img src="{{ asset('/uploads/' . $headerAd->image) }}" alt="{{ $headerAd->title }}" class="h-12 object-contain mx-auto">
     </a>
-</div>
+  </div>
 @endif
 
-<!-- Main Header -->
-<header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ open: false }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-            <!-- Logo -->
-            <div class="flex items-center">
-                <a href="{{ route('home') }}" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-blog text-white text-xl"></i>
-                    </div>
-                    <span class="text-2xl font-bold text-gradient">MyBlogSite</span>
-                </a>
-            </div>
+<header class="sticky top-0 z-50 bg-white shadow">
+  <div class="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8">
+    <!-- Logo -->
+    <a href="{{ url('/') }}" class="flex items-center gap-2">
+      <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-10 object-contain">
+      <span class="text-2xl font-bold text-blue-700">NEVDO</span>
+    </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="{{ route('home') }}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">
-                    Home
+    <!-- Main Navigation -->
+    <nav class="hidden md:flex items-center space-x-6">
+      <a href="{{ url('/') }}" class="text-gray-700 hover:text-blue-600 font-medium transition">Home</a>
+      <div class="relative group">
+        <button class="text-gray-700 hover:text-blue-600 font-medium flex items-center gap-1">
+          Categories <i class="fas fa-chevron-down text-xs"></i>
+        </button>
+        <div class="absolute left-0 mt-2 w-56 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+          <ul class="py-2">
+            @foreach($categories ?? [] as $category)
+              <li>
+                <a href="{{ route('category.show', $category->slug) }}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">
+                  {{ $category->name }}
                 </a>
-                <div class="relative group">
-                    <button class="text-gray-700 hover:text-purple-600 font-medium transition-colors flex items-center space-x-1">
-                        <span>Categories</span>
-                        <i class="fas fa-chevron-down text-xs"></i>
-                    </button>
-                    <div class="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <div class="py-2">
-                            @foreach($categories ?? [] as $category)
-                            <a href="{{ route('category.show', $category->slug) }}"
-                               class="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
-                                <div class="flex items-center justify-between">
-                                    <span>{{ $category->name }}</span>
-                                    <span class="text-xs text-gray-500">{{ $category->posts_count }}</span>
-                                </div>
-                            </a>
-                            @endforeach
-                            <div class="border-t border-gray-100 mt-2 pt-2">
-                                <a href="{{ route('categories.index') }}" class="block px-4 py-2 text-purple-600 hover:bg-purple-50 font-medium">
-                                    View All Categories
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="{{ route('about') }}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">
-                    About
-                </a>
-                <a href="{{ route('contact') }}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">
-                    Contact
-                </a>
-            </nav>
-
-            <!-- Search Bar -->
-            <div class="hidden md:flex items-center space-x-4">
-                <div class="relative">
-                    <form action="{{ route('search') }}" method="GET" class="flex items-center">
-                        <input type="text" name="q" placeholder="Search articles..."
-                               class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                        <button type="submit" class="absolute left-3 text-gray-400 hover:text-purple-600">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- User Menu / Mobile Menu Button -->
-            <div class="flex items-center space-x-4">
-                @auth
-                <div class="relative group">
-                    <button class="flex items-center space-x-2 text-gray-700 hover:text-purple-600">
-                        <img src="{{ auth()->user()->avatar ?? 'https://ui-avatars.com/api/?name=' . auth()->user()->name }}"
-                             alt="{{ auth()->user()->name }}"
-                             class="w-8 h-8 rounded-full">
-                        <span class="hidden lg:block">{{ auth()->user()->name }}</span>
-                        <i class="fas fa-chevron-down text-xs"></i>
-                    </button>
-                    <div class="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                        <div class="py-2">
-                            <a href="{{ route('user.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">
-                                <i class="fas fa-user mr-2"></i>Profile
-                            </a>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-purple-50">
-                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                @else
-                <a href="{{ route('login') }}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors">
-                    Login
-                </a>
-                <a href="{{ route('register') }}" class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
-                    Sign Up
-                </a>
-                @endauth
-
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-700 hover:text-purple-600" @click="open = !open">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
+              </li>
+            @endforeach
+            <li class="border-t mt-2 pt-2">
+              <a href="{{ route('categories.index') }}" class="block px-4 py-2 text-blue-600 hover:bg-blue-50 font-medium">All Categories</a>
+            </li>
+          </ul>
         </div>
+      </div>
+      <a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 font-medium transition">About</a>
+      <a href="{{ route('contact') }}" class="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
+    </nav>
 
-        <!-- Mobile Navigation -->
-        <div class="md:hidden" x-show="open" @click.outside="open = false" x-transition>
-            <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-                <a href="{{ route('home') }}" class="block px-3 py-2 text-gray-700 hover:text-purple-600 font-medium">
-                    Home
-                </a>
-                <div x-data="{ categoriesOpen: false }">
-                    <button @click="categoriesOpen = !categoriesOpen" class="w-full text-left px-3 py-2 text-gray-700 hover:text-purple-600 font-medium flex items-center justify-between">
-                        <span>Categories</span>
-                        <i class="fas fa-chevron-down text-xs" :class="{ 'rotate-180': categoriesOpen }"></i>
-                    </button>
-                    <div x-show="categoriesOpen" x-transition class="pl-4">
-                        @foreach($categories ?? [] as $category)
-                        <a href="{{ route('category.show', $category->slug) }}" class="block px-3 py-2 text-gray-600 hover:text-purple-600">
-                            {{ $category->name }}
-                        </a>
-                        @endforeach
-                    </div>
-                </div>
-                <a href="{{ route('about') }}" class="block px-3 py-2 text-gray-700 hover:text-purple-600 font-medium">
-                    About
-                </a>
-                <a href="{{ route('contact') }}" class="block px-3 py-2 text-gray-700 hover:text-purple-600 font-medium">
-                    Contact
-                </a>
-
-                <!-- Mobile Search -->
-                <div class="px-3 py-2">
-                    <form action="{{ route('search') }}" method="GET" class="flex items-center">
-                        <input type="text" name="q" placeholder="Search articles..."
-                               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                        <button type="submit" class="absolute left-3 text-gray-400 hover:text-purple-600">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <!-- Right Side: Auth/Buttons -->
+    <div class="flex items-center space-x-4">
+      <form action="{{ route('search') }}" method="GET" class="relative hidden md:block">
+        <input type="text" name="q" placeholder="Search..." class="border rounded-full px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" class="absolute right-2 top-1 text-gray-500">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      @auth
+        <a href="{{ route('user.dashboard') }}" class="text-blue-600 font-semibold">Dashboard</a>
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+          @csrf
+          <button type="submit" class="text-gray-700 hover:text-blue-600 font-medium">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('login') }}" class="px-4 py-1 border rounded-full text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white transition">Sign In</a>
+        <a href="{{ route('register') }}" class="px-4 py-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Register</a>
+      @endauth
     </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-gray-700 hover:text-blue-600 ml-2" @click="open = !open">
+      <i class="fas fa-bars text-2xl"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="md:hidden" x-show="open" @click.outside="open = false" x-transition>
+    <div class="px-4 pt-2 pb-3 bg-white border-t">
+      <a href="{{ url('/') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium">Home</a>
+      <div x-data="{ categoriesOpen: false }">
+        <button @click="categoriesOpen = !categoriesOpen" class="w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600 font-medium flex items-center justify-between">
+          <span>Categories</span>
+          <i class="fas fa-chevron-down text-xs" :class="{ 'rotate-180': categoriesOpen }"></i>
+        </button>
+        <div x-show="categoriesOpen" x-transition class="pl-4">
+          @foreach($categories ?? [] as $category)
+            <a href="{{ route('category.show', $category->slug) }}" class="block px-3 py-2 text-gray-600 hover:text-blue-600">{{ $category->name }}</a>
+          @endforeach
+        </div>
+      </div>
+      <a href="{{ route('about') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium">About</a>
+      <a href="{{ route('contact') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+      <form action="{{ route('search') }}" method="GET" class="flex items-center px-3 py-2">
+        <input type="text" name="q" placeholder="Search..." class="w-full border rounded-full px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" class="ml-2 text-gray-500">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      @auth
+        <a href="{{ route('user.dashboard') }}" class="block px-3 py-2 text-blue-600 font-semibold">Dashboard</a>
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+          @csrf
+          <button type="submit" class="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('login') }}" class="block px-3 py-2 text-blue-600 font-medium">Sign In</a>
+        <a href="{{ route('register') }}" class="block px-3 py-2 bg-blue-600 text-white rounded font-medium mt-2">Register</a>
+      @endauth
+    </div>
+  </div>
 </header>
+
+<!-- Below Navbar Banner Ad -->
+@if(isset($belowHeaderAd) && $belowHeaderAd)
+  <div class="w-full bg-white flex justify-center items-center py-2 border-b">
+    <a href="{{ $belowHeaderAd->link }}" target="_blank" class="block">
+      <img src="{{ asset('/uploads/' . $belowHeaderAd->image) }}" alt="{{ $belowHeaderAd->title }}" class="h-12 object-contain mx-auto">
+    </a>
+  </div>
+@endif
