@@ -18,7 +18,7 @@
         </div>
         <!-- tag end -->
         <!-- article heading -->
-        <div class="text-2xl group-hover:text-green-600 transition ease-in-out duration-700 font-bold my-2 ">
+        <div class="text-lg group-hover:text-green-600 transition ease-in-out duration-700 font-bold my-2 ">
             <h2>{{ $post->title }}</h2>
         </div>
         <!-- article heading end -->

@@ -112,67 +112,26 @@
                 <div class="">
                     <h2 class="font-manrope text-4xl font-bold text-gray-900 text-center mb-6">Our popular blogs</h2>
                     <div
-                        class="flex justify-center mb-14 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between gap-x-2">
-                        <div
-                            class="group cursor-pointer w-full max-lg:max-w-xl lg:w-1/3 border border-gray-300 rounded-2xl p-5 transition-all duration-300 hover:border-indigo-600">
-                            <div class="flex items-center mb-6">
-                                <img src="https://pagedone.io/asset/uploads/1696244553.png" alt="Harsh image"
-                                    class="rounded-lg w-full object-cover">
-                            </div>
-                            <div class="block">
-                                <h4 class="text-gray-900 font-medium leading-8 mb-9">Fintech 101: Exploring the Basics of
-                                    Electronic Payments</h4>
-                                <div class="flex items-center justify-between  font-medium">
-                                    <h6 class="text-sm text-gray-500">By Harsh C.</h6>
-                                    <span class="text-sm text-indigo-600">2 year ago</span>
+                        class="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center mb-14 gap-y-2  gap-x-2">
+                        @foreach ($latestPosts as $key => $post)
+                            <div
+                                class="group cursor-pointer  border border-gray-300 rounded-2xl p-5 transition-all duration-300 hover:border-indigo-600">
+                                <div class="flex items-center mb-6">
+                                    <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                        class="rounded-lg h-48 w-full object-contain">
+                                </div>
+                                <div class="block">
+                                    <h4 class="text-gray-900 font-medium leading-1 mb-9">{{ $post->title }}</h4>
+
+                                    <div class="flex items-center justify-between  font-medium">
+                                        <h6 class="text-sm text-gray-500">{{ $post->author_name }}</h6>
+                                        <span class="text-sm text-indigo-600">
+                                            {{ $post->published_at->diffForHumans() }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div
-                            class="group cursor-pointer w-full max-lg:max-w-xl lg:w-1/3 border border-gray-300 rounded-2xl p-5 transition-all duration-300 hover:border-indigo-600">
-                            <div class="flex items-center mb-6">
-                                <img src="https://pagedone.io/asset/uploads/1696244579.png" alt="John image"
-                                    class="rounded-lg w-full object-cover">
-                            </div>
-                            <div class="block">
-                                <h4 class="text-gray-900 font-medium leading-8 mb-9">From Classroom to Cyberspace: The
-                                    Growing Influence of EdTech in Fintech</h4>
-                                <div class="flex items-center justify-between  font-medium">
-                                    <h6 class="text-sm text-gray-500">By John D.</h6>
-                                    <span class="text-sm text-indigo-600">2 year ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="group cursor-pointer w-full max-lg:max-w-xl lg:w-1/3 border border-gray-300 rounded-2xl p-5 transition-all duration-300 hover:border-indigo-600">
-                            <div class="flex items-center mb-6">
-                                <img src="https://pagedone.io/asset/uploads/1696244619.png" alt="Alexa image"
-                                    class="rounded-lg w-full object-cover">
-                            </div>
-                            <div class="block">
-                                <h4 class="text-gray-900 font-medium leading-8 mb-9">Fintech Solutions for Student Loans:
-                                    Easing the Burden of Education Debt</h4>
-                                <div class="flex items-center justify-between  font-medium">
-                                    <h6 class="text-sm text-gray-500">By Alexa H.</h6>
-                                    <span class="text-sm text-indigo-600">2 year ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="group cursor-pointer w-full max-lg:max-w-xl lg:w-1/3 border border-gray-300 rounded-2xl p-5 transition-all duration-300 hover:border-indigo-600">
-                            <div class="flex items-center mb-6">
-                                <img src="https://pagedone.io/asset/uploads/1696244619.png" alt="Alexa image"
-                                    class="rounded-lg w-full object-cover">
-                            </div>
-                            <div class="block">
-                                <h4 class="text-gray-900 font-medium leading-8 mb-9">Fintech Solutions for Student Loans:
-                                    Easing the Burden of Education Debt</h4>
-                                <div class="flex items-center justify-between  font-medium">
-                                    <h6 class="text-sm text-gray-500">By Alexa H.</h6>
-                                    <span class="text-sm text-indigo-600">2 year ago</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                     {{-- <a href="javascript:;"
                         class="cursor-pointer border border-gray-300 shadow-sm rounded-full py-3.5 px-7 w-52 flex justify-center items-center text-gray-900 font-semibold mx-auto transition-all duration-300 hover:bg-gray-100">View
@@ -229,51 +188,30 @@
 
                         <!-- LEFT: Product List (8 cols) -->
                         <div class="xl:col-span-8 space-y-3 ">
-                            <!-- Product Item -->
-                            <div class="flex gap-6 shadow">
-                                <div class="relative  shrink-0">
-                                    <span
-                                        class="absolute top-2 right-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full">New</span>
-                                    <img src="https://cdn.easyfrontend.com/pictures/blog/blog_11_2.png" alt="..."
-                                        class="rounded-lg max-w-full h-auto w-full max-h-full" />
-                                </div>
-                                <div class="flex-1">
-                                    <h2 class="text-lg md:text-xl font-semibold hover:underline">
-                                        2021 Apple iMac (24-inch, M1, 8GB RAM, 256GB)
-                                    </h2>
-                                    <h4 class="text-sm text-gray-500 mt-1">Computer & Accessories</h4>
-                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-4 space-y-1">
-                                        <li>16GB RAM</li>
-                                        <li>1TB SSD Hard Drive</li>
-                                        <li>10-core Intel Xeon</li>
-                                        <li>Mac OS</li>
-                                        <li>Secured</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @foreach ($featuredPosts as $key => $post2)
+                                <!-- Product Item -->
+                                <div class="flex gap-6 border shadow">
+                                    <div class="relative  shrink-0">
+                                        <span
+                                            class="absolute top-2 right-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full">{{ $post2->category->name }}</span>
+                                        <img src="{{ asset('uploads/' . $post2->featured_image) }}" alt="..."
+                                            class="rounded-lg w-96" />
+                                    </div>
+                                    <div class="flex-1">
+                                        <h2 class="text-lg md:text-xl font-semibold hover:underline">
+                                            {{ $post2->title }}
+                                        </h2>
 
-                            <!-- More products can be repeated like this... -->
-                            <div class="flex shadow gap-6">
-                                <div class="relative  shrink-0">
-                                    <span
-                                        class="absolute top-2 right-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full">New</span>
-                                    <img src="https://cdn.easyfrontend.com/pictures/blog/blog_11_1.png" alt="Product"
-                                        class="rounded-lg w-full h-auto shadow-md object-cover transition hover:scale-105 duration-300">
+                                        <div class="">
+                                             <p>{{ Str::limit(strip_tags($post2->content), 470) }}</p>
+                                        </div>
+
+
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    <h2 class="text-lg md:text-xl font-semibold hover:underline">
-                                        Mac Studio 2023 – M2 Max Chip, 32GB RAM
-                                    </h2>
-                                    <h4 class="text-sm text-gray-500 mt-1">Pro Desktops</h4>
-                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-4 space-y-1">
-                                        <li>32GB RAM</li>
-                                        <li>2TB NVMe SSD</li>
-                                        <li>M2 Max 12-Core</li>
-                                        <li>Ventilated Case</li>
-                                        <li>Preinstalled macOS Sonoma</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
+
+
                         </div>
 
                         <!-- RIGHT: Common Panel (4 cols) -->
@@ -284,6 +222,11 @@
                                     class="rounded-lg   object-contain w-[48%] max-h-full" />
                                 <img src="{{ asset('images/adddds.jpg') }}" alt="..."
                                     class="rounded-lg   object-contain w-[48%] max-h-full" />
+                            </div>
+                            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                                {{-- <h3 class="text-lg font-bold mb-4">Ads Section</h3> --}}
+                                <img class="object-contain" alt=""
+                                    src="https://cdn.easyfrontend.com/pictures/discount1-bg.png" />
                             </div>
                         </div>
 

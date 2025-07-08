@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,19 +26,21 @@
     <meta name="twitter:image" content="@yield('twitter_image', \App\Models\Setting::get('site_logo') ? Storage::url(\App\Models\Setting::get('site_logo')) : asset('images/default-twitter.jpg'))">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ \App\Models\Setting::get('site_favicon') ? Storage::url(\App\Models\Setting::get('site_favicon')) : asset('favicon.ico') }}">
+    <link rel="icon" type="image/x-icon"
+        href="{{ \App\Models\Setting::get('site_favicon') ? Storage::url(\App\Models\Setting::get('site_favicon')) : asset('favicon.ico') }}">
 
     <!-- Canonical URL -->
-    @if(isset($canonical_url))
-    <link rel="canonical" href="{{ $canonical_url }}">
+    @if (isset($canonical_url))
+        <link rel="canonical" href="{{ $canonical_url }}">
     @else
-    <link rel="canonical" href="{{ url()->current() }}">
+        <link rel="canonical" href="{{ url()->current() }}">
     @endif
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -46,14 +49,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Google Analytics -->
-    @if(\App\Models\Setting::get('google_analytics_id'))
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ \App\Models\Setting::get('google_analytics_id') }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '{{ \App\Models\Setting::get('google_analytics_id') }}');
-    </script>
+    @if (\App\Models\Setting::get('google_analytics_id'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ \App\Models\Setting::get('google_analytics_id') }}">
+        </script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{ \App\Models\Setting::get('google_analytics_id') }}');
+        </script>
     @endif
 
     <!-- Custom Styles -->
@@ -140,8 +147,8 @@
     @stack('styles')
 
     <!-- Schema Markup -->
-    @if(\App\Models\Setting::get('enable_schema_markup', true))
-    <script type="application/ld+json">
+    @if (\App\Models\Setting::get('enable_schema_markup', true))
+        <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -157,15 +164,19 @@
     </script>
     @endif
 </head>
+
 <body class="bg-gray-50 text-gray-900">
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="readingProgress"></div>
 
-    <!-- Header -->
-    @include('frontend.layout.header')
+    <div class="z-[999] sticky top-0 shadow ">
+
+        <!-- Header -->
+        @include('frontend.layout.header')
+    </div>
 
     <!-- Main Content -->
-    <main class="min-h-screen">
+    <main class="min-h-screen z-[10]">
         @yield('content')
     </main>
 
@@ -243,4 +254,5 @@
     <!-- Structured Data for Current Page -->
     @yield('structured-data')
 </body>
+
 </html>

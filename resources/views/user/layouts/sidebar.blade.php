@@ -62,7 +62,7 @@
 
 <!-- Mobile sidebar -->
 <div x-show="sidebarOpen" class="lg:hidden" x-cloak>
-    <div class="fixed inset-0 flex z-40">
+    <div class="fixed inset-0 flex z-999">
         <!-- Overlay -->
         <div @click="sidebarOpen = false" class="fixed inset-0 bg-gray-600 bg-opacity-75" x-show="sidebarOpen"
              x-transition:enter="transition-opacity ease-linear duration-300"

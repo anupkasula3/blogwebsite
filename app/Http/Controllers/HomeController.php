@@ -29,7 +29,7 @@ class HomeController extends Controller
             ->published()
             ->featured()
             ->latest('published_at')
-            ->take(6)
+            ->take(3)
             ->get();
 
         $editorsPick = Post::with(['category', 'user', 'admin'])
