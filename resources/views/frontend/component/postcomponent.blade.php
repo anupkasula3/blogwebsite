@@ -2,7 +2,7 @@
     <a href="{{ route('post.show', $post->slug) }}">
         <!-- image wrapper -->
         <div>
-            <img class="rounded-lg h-56" src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
+            <img class="rounded-lg h-56 w-full object-contain" src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
                 alt="image" />
         </div>
         <!-- image wrapper end -->

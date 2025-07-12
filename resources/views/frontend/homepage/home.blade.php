@@ -71,9 +71,9 @@
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
-                    <div class="flex">
+                    <div class="md:flex">
                         <!-- Articles Section (75%) -->
-                        <div class="w-3/4 pr-4">
+                        <div class="md:w-3/4 w-full pr-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-2">
                                 @foreach ($latestPosts as $key => $post)
                                     @include('frontend.component.postcomponent')
@@ -83,7 +83,7 @@
                         </div>
 
                         <!-- Sidebar Section (25%) -->
-                        <div class="w-1/4">
+                        <div class="md:w-1/4">
                             <div class="bg-gray-100 p-4 rounded-lg shadow-md">
                                 {{-- <h3 class="text-lg font-bold mb-4">Ads Section</h3> --}}
                                 <img class="object-contain" alt=""
@@ -182,57 +182,119 @@
             </section>
 
 
-            <section class="py-14 md:py-24  text-zinc-900 relative overflow-hidden">
-                <div class="  ">
-                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-x-4 gap-y-5 items-start">
+            <section class="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 text-zinc-900 relative overflow-hidden">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Section Header -->
+                    <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Featured Articles</h2>
+                        <p class="text-gray-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">Discover our most engaging and informative content curated just for you</p>
+                    </div>
 
-                        <!-- LEFT: Product List (8 cols) -->
-                        <div class="xl:col-span-8 space-y-3 ">
+                    <div class="flex flex-col lg:flex-row gap-6 lg:gap-2">
+                        <!-- LEFT: Featured Posts (Mobile: Full width, Desktop: 2/3) -->
+                        <div class="w-full lg:w-2/3 xl:w-3/5 space-y-4 sm:space-y-4">
                             @foreach ($featuredPosts as $key => $post2)
-                                <!-- Product Item -->
-                                <div class="flex gap-6 border shadow">
-                                    <div class="relative  shrink-0">
-                                        <span
-                                            class="absolute top-2 right-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full">{{ $post2->category->name }}</span>
-                                        <img src="{{ asset('uploads/' . $post2->featured_image) }}" alt="..."
-                                            class="rounded-lg w-96" />
-                                    </div>
-                                    <div class="flex-1">
-                                        <h2 class="text-lg md:text-xl font-semibold hover:underline">
-                                            {{ $post2->title }}
-                                        </h2>
-
-                                        <div class="">
-                                             <p>{{ Str::limit(strip_tags($post2->content), 470) }}</p>
+                                <!-- Article Card -->
+                                <article class="group bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                    <div class="flex flex-col sm:flex-row">
+                                        <!-- Image Container -->
+                                        <div class="relative shrink-0 w-full sm:w-2/5 lg:w-1/3 xl:w-2/5">
+                                            <div class="aspect-video sm:aspect-square lg:aspect-video">
+                                                <img src="{{ asset('uploads/' . $post2->featured_image) }}"
+                                                     alt="{{ $post2->title }}"
+                                                     class="w-full h-[100%] object-cover group-hover:scale-105 transition-transform duration-300" />
+                                            </div>
+                                            <!-- Category Badge -->
+                                            <span class="absolute top-3 right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-lg">
+                                                {{ $post2->category->name }}
+                                            </span>
                                         </div>
 
+                                        <!-- Content Container -->
+                                        <div class="flex-1 p-4 sm:p-6 lg:p-8">
+                                            <div class="flex flex-col h-full justify-between">
+                                                <div>
+                                                    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-3 line-clamp-2">
+                                                        {{ $post2->title }}
+                                                    </h3>
+                                                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed line-clamp-3 mb-4">
+                                                        {{ Str::limit(strip_tags($post2->content), 200) }}
+                                                    </p>
+                                                </div>
 
+                                                <!-- Meta Information -->
+                                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
+                                                            <i class="fas fa-user text-xs"></i>
+                                                        </div>
+                                                        <span>{{ $post2->author_name }}</span>
+                                                    </div>
+                                                    <span class="flex items-center gap-1">
+                                                        <i class="fas fa-clock text-xs"></i>
+                                                        {{ $post2->published_at->diffForHumans() }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            @endforeach
+                        </div>
+
+                        <!-- RIGHT: Sidebar (Mobile: Full width, Desktop: 1/3) -->
+                        <div class="w-full lg:w-1/3 xl:w-2/5 space-y-4 sm:space-y-3">
+                                                        <!-- Advertisement Cards -->
+                            <div class=" gap-x-2 flex w-full">
+                                <div class="w-[48%] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-4 sm:p-6 border border-blue-200">
+                                    <img src="{{ asset('images/adddds.jpg') }}"
+                                         alt="Advertisement"
+                                         class="w-full h-32 sm:h-40 object-cover rounded-lg mb-3" />
+                                    <div class="text-center">
+                                        <h4 class="font-semibold text-gray-900 mb-2">Special Offer</h4>
+                                        <p class="text-sm text-gray-600">Discover amazing deals</p>
                                     </div>
                                 </div>
-                            @endforeach
 
-
-                        </div>
-
-                        <!-- RIGHT: Common Panel (4 cols) -->
-                        <div class="xl:col-span-4  space-y-6 sticky  self-start">
-                            <div class="flex gap-x-2">
-
-                                <img src="{{ asset('images/adddds.jpg') }}" alt="..."
-                                    class="rounded-lg   object-contain w-[48%] max-h-full" />
-                                <img src="{{ asset('images/adddds.jpg') }}" alt="..."
-                                    class="rounded-lg   object-contain w-[48%] max-h-full" />
+                                <div class="bg-gradient-to-br w-[48%] from-purple-50 to-pink-100 rounded-xl p-4 sm:p-6 border border-purple-200">
+                                    <img src="{{ asset('images/adddds.jpg') }}"
+                                         alt="Advertisement"
+                                         class="w-full h-32 sm:h-40 object-cover rounded-lg mb-3" />
+                                    <div class="text-center">
+                                        <h4 class="font-semibold text-gray-900 mb-2">Premium Content</h4>
+                                        <p class="text-sm text-gray-600">Exclusive articles</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-                                {{-- <h3 class="text-lg font-bold mb-4">Ads Section</h3> --}}
-                                <img class="object-contain" alt=""
-                                    src="https://cdn.easyfrontend.com/pictures/discount1-bg.png" />
+
+                            <!-- Newsletter Signup -->
+                            <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-xl p-6 sm:p-8 text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-envelope text-3xl mb-4"></i>
+                                    <h4 class="text-lg sm:text-xl font-bold mb-2">Stay Updated</h4>
+                                    <p class="text-orange-100 text-sm sm:text-base mb-4">Get the latest articles delivered to your inbox</p>
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <input type="email"
+                                               placeholder="Enter your email"
+                                               class="flex-1 px-4 py-2 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white">
+                                        <button class="bg-white text-orange-500 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+                                            Subscribe
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Popular Tags -->
+                            <div class="bg-white rounded-xl  border border-gray-200 shadow-sm">
+                                <img src="{{ asset('images/adddds.jpg') }}"
+                                alt="Advertisement"
+                                class="w-full h-32 sm:h-52 object-cover rounded-lg " />
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>
+
 
 
 

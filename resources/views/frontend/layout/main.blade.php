@@ -172,7 +172,7 @@
     <div class="z-[999] sticky top-0 shadow ">
 
         <!-- Header -->
-        @include('frontend.layout.header')
+        {{-- @include('frontend.layout.header') --}}
     </div>
 
     <!-- Main Content -->
