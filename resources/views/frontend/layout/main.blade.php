@@ -169,10 +169,10 @@
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="readingProgress"></div>
 
-    <div class="z-[999] sticky top-0 shadow ">
+    <div class="z-[9999] sticky top-0 shadow">
 
         <!-- Header -->
-        {{-- @include('frontend.layout.header') --}}
+        @include('frontend.layout.header')
     </div>
 
     <!-- Main Content -->
@@ -184,7 +184,7 @@
     @include('frontend.layout.footer')
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+    <!-- Alpine.js is already loaded in header -->
 
     @stack('scripts')
 

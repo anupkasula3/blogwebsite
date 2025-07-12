@@ -190,9 +190,9 @@
                         <p class="text-gray-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">Discover our most engaging and informative content curated just for you</p>
                     </div>
 
-                    <div class="flex flex-col lg:flex-row gap-6 lg:gap-2">
+                    <div class="flex flex-col lg:flex-row gap-4">
                         <!-- LEFT: Featured Posts (Mobile: Full width, Desktop: 2/3) -->
-                        <div class="w-full lg:w-2/3 xl:w-3/5 space-y-4 sm:space-y-4">
+                        <div class="w-full lg:w-2/3 xl:w-3/5 space-y-4">
                             @foreach ($featuredPosts as $key => $post2)
                                 <!-- Article Card -->
                                 <article class="group bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
@@ -242,11 +242,11 @@
                             @endforeach
                         </div>
 
-                        <!-- RIGHT: Sidebar (Mobile: Full width, Desktop: 1/3) -->
-                        <div class="w-full lg:w-1/3 xl:w-2/5 space-y-4 sm:space-y-3">
-                                                        <!-- Advertisement Cards -->
-                            <div class=" gap-x-2 flex w-full">
-                                <div class="w-[48%] bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-4 sm:p-6 border border-blue-200">
+                                                <!-- RIGHT: Sidebar (Mobile: Full width, Desktop: 1/3) -->
+                        <div class="w-full lg:w-1/3 xl:w-2/5 space-y-4">
+                            <!-- Advertisement Cards -->
+                            <div class="flex w-full gap-4">
+                                <div class="w-1/2 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-4 sm:p-6 border border-blue-200">
                                     <img src="{{ asset('images/adddds.jpg') }}"
                                          alt="Advertisement"
                                          class="w-full h-32 sm:h-40 object-cover rounded-lg mb-3" />
@@ -256,7 +256,7 @@
                                     </div>
                                 </div>
 
-                                <div class="bg-gradient-to-br w-[48%] from-purple-50 to-pink-100 rounded-xl p-4 sm:p-6 border border-purple-200">
+                                <div class="w-1/2 bg-gradient-to-br from-purple-50 to-pink-100 rounded-xl p-4 sm:p-6 border border-purple-200">
                                     <img src="{{ asset('images/adddds.jpg') }}"
                                          alt="Advertisement"
                                          class="w-full h-32 sm:h-40 object-cover rounded-lg mb-3" />
@@ -273,11 +273,11 @@
                                     <i class="fas fa-envelope text-3xl mb-4"></i>
                                     <h4 class="text-lg sm:text-xl font-bold mb-2">Stay Updated</h4>
                                     <p class="text-orange-100 text-sm sm:text-base mb-4">Get the latest articles delivered to your inbox</p>
-                                    <div class="flex flex-col sm:flex-row gap-2">
+                                    <div class="flex flex-col gap-2">
                                         <input type="email"
                                                placeholder="Enter your email"
-                                               class="flex-1 px-4 py-2 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white">
-                                        <button class="bg-white text-orange-500 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+                                               class="w-full px-4 py-2 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white">
+                                        <button class="w-full bg-white text-orange-500 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
                                             Subscribe
                                         </button>
                                     </div>
@@ -285,10 +285,10 @@
                             </div>
 
                             <!-- Popular Tags -->
-                            <div class="bg-white rounded-xl  border border-gray-200 shadow-sm">
+                            <div class="bg-white rounded-xl border border-gray-200 shadow-sm">
                                 <img src="{{ asset('images/adddds.jpg') }}"
                                 alt="Advertisement"
-                                class="w-full h-32 sm:h-52 object-cover rounded-lg " />
+                                class="w-full h-32 sm:h-52 object-cover rounded-lg" />
                             </div>
                         </div>
                     </div>
