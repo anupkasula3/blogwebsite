@@ -20,14 +20,13 @@
         </div>
 
         <!-- Post Header -->
-        <section class="relative overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 py-3 sm:py-6">
-            <!-- SVG Wave Accent at Bottom -->
+        <section
+            class="relative overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 py-6 sm:py-10 rounded-b-3xl shadow-lg mb-6">
             <div class="absolute bottom-0 left-0 w-full pointer-events-none z-0">
                 <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="w-full h-8 sm:h-16 md:h-24">
                     <path fill="url(#wave-gradient)" fill-opacity="0.3"
-                        d="M0,80 C480,120 960,40 1440,80 L1440,100 L0,100 Z">
-                    </path>
+                        d="M0,80 C480,120 960,40 1440,80 L1440,100 L0,100 Z"></path>
                     <defs>
                         <linearGradient id="wave-gradient" x1="0" y1="0" x2="1440" y2="0"
                             gradientUnits="userSpaceOnUse">
@@ -37,58 +36,44 @@
                     </defs>
                 </svg>
             </div>
-            <div class="relative z-10 flex justify-center px-2 sm:px-4 md:px-6 lg:px-8">
-                <div
-                    class="backdrop-blur-xl bg-white/10 border border-white/40 rounded-2xl sm:rounded-3xl w-full px-2 py-3 sm:px-4 sm:py-4 md:px-8 md:py-6 flex flex-col items-center">
-                    <!-- Category Badge -->
-                    <a href="{{ route('category.show', $post->category->slug) }}"
-                        class="mb-2 sm:mb-4 inline-flex items-center px-3 sm:px-4 py-1 sm:py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full text-xs sm:text-sm font-bold shadow hover:from-blue-600 hover:to-purple-600 transition">
-                        <i class="fas fa-folder mr-2"></i>
-                        {{ $post->category->name }}
-                    </a>
-                    <!-- Title -->
-                    <h1
-                        class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 sm:mb-3 leading-tight text-slate-300 bg-clip-text bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-700">
-                        {{ $post->title }}
-                    </h1>
-                    <!-- Excerpt -->
-                    <p class="text-sm text-white sm:text-base md:text-lg text-gray-700 mb-3 sm:mb-5 leading-relaxed font-medium">
-                        {{ $post->excerpt }}</p>
-                    <!-- Meta Row -->
-                    <div
-                        class="flex flex-wrap justify-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium overflow-x-auto w-full">
-                        <div class="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 bg-white/70 rounded-full">
-                            @if ($post->isAdminPost())
-                                <span
-                                    class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-100 flex items-center justify-center"><i
-                                        class="fas fa-user-shield text-purple-600 text-xs sm:text-sm"></i></span>
-                            @else
-                                <img src="{{ $post->user->avatar_url ?? asset('images/default-avatar.png') }}"
-                                    alt="{{ $post->user->name ?? 'User' }}"
-                                    class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover">
-                            @endif
-                            <span class="font-semibold text-gray-800">{{ $post->author_name }}</span>
-                        </div>
-                        <div class="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 bg-white/70 rounded-full">
-                            <i class="fas fa-calendar-alt text-blue-500"></i>
-                            <span>{{ $post->published_at->format('M j, Y') }}</span>
-                        </div>
-                        <div class="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 bg-white/70 rounded-full">
-                            <i class="fas fa-eye text-blue-500"></i>
-                            <span>{{ number_format($post->views_count) }} views</span>
-                        </div>
-                        {{-- <div class="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 bg-white/70 rounded-full">
-                            <i class="fas fa-clock text-blue-500"></i>
-                            <span>{{ $post->reading_time }} min read</span>
-                        </div> --}}
-                        @if ($post->is_featured)
-                            <div
-                                class="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full">
-                                <i class="fas fa-star"></i>
-                                <span>Featured</span>
-                            </div>
+            <div class="relative z-10 flex flex-col items-center justify-center px-2 sm:px-4 md:px-8">
+                <a href="{{ route('category.show', $post->category->slug) }}"
+                    class="mb-3 inline-flex items-center px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full text-sm font-bold shadow hover:from-blue-600 hover:to-purple-600 transition">
+                    <i class="fas fa-folder mr-2"></i> {{ $post->category->name }}
+                </a>
+                <h1
+                    class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2 text-white text-center leading-tight drop-shadow-lg">
+                    {{ $post->title }}
+                </h1>
+                <p
+                    class="text-base sm:text-lg md:text-xl text-slate-200 mb-4 sm:mb-6 leading-relaxed font-medium text-center max-w-2xl">
+                    {{ $post->excerpt }}
+                </p>
+                <div class="flex flex-wrap justify-center gap-2 text-xs sm:text-sm font-medium w-full">
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/80 rounded-full shadow">
+                        @if ($post->isAdminPost())
+                            <span class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center"><i
+                                    class="fas fa-user-shield text-purple-600 text-sm"></i></span>
+                        @else
+                            <img src="{{ $post->user->avatar_url ?? asset('images/default-avatar.png') }}"
+                                alt="{{ $post->user->name ?? 'User' }}" class="w-6 h-6 rounded-full object-cover">
                         @endif
+                        <span class="font-semibold text-gray-800">{{ $post->author_name }}</span>
                     </div>
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/80 rounded-full shadow">
+                        <i class="fas fa-calendar-alt text-blue-500"></i>
+                        <span>{{ $post->published_at->format('M j, Y') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/80 rounded-full shadow">
+                        <i class="fas fa-eye text-blue-500"></i>
+                        <span>{{ number_format($post->views_count) }} views</span>
+                    </div>
+                    @if ($post->is_featured)
+                        <div class="flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full shadow">
+                            <i class="fas fa-star"></i>
+                            <span>Featured</span>
+                        </div>
+                    @endif
                 </div>
             </div>
         </section>
@@ -107,7 +92,7 @@
         </div>
 
         <!-- Post Content -->
-        <section class="py-16 bg-white">
+        <section class=" bg-white">
             <div class="px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <!-- Main Content -->
@@ -115,8 +100,8 @@
                         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10 mb-8">
                             @if ($post->featured_image)
                                 <div class="mb-8">
-                                    <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}"
-                                        class="w-full h-96 object-cover rounded-xl border-4 border-white shadow-md">
+                                    <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                        class="w-full h-96 object-contain rounded-xl border-4 border-white shadow-md">
                                 </div>
                             @endif
 
@@ -251,7 +236,7 @@
                                                 class="flex gap-2 sm:gap-3 hover:bg-blue-50 rounded-lg p-1 sm:p-2 transition">
                                                 @if ($relatedPost->featured_image)
                                                     <div class="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
-                                                        <img src="{{ Storage::url($relatedPost->featured_image) }}"
+                                                        <img src="{{ asset('uploads/' . $relatedPost->featured_image) }}"
                                                             alt="{{ $relatedPost->title }}"
                                                             class="w-full h-full object-cover rounded-lg">
                                                     </div>

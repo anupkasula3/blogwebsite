@@ -13,7 +13,9 @@ class Setting extends Model
         'key',
         'value',
         'type',
-        'group'
+        'group',
+        'termsandcondition',
+        'privacypolicy',
     ];
 
     protected $casts = [
@@ -61,5 +63,23 @@ class Setting extends Model
     public static function getSeoSettings()
     {
         return static::getGroup('seo');
+    }
+
+    // Add helpers for termsandcondition and privacypolicy
+    public static function getTermsAndCondition()
+    {
+        return static::query()->value('termsandcondition');
+    }
+    public static function setTermsAndCondition($content)
+    {
+        static::query()->update(['termsandcondition' => $content]);
+    }
+    public static function getPrivacyPolicy()
+    {
+        return static::query()->value('privacypolicy');
+    }
+    public static function setPrivacyPolicy($content)
+    {
+        static::query()->update(['privacypolicy' => $content]);
     }
 }

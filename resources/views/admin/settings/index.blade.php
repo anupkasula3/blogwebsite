@@ -192,6 +192,19 @@
             </div>
         </div>
 
+        <!-- Legal Pages -->
+        <div class="mt-8 space-y-6">
+            <h3 class="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">Legal Pages</h3>
+            <div>
+                <label for="termsandcondition" class="block text-sm font-medium text-gray-700 mb-2">Terms & Conditions Content</label>
+                <textarea  name="termsandcondition" id="termsandcondition" rows="8" class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Enter Terms & Conditions content here...">{{ old('termsandcondition', \App\Models\Setting::getTermsAndCondition()) }}</textarea>
+            </div>
+            <div>
+                <label for="privacypolicy" class="block text-sm font-medium text-gray-700 mb-2">Privacy Policy Content</label>
+                <textarea name="privacypolicy" id="privacypolicy" rows="8" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Enter Privacy Policy content here...">{{ old('privacypolicy', \App\Models\Setting::getPrivacyPolicy()) }}</textarea>
+            </div>
+        </div>
+
         <!-- Actions -->
         <div class="mt-8 pt-6 border-t border-gray-200">
             <div class="flex justify-end space-x-4">
