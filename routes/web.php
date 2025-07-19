@@ -33,6 +33,7 @@ Route::get('/post/{post:slug}', [HomeController::class, 'post'])->name('post.sho
 Route::get('/categories', [HomeController::class, 'categories'])->name('categories.index');
 Route::get('/latest', [HomeController::class, 'latest'])->name('latest');
 Route::get('/popular', [HomeController::class, 'popular'])->name('popular');
+Route::get('/all-posts', [HomeController::class, 'allPosts'])->name('all-posts');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/author/{user:name}', [HomeController::class, 'author'])->name('author.show');
 

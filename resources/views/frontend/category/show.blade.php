@@ -82,21 +82,7 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         @foreach ($posts as $post)
-                            <a href="{{ route('post.show', $post->slug) }}"
-                                class="group cursor-pointer border border-gray-300 rounded-2xl transition-all duration-300 hover:border-indigo-600 flex flex-col h-full">
-                                <div class="flex items-center mb-4">
-                                    <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                                        class="rounded-lg h-48 w-full object-contain">
-                                </div>
-                                <div class="block flex-1  px-3 pb-3">
-                                    <h4 class="text-gray-900 font-medium leading-1 mb-9">{{ $post->title }}</h4>
-                                    <div class="flex items-center justify-between font-medium">
-                                        <h6 class="text-sm text-gray-500">{{ $post->author_name }}</h6>
-                                        <span
-                                            class="text-sm text-indigo-600">{{ $post->published_at->diffForHumans() }}</span>
-                                    </div>
-                                </div>
-                            </a>
+                            @include('frontend.component.postcomponent')
                         @endforeach
                     </div>
                     <!-- Pagination -->
@@ -127,31 +113,52 @@
             <!-- Sidebar -->
             <div class="lg:col-span-1">
                 <div class="lg:sticky lg:top-24">
-                    <!-- Sidebar Advertisement -->
-                    @if (isset($sidebarAd) && $sidebarAd)
-                        <div
-                            class="ad-sidebar rounded-xl p-6 text-center border border-blue-200 shadow-lg hover:shadow-xl transition-shadow sticky top-32 bg-gradient-to-br from-blue-50 to-blue-100">
-                            <a href="{{ $sidebarAd->link }}" target="_blank"
-                                onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')"
-                                class="block hover:opacity-90 transition-opacity">
+                    <!-- Multiple Sidebar Advertisements -->
+                    @if(isset($sidebarAds) && $sidebarAds->count())
+                        @foreach($sidebarAds as $sidebarAd)
+                        <div class="bg-gradient-to-b from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-6 mb-6 overflow-hidden relative shadow-lg hover:shadow-xl transition-shadow">
+                            <div class="absolute top-2 right-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">Sponsored</span>
+                            </div>
+                            <div class="text-center">
                                 @if ($sidebarAd->image)
-                                    <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}"
-                                        class="mx-auto mb-4 max-h-32 rounded-lg shadow">
+                                <div class="mb-4">
+                                    <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="h-32 w-full rounded-lg object-cover mx-auto">
+                                </div>
                                 @endif
-                                <h3 class="font-bold text-lg mb-2 text-blue-900">{{ $sidebarAd->title }}</h3>
-                                <p class="text-sm mb-4 text-blue-800">{{ $sidebarAd->description }}</p>
-                                <span
-                                    class="inline-block bg-white/40 px-4 py-2 rounded-lg text-sm font-medium text-blue-900">Learn
-                                    More →</span>
-                            </a>
+                                <h3 class="text-lg font-semibold text-blue-900 mb-2">{{ $sidebarAd->title }}</h3>
+                                <p class="text-blue-800 text-sm mb-4">{{ $sidebarAd->description }}</p>
+                                @if($sidebarAd->link)
+                                <a href="{{ $sidebarAd->link }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 w-full justify-center">
+                                    Learn More
+                                    <i class="fas fa-external-link-alt ml-2"></i>
+                                </a>
+                                @endif
+                            </div>
                         </div>
-                    @else
-                        <div
-                            class="rounded-xl p-6 text-center border border-blue-100 shadow sticky top-32 bg-gradient-to-br from-blue-50 to-blue-100">
-                            <img src="https://placehold.co/300x250?text=Sidebar+Ad" alt="Sidebar Ad"
-                                class="mx-auto mb-4 max-h-32 rounded-lg shadow">
-                            <h3 class="font-bold text-lg mb-2 text-blue-900">Advertisement</h3>
-                            <p class="text-sm mb-4 text-blue-800">Your ad could be here!</p>
+                        @endforeach
+                    @endif
+                    <!-- Second Sidebar Advertisement (if available) -->
+                    @if (isset($contentAd) && $contentAd)
+                        <div class="bg-gradient-to-b from-teal-50 to-cyan-50 border border-teal-200 rounded-2xl p-6 overflow-hidden relative shadow-lg hover:shadow-xl transition-shadow">
+                            <div class="absolute top-2 right-2">
+                                <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2 py-1 rounded-full">Sponsored</span>
+                            </div>
+                            <div class="text-center">
+                                @if($contentAd->image)
+                                <div class="mb-4">
+                                    <img src="{{ asset('uploads/' . $contentAd->image) }}" alt="{{ $contentAd->title }}" class="h-32 w-full rounded-lg object-cover mx-auto">
+                                </div>
+                                @endif
+                                <h3 class="text-lg font-semibold text-teal-900 mb-2">{{ $contentAd->title }}</h3>
+                                <p class="text-teal-800 text-sm mb-4">{{ $contentAd->description }}</p>
+                                @if($contentAd->link)
+                                <a href="{{ $contentAd->link }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors duration-200 w-full justify-center">
+                                    Learn More
+                                    <i class="fas fa-external-link-alt ml-2"></i>
+                                </a>
+                                @endif
+                            </div>
                         </div>
                     @endif
                 </div>

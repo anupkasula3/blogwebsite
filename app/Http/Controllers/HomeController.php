@@ -112,9 +112,10 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
+        $sidebarAds = Advertisement::active()->byPosition('sidebar')->get();
+        $contentAd = Advertisement::active()->byPosition('content')->first();
 
-        return view('frontend.category.show', compact('category', 'posts', 'sidebarAd'));
+        return view('frontend.category.show', compact('category', 'posts', 'sidebarAds', 'contentAd'));
     }
 
     public function post(Post $post)
@@ -278,5 +279,21 @@ class HomeController extends Controller
         return Response::make($content, 200, [
             'Content-Type' => 'application/xml; charset=UTF-8'
         ]);
+    }
+
+    public function allPosts()
+    {
+        $posts = Post::with(['category', 'user'])
+            ->published()
+            ->latest('published_at')
+            ->paginate(25);
+
+        // Advertisements for different positions
+        $headerAd = Advertisement::active()->byPosition('header')->first();
+        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
+        $footerAd = Advertisement::active()->byPosition('footer')->first();
+        $contentAd = Advertisement::active()->byPosition('content')->first();
+
+        return view('frontend.all-posts', compact('posts', 'headerAd', 'sidebarAd', 'footerAd', 'contentAd'));
     }
 }

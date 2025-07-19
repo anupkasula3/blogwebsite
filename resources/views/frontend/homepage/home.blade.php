@@ -66,7 +66,7 @@
                 <div class="">
                     <div class="flex justify-between items-center mb-12">
                         <h2 class="text-3xl font-bold text-dark">Latest Posts</h2>
-                        <a href="#" class="text-primary font-medium flex items-center gap-2 hover:underline">
+                        <a href="{{ route('all-posts') }}" class="text-primary font-medium flex items-center gap-2 hover:underline">
                             View all Posts
                             <i class="fas fa-arrow-right"></i>
                         </a>

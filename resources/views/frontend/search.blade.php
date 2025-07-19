@@ -37,64 +37,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($posts as $post)
-            <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                @if($post->featured_image)
-                <div class="h-48 bg-gray-200">
-                    <img src="{{ Storage::url($post->featured_image) }}"
-                         alt="{{ $post->title }}"
-                         class="w-full h-full object-cover">
-                </div>
-                @endif
-                <div class="p-6">
-                    <div class="flex items-center mb-3">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                            {{ $post->category->name }}
-                        </span>
-                        <span class="ml-auto text-sm text-gray-500">
-                            {{ $post->published_at->diffForHumans() }}
-                        </span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                        <a href="{{ route('post.show', $post->slug) }}" class="hover:text-purple-600 transition-colors">
-                            {!! str_ireplace($query, '<mark class="bg-yellow-200">' . $query . '</mark>', $post->title) !!}
-                        </a>
-                    </h3>
-                    <p class="text-gray-600 mb-4 line-clamp-3">
-                        {!! str_ireplace($query, '<mark class="bg-yellow-200">' . $query . '</mark>', $post->excerpt) !!}
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            @if($post->isAdminPost())
-                                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <i class="fas fa-user-shield text-purple-600 text-sm"></i>
-                                </div>
-                            @else
-                                <img src="{{ $post->user->avatar_url ?? asset('images/default-avatar.png') }}"
-                                     alt="{{ $post->author_name }}"
-                                     class="w-8 h-8 rounded-full">
-                            @endif
-                            <div class="flex items-center space-x-2">
-                                <span class="text-sm text-gray-700">{{ $post->author_name }}</span>
-                                @if($post->isAdminPost())
-                                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
-                                        <i class="fas fa-user-shield mr-1"></i>
-                                        Admin
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                                        <i class="fas fa-user mr-1"></i>
-                                        User
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 text-sm text-gray-500">
-                            <span><i class="fas fa-eye mr-1"></i>{{ number_format($post->views_count) }}</span>
-                            <span><i class="fas fa-clock mr-1"></i>{{ $post->reading_time }} min read</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
+                @include('frontend.component.postcomponent')
             @endforeach
         </div>
 
