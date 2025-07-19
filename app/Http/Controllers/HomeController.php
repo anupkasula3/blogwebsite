@@ -8,6 +8,7 @@ use App\Models\Advertisement;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use App\Models\Quote;
 
 class HomeController extends Controller
 {
@@ -88,6 +89,11 @@ class HomeController extends Controller
         $footerAd = Advertisement::active()->byPosition('footer')->first();
         $contentAd = Advertisement::active()->byPosition('content')->first();
 
+        // Fetch two random quotes from the database
+        $quotes = Quote::inRandomOrder()->take(2)->pluck('quote');
+        $randomQuote = $quotes->get(0) ?? null;
+        $randomQuote2 = $quotes->get(1) ?? null;
+
         return view('frontend.homepage.home', compact(
             'featuredPosts',
             'editorsPick',
@@ -100,7 +106,9 @@ class HomeController extends Controller
             'headerAd',
             'sidebarAd',
             'footerAd',
-            'contentAd'
+            'contentAd',
+            'randomQuote',
+            'randomQuote2'
         ));
     }
 

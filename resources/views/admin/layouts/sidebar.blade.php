@@ -46,6 +46,10 @@
                 <i class="fas fa-ad text-xs"></i>
                 <span class="text-xs font-medium">Ads</span>
             </a>
+            <a href="{{ route('admin.quotes.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+                <i class="fas fa-quote-left text-xs"></i>
+                <span class="text-xs font-medium">Quotes</span>
+            </a>
             <a href="{{ route('admin.notifications.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
                 <i class="fas fa-bell text-xs"></i>
                 <span class="text-xs font-medium">Notifications</span>

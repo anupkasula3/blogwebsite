@@ -151,6 +151,9 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::post('/users/{user}/verify', [UserController::class, 'verify'])->name('users.verify');
     Route::post('/users/{user}/unverify', [UserController::class, 'unverify'])->name('users.unverify');
 
+    // Quotes Management
+    Route::resource('quotes', \App\Http\Controllers\Admin\QuoteController::class);
+
     // Admin Notifications
     Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
