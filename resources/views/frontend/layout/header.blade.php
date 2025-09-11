@@ -1,143 +1,281 @@
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<!-- Top Banner Ad -->
-@if(isset($headerAd) && $headerAd)
-  <div class="w-full bg-white z-[9998] flex justify-center items-center py-2 border-b">
-    <a href="{{ $headerAd->link }}" target="_blank" class="block">
-      <img src="{{ asset('/uploads/' . $headerAd->image) }}" alt="{{ $headerAd->title }}" class="h-12 object-contain mx-auto">
-    </a>
-  </div>
-@endif
 
-<header x-data="{ open: false }" class="sticky top-0 z-[9999] bg-white/80 backdrop-blur shadow-sm">
-  <div class="container bg-white mx-auto flex items-center justify-between py-2 px-2 lg:px-8">
-    <!-- Logo -->
-    <a href="{{ url('/') }}" class="flex items-center gap-2">
-      <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-8 object-contain">
-      <span class="text-lg font-bold text-blue-700 tracking-tight">NEVDO</span>
-    </a>
+<header x-data="{ open: false, scrolled: false, showSearch: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
+    :class="scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white/90 backdrop-blur-md shadow-md'"
+    class="sticky top-0 z-[9999] transition-all duration-300 border-b border-gray-100">
 
-    <!-- Main Navigation -->
-    <nav class="hidden md:flex items-center gap-2 ml-6  bg-white">
-      @foreach(($categories ?? collect())->take(6) as $category)
-        <a href="{{ route('category.show', $category->slug) }}" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-3 py-1 rounded transition hover:bg-blue-50">{{ $category->name }}</a>
-      @endforeach
-      <a href="{{ route('categories.index') }}" class="ml-2 text-blue-600 font-semibold text-sm px-3 py-1 rounded border border-blue-100 bg-blue-50 hover:bg-blue-100 transition">View All</a>
-    </nav>
+    <div class="container mx-auto px-4 lg:px-8">
+        <!-- Top Row: Logo + Banner Ad (ad on top for mobile) -->
+        <div class="grid grid-cols-12 gap-4 items-center py-2">
+            {{-- @if (isset($headerAd) && $headerAd) --}}
+                <div class="col-span-12 order-1 lg:order-2 lg:col-span-8">
+                    <a href="#" target="_blank" class="block group">
+                        <img src="https://themewagon.github.io/news/assets/img/gallery/header_card.png " alt="aa"
+                            class="w-full  object-contain rounded-lg border border-gray-200 shadow-sm group-hover:opacity-95 transition">
+                    </a>
+                </div>
+            {{-- @endif --}}
 
-    <!-- Right Side: Auth/Buttons -->
-    <div class="flex items-center space-x-2">
-      <form action="{{ route('search') }}" method="GET" class="relative hidden md:block">
-        <input type="text" name="q" placeholder="Search..." class="border rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/80">
-        <button type="submit" class="absolute right-2 top-1 text-gray-500">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-      @auth
-        <a href="{{ route('user.dashboard') }}" class="text-blue-600 font-semibold text-sm">Dashboard</a>
-        <form method="POST" action="{{ route('logout') }}" class="inline">
-          @csrf
-          <button type="submit" class="text-gray-700 hover:text-blue-600 font-medium text-sm">Logout</button>
-        </form>
-      @else
-        <a href="{{ route('login') }}" class="px-3 py-1 border rounded-full text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white transition text-sm">Sign In</a>
-        <a href="{{ route('register') }}" class="px-3 py-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-sm">Register</a>
-      @endauth
+            <!-- Logo Section -->
+            <div class="col-span-12 order-2 lg:order-1 lg:col-span-4">
+                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                    <div class="relative">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                            class="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight">Blog</span>
+                        <span class="text-xs text-gray-500 font-medium -mt-1">Professional Blog</span>
+                    </div>
+                </a>
+
+            </div>
+
+
+        </div>
+
+        <!-- Bottom Row: Navigation + Search/Auth -->
+        <div class="flex items-center justify-between py-3 border-t border-gray-100">
+            @php
+                $navLink = 'relative pb-3 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-blue-700 transition-colors border-b-2 border-transparent hover:border-blue-600';
+            @endphp
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="{{ url('/') }}"
+                   class="{{ request()->is('/') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('/') ? 'page' : false }}">Home</a>
+                <div class="relative" x-data="{catOpen:false}" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
+                    <a href="{{ route('categories.index') }}"
+                       class="{{ request()->routeIs('categories.*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }} flex items-center gap-2">
+                        Category
+                        <i class="fas fa-chevron-down text-[11px] mt-0.5"></i>
+                    </a>
+                    <div x-show="catOpen" x-transition
+                         class="absolute left-0 mt-2 w-[560px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
+                        @foreach (($categories ?? collect())->take(8) as $category)
+                            <a href="{{ route('category.show', $category->slug) }}"
+                               class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition">
+                                {{ $category->name }}
+                            </a>
+                        @endforeach
+                        <a href="{{ route('categories.index') }}" class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition text-center">View all categories</a>
+                    </div>
+                </div>
+                <a href="{{ url('/about') }}"
+                   class="{{ request()->is('about') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('about') ? 'page' : false }}">About</a>
+                <a href="{{ url('/latest-news') }}"
+                   class="{{ request()->is('latest-news') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('latest-news') ? 'page' : false }}">Latest News</a>
+                <a href="{{ url('/contact') }}"
+                   class="{{ request()->is('contact') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a>
+                <a href="{{ url('/pages') }}"
+                   class="{{ request()->is('pages*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a>
+            </nav>
+
+            <!-- Right Side: Search & Auth -->
+            <div class="flex items-center gap-4">
+
+                <!-- Search Bar -->
+                <div class="relative hidden md:block" @click.outside="showSearch=false">
+                    <button @click="showSearch=!showSearch" class="p-2.5 rounded-full hover:bg-blue-50 text-gray-600 hover:text-blue-700 transition" aria-label="Toggle search">
+                        <span class="sr-only">Toggle search</span>
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <form x-show="showSearch" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" action="{{ route('search') }}" method="GET" class="absolute bottom-0 right-0 mt-2 w-80">
+                        <div class="relative">
+                            <input type="text" name="q" placeholder="Search articles..."
+                                class="w-full pl-10 pr-4 py-2.5 text-sm rounded-full bg-white border border-gray-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                <i class="fas fa-search text-sm"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Authentication Buttons -->
+                <div class="flex items-center gap-3">
+                    @auth
+                        <div class="flex items-center gap-3">
+                            <a href="{{ route('user.dashboard') }}"
+                                class="flex items-center gap-2 px-4 py-2 text-blue-600 font-semibold text-sm hover:bg-blue-50 rounded-lg transition-all duration-300">
+                                <i class="fas fa-tachometer-alt text-xs"></i>
+                                Dashboard
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit"
+                                    class="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-red-600 font-medium text-sm hover:bg-red-50 rounded-lg transition-all duration-300">
+                                    <i class="fas fa-sign-out-alt text-xs"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="px-5 py-2.5 border border-blue-600 text-blue-600 font-semibold text-sm rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 hover:shadow-lg">
+                            Sign In
+                        </a>
+                        <a href="{{ route('register') }}"
+                            class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-lg transform hover:scale-105">
+                            Get Started
+                        </a>
+                    @endauth
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button
+                    class="lg:hidden p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
+                    @click="open = true" aria-label="Open menu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- Mobile Menu Button -->
-    <button class="md:hidden text-gray-700 hover:text-blue-600 ml-2" @click="open = true" aria-label="Open menu">
-      <i class="fas fa-bars text-2xl"></i>
-    </button>
-  </div>
+    <!-- Mobile Sidebar Navigation -->
+    <div class="lg:hidden">
+        <!-- Overlay -->
+        <div x-show="open" @click="open = false"
+            class="fixed inset-0 w-screen h-screen bg-black/50 backdrop-blur-sm z-[9998] transition-all duration-300"
+            x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
 
-  <!-- Mobile Sidebar Navigation -->
-  <div class="md:hidden">
-    <!-- Overlay -->
-    <div x-show="open" @click="open = false" class="fixed inset-0 w-screen h-screen bg-black bg-opacity-40 z-[9998] transition-opacity" x-transition.opacity></div>
-    <!-- Sidebar -->
-    <aside x-show="open"
-      x-transition:enter="transition ease-out duration-200"
-      x-transition:enter-start="-translate-x-full"
-      x-transition:enter-end="translate-x-0"
-      x-transition:leave="transition ease-in duration-150"
-      x-transition:leave-start="translate-x-0"
-      x-transition:leave-end="-translate-x-full"
-      class="fixed top-0 left-0 h-screen w-full max-w-xs bg-gradient-to-br from-white via-blue-50 to-blue-100 z-[9999] shadow-2xl shadow-blue-200 rounded-r-2xl flex flex-col p-6 space-y-4 overflow-y-auto">
-      <div class="flex flex-col items-center mb-4">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-12 object-contain mb-2">
-        <span class="text-xl font-bold text-blue-700 tracking-tight">NEVDO</span>
-      </div>
-      @auth
-        <div class="flex items-center gap-3 mb-4 p-3 rounded-xl bg-white/80 shadow">
-          <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700 text-lg uppercase">
-            {{ auth()->user()->name[0] ?? '?' }}
-          </div>
-          <div>
-            <div class="font-semibold text-blue-700">{{ auth()->user()->name }}</div>
-            <div class="text-xs text-gray-500">{{ auth()->user()->email }}</div>
-          </div>
-        </div>
-      @endauth
-      <div class="flex items-center justify-between mb-4">
-        <span class="text-xl font-extrabold text-blue-700 tracking-tight">Menu</span>
-        <button @click="open = false" aria-label="Close menu" class="text-gray-500 hover:text-blue-600 transition">
-          <i class="fas fa-times text-2xl"></i>
-        </button>
-      </div>
-      <div class="divide-y divide-blue-100">
-        <div class="flex flex-col gap-1 pb-3">
-          @foreach(($categories ?? collect())->take(6) as $category)
-            <a href="{{ route('category.show', $category->slug) }}" class="block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition">{{ $category->name }}</a>
-          @endforeach
-          <a href="{{ route('categories.index') }}" class="block px-4 py-2 rounded-lg font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 transition mt-1">View All</a>
-        </div>
-        <div class="pt-3 flex flex-col gap-2">
-          <form action="{{ route('search') }}" method="GET" class="flex items-center bg-white rounded-lg px-2 py-1 shadow-sm">
-            <input type="text" name="q" placeholder="Search..." class="w-full border-0 focus:ring-0 text-sm bg-transparent">
-            <button type="submit" class="ml-2 text-blue-600 hover:text-blue-800">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
-          @auth
-            <a href="{{ route('user.dashboard') }}" class="block px-4 py-2 rounded-lg font-semibold text-blue-700 hover:bg-blue-100 transition">Dashboard</a>
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-              @csrf
-              <button type="submit" class="block w-full text-left px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition">Logout</button>
-            </form>
-          @else
-            <a href="{{ route('login') }}" class="block px-4 py-2 rounded-lg font-semibold text-blue-600 hover:bg-blue-100 transition">Sign In</a>
-            <a href="{{ route('register') }}" class="block px-4 py-2 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 transition mt-1">Register</a>
-          @endauth
-        </div>
-      </div>
-    </aside>
+        <!-- Sidebar -->
+        <aside x-show="open" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="-translate-x-full"
+            class="fixed top-0 left-0 h-screen w-full max-w-sm bg-white z-[9999] shadow-2xl flex flex-col overflow-y-auto">
+
+            <!-- Header -->
+            <div class="bg-gradient-to-br from-blue-600 to-purple-600 p-6 text-white">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-10 object-contain">
+                        <div>
+                            <span class="text-xl font-bold">NEVDO</span>
+                            <p class="text-xs text-blue-100">Professional Blog</p>
+                        </div>
+                    </div>
+                    <button @click="open = false" aria-label="Close menu"
+                        class="p-2 hover:bg-white/20 rounded-lg transition-colors duration-300">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                @auth
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-white/20 backdrop-blur-sm">
+                        <div
+                            class="w-12 h-12 rounded-full bg-white/30 flex items-center justify-center font-bold text-white text-lg uppercase">
+                            {{ auth()->user()->name[0] ?? '?' }}
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-semibold text-white">{{ auth()->user()->name }}</div>
+                            <div class="text-xs text-blue-100 truncate">{{ auth()->user()->email }}</div>
+                        </div>
+                    </div>
+                @endauth
+            </div>
+
+            <!-- Search -->
+            <div class="p-4 border-b border-gray-100">
+                <form action="{{ route('search') }}" method="GET" class="relative">
+                    <input type="text" name="q" placeholder="Search articles..."
+                        class="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300">
+                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button type="submit"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-800 transition-colors duration-300">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex-1 p-4">
+                <div class="space-y-2">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Categories</h3>
+                    @foreach (($categories ?? collect())->take(6) as $category)
+                        <a href="{{ route('category.show', $category->slug) }}"
+                            class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 group">
+                            <div
+                                class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-blue-600 transition-colors duration-300">
+                            </div>
+                            {{ $category->name }}
+                        </a>
+                    @endforeach
+                    <a href="{{ route('categories.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 transition-all duration-300 mt-3">
+                        <i class="fas fa-th-large text-sm"></i>
+                        View All Categories
+                    </a>
+                </div>
+
+                <!-- Auth Section -->
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    @auth
+                        <div class="space-y-2">
+                            <a href="{{ route('user.dashboard') }}"
+                                class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-blue-600 hover:bg-blue-50 transition-all duration-300">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium text-red-600 hover:bg-red-50 transition-all duration-300">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="space-y-3">
+                            <a href="{{ route('login') }}"
+                                class="block w-full px-4 py-3 text-center border border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
+                                Sign In
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="block w-full px-4 py-3 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                                Get Started
+                            </a>
+                        </div>
+                    @endauth
+                </div>
+            </div>
+        </aside>
+
         <script>
-      // Wait for Alpine to be ready
-      document.addEventListener('alpine:init', () => {
-        // Initialize sidebar store
-        if (typeof Alpine !== 'undefined') {
-          Alpine.store('openSidebar', false);
+            // Wait for Alpine to be ready
+            document.addEventListener('alpine:init', () => {
+                // Initialize sidebar store
+                if (typeof Alpine !== 'undefined') {
+                    Alpine.store('openSidebar', false);
 
-          // Handle body overflow when sidebar is open
-          Alpine.effect(() => {
-            const isOpen = Alpine.store('openSidebar');
-            if (isOpen) {
-              document.body.classList.add('overflow-hidden');
-            } else {
-              document.body.classList.remove('overflow-hidden');
-            }
-          });
-        }
-      });
-    </script>
-  </div>
+                    // Handle body overflow when sidebar is open
+                    Alpine.effect(() => {
+                        const isOpen = Alpine.store('openSidebar');
+                        if (isOpen) {
+                            document.body.classList.add('overflow-hidden');
+                        } else {
+                            document.body.classList.remove('overflow-hidden');
+                        }
+                    });
+                }
+            });
+        </script>
+    </div>
 </header>
 
 <!-- Below Navbar Banner Ad -->
-@if(isset($belowHeaderAd) && $belowHeaderAd)
-  <div class="w-full bg-white flex justify-center items-center py-2 border-b">
-    <a href="{{ $belowHeaderAd->link }}" target="_blank" class="block">
-      <img src="{{ asset('/uploads/' . $belowHeaderAd->image) }}" alt="{{ $belowHeaderAd->title }}" class="h-12 object-contain mx-auto">
-    </a>
-  </div>
+@if (isset($belowHeaderAd) && $belowHeaderAd)
+    <div class="w-full bg-white flex justify-center items-center py-2 border-b">
+        <a href="{{ $belowHeaderAd->link }}" target="_blank" class="block">
+            <img src="{{ asset('/uploads/' . $belowHeaderAd->image) }}" alt="{{ $belowHeaderAd->title }}"
+                class="h-12 object-contain mx-auto">
+        </a>
+    </div>
 @endif

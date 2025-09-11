@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
 */
 
 // Authentication Routes (Laravel Breeze/Jetstream)
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -142,6 +142,122 @@
         .structured-data {
             display: none;
         }
+
+        /* Professional Header Enhancements */
+        .header-glass {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-link-underline {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* Enhanced Search Bar */
+        .search-enhanced {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .search-enhanced:focus-within::before {
+            left: 100%;
+        }
+
+        /* Button Hover Effects */
+        .btn-professional {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-professional::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-professional:hover::before {
+            left: 100%;
+        }
+
+        /* Mobile Menu Animations */
+        .mobile-menu-item {
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideInLeft 0.3s ease forwards;
+        }
+
+        .mobile-menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .mobile-menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .mobile-menu-item:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInLeft {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Logo Animation */
+        .logo-container {
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Gradient Text Animation */
+        .gradient-text-animated {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #764ba2);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 
     @stack('styles')
