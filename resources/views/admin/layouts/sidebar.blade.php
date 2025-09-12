@@ -58,6 +58,11 @@
                 <i class="fas fa-cogs text-xs"></i>
                 <span class="text-xs font-medium">Settings</span>
             </a>
+
+            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Dashboard</a>
+            <a href="{{ route('admin.ads.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Ads</a>
+            <a href="{{ route('admin.placements.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Placements</a>
+            <a href="{{ route('admin.reports.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Reports</a>
         </nav>
     </div>
 </div>

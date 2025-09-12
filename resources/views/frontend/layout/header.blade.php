@@ -7,14 +7,12 @@
     <div class="container mx-auto px-4 lg:px-8">
         <!-- Top Row: Logo + Banner Ad (ad on top for mobile) -->
         <div class="grid grid-cols-12 gap-4 items-center py-2">
-            {{-- @if (isset($headerAd) && $headerAd) --}}
-                <div class="col-span-12 order-1 lg:order-2 lg:col-span-8">
-                    <a href="#" target="_blank" class="block group">
-                        <img src="https://themewagon.github.io/news/assets/img/gallery/header_card.png " alt="aa"
-                            class="w-full  object-contain rounded-lg border border-gray-200 shadow-sm group-hover:opacity-95 transition">
-                    </a>
-                </div>
-            {{-- @endif --}}
+
+            <div class="col-span-12 order-1 lg:order-2 lg:col-span-8">
+                
+                <script src="http://127.0.0.1:8000/ads/embed/8ad82cdf-d336-4a03-9369-41cf23bcf186.js"></script>
+            </div>
+
 
             <!-- Logo Section -->
             <div class="col-span-12 order-2 lg:order-1 lg:col-span-4">
@@ -41,36 +39,44 @@
         <!-- Bottom Row: Navigation + Search/Auth -->
         <div class="flex items-center justify-between py-3 border-t border-gray-100">
             @php
-                $navLink = 'relative pb-3 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-blue-700 transition-colors border-b-2 border-transparent hover:border-blue-600';
+                $navLink =
+                    'relative pb-3 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-blue-700 transition-colors border-b-2 border-transparent hover:border-blue-600';
             @endphp
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ url('/') }}"
-                   class="{{ request()->is('/') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('/') ? 'page' : false }}">Home</a>
-                <div class="relative" x-data="{catOpen:false}" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
+                    class="{{ request()->is('/') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    aria-current="{{ request()->is('/') ? 'page' : false }}">Home</a>
+                <div class="relative" x-data="{ catOpen: false }" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
                     <a href="{{ route('categories.index') }}"
-                       class="{{ request()->routeIs('categories.*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }} flex items-center gap-2">
+                        class="{{ request()->routeIs('categories.*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }} flex items-center gap-2">
                         Category
                         <i class="fas fa-chevron-down text-[11px] mt-0.5"></i>
                     </a>
                     <div x-show="catOpen" x-transition
-                         class="absolute left-0 mt-2 w-[560px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
+                        class="absolute left-0 mt-2 w-[560px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
                         @foreach (($categories ?? collect())->take(8) as $category)
                             <a href="{{ route('category.show', $category->slug) }}"
-                               class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition">
+                                class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition">
                                 {{ $category->name }}
                             </a>
                         @endforeach
-                        <a href="{{ route('categories.index') }}" class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition text-center">View all categories</a>
+                        <a href="{{ route('categories.index') }}"
+                            class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition text-center">View
+                            all categories</a>
                     </div>
                 </div>
                 <a href="{{ url('/about') }}"
-                   class="{{ request()->is('about') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('about') ? 'page' : false }}">About</a>
+                    class="{{ request()->is('about') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    aria-current="{{ request()->is('about') ? 'page' : false }}">About</a>
                 <a href="{{ url('/latest-news') }}"
-                   class="{{ request()->is('latest-news') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('latest-news') ? 'page' : false }}">Latest News</a>
+                    class="{{ request()->is('latest-news') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    aria-current="{{ request()->is('latest-news') ? 'page' : false }}">Latest News</a>
                 <a href="{{ url('/contact') }}"
-                   class="{{ request()->is('contact') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a>
+                    class="{{ request()->is('contact') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a>
                 <a href="{{ url('/pages') }}"
-                   class="{{ request()->is('pages*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}" aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a>
+                    class="{{ request()->is('pages*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a>
             </nav>
 
             <!-- Right Side: Search & Auth -->
@@ -78,11 +84,16 @@
 
                 <!-- Search Bar -->
                 <div class="relative hidden md:block" @click.outside="showSearch=false">
-                    <button @click="showSearch=!showSearch" class="p-2.5 rounded-full hover:bg-blue-50 text-gray-600 hover:text-blue-700 transition" aria-label="Toggle search">
+                    <button @click="showSearch=!showSearch"
+                        class="p-2.5 rounded-full hover:bg-blue-50 text-gray-600 hover:text-blue-700 transition"
+                        aria-label="Toggle search">
                         <span class="sr-only">Toggle search</span>
                         <i class="fas fa-search"></i>
                     </button>
-                    <form x-show="showSearch" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" action="{{ route('search') }}" method="GET" class="absolute bottom-0 right-0 mt-2 w-80">
+                    <form x-show="showSearch" x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0 -translate-y-1"
+                        x-transition:enter-end="opacity-100 translate-y-0" action="{{ route('search') }}"
+                        method="GET" class="absolute bottom-0 right-0 mt-2 w-80">
                         <div class="relative">
                             <input type="text" name="q" placeholder="Search articles..."
                                 class="w-full pl-10 pr-4 py-2.5 text-sm rounded-full bg-white border border-gray-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500">

@@ -46,8 +46,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Analytics -->
     @if (\App\Models\Setting::get('google_analytics_id'))
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ \App\Models\Setting::get('google_analytics_id') }}">

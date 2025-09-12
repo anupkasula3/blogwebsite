@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\AdPlacementController;
+use App\Http\Controllers\Admin\AdServeController;
+use App\Http\Controllers\Admin\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -164,6 +168,29 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::get('/stats', function () {
         return view('admin.stats');
     })->name('stats');
+
+
+    // ads
+    Route::get('/nepads/dashboard', function () {
+        return view('admin.nepads.dashboard');
+    })->name('dashboard');
+
+    Route::resource('ads', AdController::class)->except(['show']);
+    Route::get('ads/{ad}/embed', [AdController::class, 'embedCode'])->name('ads.embed');
+
+    Route::resource('placements', AdPlacementController::class)->parameters([
+        'placements' => 'placement'
+    ])->except(['show']);
+
+    // Reports
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
+    Route::get('reports/ads/{ad}', [ReportController::class, 'ad'])->name('reports.ad');
+    Route::get('reports/ads/{ad}/pdf', function (\Illuminate\Http\Request $request, $ad) {
+        // Proxy to the same controller with pdf=1
+        $query = http_build_query(array_merge($request->query(), ['pdf' => 1]));
+        return app(ReportController::class)->ad($request->merge(['pdf' => 1]), \App\Models\Ad::findOrFail($ad));
+    })->name('reports.ad.pdf');
 });
 
 // API Routes for AJAX requests
@@ -206,7 +233,17 @@ Route::prefix('api')->group(function () {
     // Notification API routes
     Route::get('/notifications/unread-count', [\App\Http\Controllers\NotificationController::class, 'getUnreadCount']);
     Route::get('/notifications/latest', [\App\Http\Controllers\NotificationController::class, 'getLatestNotifications']);
+
+
 });
+
+// Ad serving and tracking
+Route::get('/ads/render/{placementKey}', [AdServeController::class, 'renderPlacement'])->name('ads.render');
+Route::get('/ads/render/token/{token}', [AdServeController::class, 'renderByToken'])->name('ads.render.token');
+Route::get('/ads/embed/placement/{placementKey}.js', [AdServeController::class, 'embedPlacementScript'])->name('ads.embed.placement');
+Route::get('/ads/embed/{token}.js', [AdServeController::class, 'embedByToken'])->name('ads.embed.script');
+Route::get('/ads/click/{ad}', [AdServeController::class, 'click'])->name('ads.click');
+Route::get('/ads/pixel', [AdServeController::class, 'pixel'])->name('ads.pixel');
 
 // RSS Feed
 Route::get('/feed', [HomeController::class, 'feed'])->name('feed');
