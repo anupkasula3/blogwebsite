@@ -28,6 +28,18 @@
                 <input type="number" name="height" value="{{ old('height') }}" class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200" />
             </div>
         </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Default display count</label>
+                <input type="number" min="1" max="10" name="default_display_count" value="{{ old('default_display_count') }}" class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="e.g., 1" />
+                <p class="text-xs text-gray-500 mt-1">How many ads to render when using the placement script without specifying count.</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Default gap</label>
+                <input type="text" name="default_gap" value="{{ old('default_gap') }}" class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200" placeholder="e.g., 12px or 0.75rem" />
+                <p class="text-xs text-gray-500 mt-1">Spacing between multiple ads (CSS unit).</p>
+            </div>
+        </div>
         <div>
             <label class="inline-flex items-center">
                 <input type="checkbox" name="is_auto" value="1" class="mr-2 rounded border-gray-300" @checked(old('is_auto', true)) />

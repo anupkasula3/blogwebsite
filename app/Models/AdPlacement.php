@@ -17,12 +17,16 @@ class AdPlacement extends Model
         'width',
         'height',
         'is_auto',
+        'default_display_count',
+        'default_gap',
+        'embed_token',
     ];
 
     protected $casts = [
         'is_auto' => 'boolean',
         'width' => 'integer',
         'height' => 'integer',
+        'default_display_count' => 'integer',
     ];
 
     public function ads(): BelongsToMany

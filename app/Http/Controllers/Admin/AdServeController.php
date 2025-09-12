@@ -45,26 +45,42 @@ class AdServeController extends Controller
 
     public function embedPlacementScript(Request $request, string $placementKey)
     {
+        $placement = AdPlacement::where('key', $placementKey)->first();
         // Allow width/height overrides via query (defaults reasonable)
         $width = $request->query('w', '100%');
         $height = $request->query('h', '160');
+        $count = (int) $request->query('count', $placement->default_display_count ?? 1);
+        $gap = $request->query('gap', $placement->default_gap ?? '12px');
+        $count = max(1, min(10, $count)); // safety bounds
         if (is_numeric($width)) { $width = $width.'px'; }
         if (is_numeric($height)) { $height = $height.'px'; }
 
         $src = route('ads.render', ['placementKey' => $placementKey]);
-        $html = '<iframe src="'.e($src).'" style="width:'.e($width).';height:'.e($height).';border:0;overflow:hidden;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>';
+        $ifr = '<iframe src="'.e($src).'" style="width:'.e($width).';height:'.e($height).';border:0;overflow:hidden;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>';
+
+        if ($count === 1) {
+            $html = $ifr;
+        } else {
+            $items = str_repeat($ifr, $count);
+            $html = '<div style="display:grid;gap:'.e($gap).';">'.$items.'</div>';
+        }
+
         $js = 'document.write(' . json_encode($html) . ');';
         return response($js, 200)->header('Content-Type', 'application/javascript');
     }
 
     public function embedByToken(Request $request, string $token)
     {
-        $ad = Ad::where('manual_embed_token', $token)->firstOrFail();
-        if (!$ad->isCurrentlyActive()) {
-            return Response::make('', 204)->header('Content-Type', 'application/javascript');
-        }
+        // Support multiple tokens and multiple ads per embed
+        $tokens = str_contains($token, ',')
+            ? array_values(array_filter(array_map('trim', explode(',', $token))))
+            : [trim($token)];
 
-        // If width/height provided, output an iframe pointing to renderByToken for consistent sizing
+        $count = (int) $request->query('count', 1);
+        $gap = (string) $request->query('gap', '12px');
+        $count = max(1, min(10, $count));
+
+        // If width/height provided, output iframes pointing to renderByToken for consistent sizing
         $w = $request->query('w');
         $h = $request->query('h');
         if ($w || $h) {
@@ -72,30 +88,99 @@ class AdServeController extends Controller
             $height = $h ?? '160';
             if (is_numeric($width)) { $width = $width.'px'; }
             if (is_numeric($height)) { $height = $height.'px'; }
-            $src = route('ads.render.token', ['token' => $token]);
-            $html = '<iframe src="'.e($src).'" style="width:'.e($width).';height:'.e($height).';border:0;overflow:hidden;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>';
+
+            $iframes = [];
+            for ($i = 0; $i < $count; $i++) {
+                $tk = $tokens[array_rand($tokens)] ?? $tokens[0];
+                // If token is a placement alias, point to render placement via special route
+                $placement = AdPlacement::where('embed_token', $tk)->first();
+                if ($placement) {
+                    $src = route('ads.render', ['placementKey' => $placement->key]);
+                } else {
+                    $src = route('ads.render.token', ['token' => $tk]);
+                }
+                $iframes[] = '<iframe src="'.e($src).'" style="width:'.e($width).';height:'.e($height).';border:0;overflow:hidden;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>';
+            }
+            $html = $count === 1 ? $iframes[0] : '<div style="display:grid;gap:'.e($gap).';">'.implode('', $iframes).'</div>';
             $js = 'document.write(' . json_encode($html) . ');';
             return Response::make($js, 200)->header('Content-Type', 'application/javascript');
         }
 
-        // Build HTML and wrap as JS document.write for simple embed (no fixed size)
-        $html = $this->adHtml($ad, null);
+        // Auto-size HTML mode (inline HTML):
+        // If the token is a placement alias, generate iframes using placement defaults (safer for sizing)
+        $placement = AdPlacement::where('embed_token', $tokens[0])->first();
+        if ($placement) {
+            $width = $placement->width ? (is_numeric($placement->width) ? $placement->width.'px' : $placement->width) : '100%';
+            $height = $placement->height ? (is_numeric($placement->height) ? $placement->height.'px' : $placement->height) : '160px';
+            $iframes = [];
+            for ($i = 0; $i < $count; $i++) {
+                $src = route('ads.render', ['placementKey' => $placement->key]);
+                $iframes[] = '<iframe src="'.e($src).'" style="width:'.e($width).';height:'.e($height).';border:0;overflow:hidden;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>';
+            }
+            $html = $count === 1 ? $iframes[0] : '<div style="display:grid;gap:'.e($gap).';">'.implode('', $iframes).'</div>';
+            $js = 'document.write(' . json_encode($html) . ');';
+            return Response::make($js, 200)->header('Content-Type', 'application/javascript');
+        }
+
+        // Otherwise: render multiple specific ad tokens inline and record impressions
+        $blocks = [];
+        for ($i = 0; $i < $count; $i++) {
+            $tk = $tokens[array_rand($tokens)] ?? $tokens[0];
+            $ad = Ad::where('manual_embed_token', $tk)->first();
+            if (!$ad || !$ad->isCurrentlyActive()) {
+                continue;
+            }
+            $blocks[] = $this->adHtml($ad, null);
+        }
+
+        if (empty($blocks)) {
+            return Response::make('', 204)->header('Content-Type', 'application/javascript');
+        }
+
+        $html = $count === 1 ? $blocks[0] : '<div style="display:grid;gap:'.e($gap).';">'.implode('', $blocks).'</div>';
         $js = 'document.write(' . json_encode($html) . ');';
 
-        // Impression for manual embed (no placement)
-        $this->recordImpression($request, $ad, null);
+        // Record impressions for each ad rendered inline
+        for ($i = 0; $i < count($blocks); $i++) {
+            $tk = $tokens[array_rand($tokens)] ?? $tokens[0];
+            $ad = Ad::where('manual_embed_token', $tk)->first();
+            if ($ad && $ad->isCurrentlyActive()) {
+                $this->recordImpression($request, $ad, null);
+            }
+        }
 
         return Response::make($js, 200)->header('Content-Type', 'application/javascript');
     }
 
     public function renderByToken(Request $request, string $token)
     {
-        $ad = Ad::where('manual_embed_token', $token)->firstOrFail();
-        if (!$ad->isCurrentlyActive()) {
+        $ad = Ad::where('manual_embed_token', $token)->first();
+        if ($ad) {
+            if (!$ad->isCurrentlyActive()) {
+                return response('<div class="ad-empty">No ad available</div>', 200)->header('Content-Type', 'text/html');
+            }
+            $html = $this->adHtml($ad, null);
+            $this->recordImpression($request, $ad, null);
+            return response($html, 200)->header('Content-Type', 'text/html');
+        }
+
+        // Fallback: placement alias token
+        $placement = AdPlacement::where('embed_token', $token)->firstOrFail();
+        // replicate renderPlacement selection logic
+        $candidates = $placement->ads()->wherePivot('is_active', true)->get()->filter(function (Ad $ad) {
+            return $ad->isCurrentlyActive();
+        });
+        if ($candidates->isEmpty()) {
             return response('<div class="ad-empty">No ad available</div>', 200)->header('Content-Type', 'text/html');
         }
-        $html = $this->adHtml($ad, null);
-        $this->recordImpression($request, $ad, null);
+        $pool = [];
+        foreach ($candidates as $cad) {
+            $weight = (int)($cad->pivot->weight ?? 1);
+            for ($i = 0; $i < max(1, $weight); $i++) { $pool[] = $cad; }
+        }
+        $chosen = $pool[array_rand($pool)];
+        $html = $this->adHtml($chosen, $placement);
+        $this->recordImpression($request, $chosen, $placement);
         return response($html, 200)->header('Content-Type', 'text/html');
     }
 

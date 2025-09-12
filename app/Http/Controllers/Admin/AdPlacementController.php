@@ -7,6 +7,7 @@ use App\Models\AdPlacement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class AdPlacementController extends Controller
 {
@@ -30,6 +31,8 @@ class AdPlacementController extends Controller
             'width' => ['nullable','integer','min:1'],
             'height' => ['nullable','integer','min:1'],
             'is_auto' => ['nullable','boolean'],
+            'default_display_count' => ['nullable','integer','min:1','max:10'],
+            'default_gap' => ['nullable','string','max:32'],
         ]);
 
         AdPlacement::create([
@@ -39,6 +42,9 @@ class AdPlacementController extends Controller
             'width' => $data['width'] ?? null,
             'height' => $data['height'] ?? null,
             'is_auto' => (bool)($data['is_auto'] ?? true),
+            'default_display_count' => $data['default_display_count'] ?? null,
+            'default_gap' => $data['default_gap'] ?? null,
+            'embed_token' => Str::uuid()->toString(),
         ]);
 
         return redirect()->route('admin.placements.index')->with('status', 'Placement created');
@@ -46,6 +52,11 @@ class AdPlacementController extends Controller
 
     public function edit(AdPlacement $placement): View
     {
+        // Ensure an embed token exists so the embed script src is always populated
+        if (!$placement->embed_token) {
+            $placement->embed_token = Str::uuid()->toString();
+            $placement->save();
+        }
         return view('admin.nepads.placements.edit', compact('placement'));
     }
 
@@ -58,6 +69,8 @@ class AdPlacementController extends Controller
             'width' => ['nullable','integer','min:1'],
             'height' => ['nullable','integer','min:1'],
             'is_auto' => ['nullable','boolean'],
+            'default_display_count' => ['nullable','integer','min:1','max:10'],
+            'default_gap' => ['nullable','string','max:32'],
         ]);
 
         $placement->update([
@@ -67,7 +80,14 @@ class AdPlacementController extends Controller
             'width' => $data['width'] ?? null,
             'height' => $data['height'] ?? null,
             'is_auto' => (bool)($data['is_auto'] ?? true),
+            'default_display_count' => $data['default_display_count'] ?? null,
+            'default_gap' => $data['default_gap'] ?? null,
         ]);
+
+        if (!$placement->embed_token) {
+            $placement->embed_token = Str::uuid()->toString();
+            $placement->save();
+        }
 
         return redirect()->route('admin.placements.index')->with('status', 'Placement updated');
     }
