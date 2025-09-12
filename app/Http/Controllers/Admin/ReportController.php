@@ -37,7 +37,7 @@ class ReportController extends Controller
             ->paginate(20)
             ->withQueryString();
 
-        return view('admin.reports.index', [
+        return view('admin.nepads.reports.index', [
             'data' => $data,
             'start' => $startAt->toDateString(),
             'end' => $endAt->toDateString(),
@@ -87,7 +87,7 @@ class ReportController extends Controller
         // If PDF requested
         if ($request->boolean('pdf')) {
             if (class_exists('Barryvdh\\DomPDF\\Facade\\Pdf')) {
-                $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.reports.ad_pdf', [
+                $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.nepads.reports.ad_pdf', [
                     'ad' => $ad,
                     'start' => $startAt,
                     'end' => $endAt,
@@ -100,7 +100,7 @@ class ReportController extends Controller
                 return $pdf->download($filename);
             }
             // Fallback: show HTML with install hint
-            return view('admin.reports.ad_pdf', [
+            return view('admin.nepads.reports.ad_pdf', [
                 'ad' => $ad,
                 'start' => $startAt,
                 'end' => $endAt,
@@ -112,7 +112,7 @@ class ReportController extends Controller
             ]);
         }
 
-        return view('admin.reports.ad', [
+        return view('admin.nepads.reports.ad', [
             'ad' => $ad,
             'start' => $startAt->toDateString(),
             'end' => $endAt->toDateString(),

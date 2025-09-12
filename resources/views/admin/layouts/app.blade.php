@@ -26,29 +26,40 @@
         @include('admin.layouts.sidebar')
         <div class="flex-1 flex flex-col ml-0 lg:ml-64 transition-all duration-200">
             <main class="flex-1 p-6 min-h-screen">
-                @if (session('success'))
-                    <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                        {{ session('success') }}
-                    </div>
-                @endif
+                <div class="max-w-7xl mx-auto">
+                    @hasSection('header')
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-xl md:text-2xl font-semibold text-gray-900">@yield('header')</h2>
+                                @stack('header-actions')
+                            </div>
+                        </div>
+                    @endif
 
-                @if (session('error'))
-                    <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                    @if (session('success'))
+                        <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-                @if ($errors->any())
-                    <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                    @if (session('error'))
+                        <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
-                @yield('content')
+                    @if ($errors->any())
+                        <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @yield('content')
+                </div>
             </main>
         </div>
     </div>
@@ -58,24 +69,24 @@
     <!-- Alpine.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
     <script>
-    var loadFile = function(event) {
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        var old = document.getElementsByClassName('oldimage')[0];
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            var old = document.getElementsByClassName('oldimage')[0];
 
-        old.classList.add("hidden");
+            old.classList.add("hidden");
 
-    };
+        };
 
-    var loadFile2 = function(event) {
-        var output = document.getElementById('output2');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        var old = document.getElementsByClassName('oldimage2')[0];
+        var loadFile2 = function(event) {
+            var output = document.getElementById('output2');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            var old = document.getElementsByClassName('oldimage2')[0];
 
-        old.classList.add("hidden");
+            old.classList.add("hidden");
 
-    };
-</script>
+        };
+    </script>
 </body>
 
 </html>

@@ -14,6 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
+
+        // Log visits for all web routes
+        $middleware->appendToGroup('web', [
+            \App\Http\Middleware\LogVisit::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

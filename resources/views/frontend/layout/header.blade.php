@@ -1,3 +1,12 @@
+@if (config('services.ga4.measurement_id'))
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.ga4.measurement_id') }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ config('services.ga4.measurement_id') }}');
+    </script>
+@endif
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 <header x-data="{ open: false, scrolled: false, showSearch: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
@@ -9,7 +18,7 @@
         <div class="grid grid-cols-12 gap-4 items-center py-2">
 
             <div class="col-span-12 order-1 lg:order-2 lg:col-span-8">
-                
+
                 <script src="http://127.0.0.1:8000/ads/embed/8ad82cdf-d336-4a03-9369-41cf23bcf186.js"></script>
             </div>
 

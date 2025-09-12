@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AdPlacementController;
 use App\Http\Controllers\Admin\AdServeController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\VisitReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -116,6 +117,9 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/analytics', [DashboardController::class, 'analytics'])->name('analytics');
 
+    // Visits Report
+    Route::get('/visits', [VisitReportController::class, 'index'])->name('visits.index');
+
     // Categories
     Route::resource('categories', CategoryController::class);
 
@@ -173,7 +177,7 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     // ads
     Route::get('/nepads/dashboard', function () {
         return view('admin.nepads.dashboard');
-    })->name('dashboard');
+    })->name('nepads.dashboard');
 
     Route::resource('ads', AdController::class)->except(['show']);
     Route::get('ads/{ad}/embed', [AdController::class, 'embedCode'])->name('ads.embed');

@@ -1,5 +1,5 @@
 <div
-    class="bg-gray-900 text-white w-56 min-h-screen flex-shrink-0 fixed inset-y-0 left-0 z-40
+    class="bg-slate-900 text-slate-100 w-64 min-h-screen flex-shrink-0 fixed inset-y-0 left-0 z-40 border-r border-slate-800 shadow-lg
         transform transition-transform duration-200 ease-in-out
         hidden lg:block"
     :class="{ 'block': sidebarOpen, 'hidden': !sidebarOpen }"
@@ -9,60 +9,85 @@
     x-cloak
 >
     <div class="p-4">
-        <div class="flex items-center space-x-2 mb-6">
-            <div class="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <i class="fas fa-cog text-white text-lg"></i>
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-9 h-9 bg-gradient-to-r from-indigo-600 to-fuchsia-600 rounded-lg flex items-center justify-center shadow-md">
+                <i class="fas fa-bolt text-white text-lg"></i>
             </div>
-            <span class="text-base font-bold tracking-tight">Admin Panel</span>
+            <div>
+                <div class="text-sm font-semibold leading-tight">{{ \App\Models\Setting::get('site_name', 'Admin Panel') }}</div>
+                <div class="text-[11px] text-slate-400">Administration</div>
+            </div>
         </div>
-        <nav class="flex flex-col gap-1">
+        <nav class="flex flex-col gap-1 text-sm">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
                 <i class="fas fa-tachometer-alt text-xs"></i>
                 <span class="text-xs font-medium">Dashboard</span>
             </a>
-            <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+            <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">Content</div>
+            <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.categories.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-folder text-xs"></i>
-                <span class="text-xs font-medium">Categories</span>
+                <span class="text-sm">Categories</span>
             </a>
-            <div x-data="{ open: false }" class="relative group">
-                <button @click="open = !open" @keydown.escape="open = false"
-                    class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition w-full focus:outline-none">
+            <div x-data="{ open: {{ request()->routeIs('admin.posts.*') || request()->routeIs('admin.userposts.*') ? 'true' : 'false' }} }" class="relative">
+                <button @click="open = !open" @keydown.escape.window="open = false"
+                    class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition w-full focus:outline-none {{ (request()->routeIs('admin.posts.*') || request()->routeIs('admin.userposts.*')) ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                     <i class="fas fa-newspaper text-xs"></i>
-                    <span class="text-xs font-medium">Posts</span>
-                    <i class="fas fa-chevron-down text-xs ml-auto"></i>
+                    <span class="text-sm">Posts</span>
+                    <i class="fas fa-chevron-down text-xs ml-auto transition-transform" :class="{ 'rotate-180': open }"></i>
                 </button>
-                <div x-show="open" @click.away="open = false"
-                    class="absolute left-0 mt-1 w-44 bg-gray-800 rounded shadow-lg z-50 py-1"
-                    x-cloak>
-                    <a href="{{ route('admin.posts.index') }}" class="block px-4 py-2 text-xs text-white hover:bg-gray-700 rounded transition">Admin Posts</a>
-                    <a href="{{ route('admin.userposts.index') }}" class="block px-4 py-2 text-xs text-white hover:bg-gray-700 rounded transition">User Posts</a>
+                <div x-show="open" @click.away="open = false" x-transition
+                    class="mt-1 ml-2 pl-6 border-l border-slate-800">
+                    <a href="{{ route('admin.posts.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.posts.*') ? 'bg-slate-800 text-white' : '' }}">Admin Posts</a>
+                    <a href="{{ route('admin.userposts.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.userposts.*') ? 'bg-slate-800 text-white' : '' }}">User Posts</a>
                 </div>
             </div>
-            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+
+            <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">Users & Settings</div>
+            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.users.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-users text-xs"></i>
-                <span class="text-xs font-medium">Users</span>
+                <span class="text-sm">Users</span>
             </a>
-            <a href="{{ route('admin.advertisements.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+            <a href="{{ route('admin.advertisements.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.advertisements.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-ad text-xs"></i>
-                <span class="text-xs font-medium">Ads</span>
+                <span class="text-sm">Ads</span>
             </a>
-            <a href="{{ route('admin.quotes.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+            <a href="{{ route('admin.quotes.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.quotes.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-quote-left text-xs"></i>
-                <span class="text-xs font-medium">Quotes</span>
+                <span class="text-sm">Quotes</span>
             </a>
-            <a href="{{ route('admin.notifications.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+            <a href="{{ route('admin.notifications.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.notifications.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-bell text-xs"></i>
-                <span class="text-xs font-medium">Notifications</span>
+                <span class="text-sm">Notifications</span>
             </a>
-            <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+            <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.settings.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-cogs text-xs"></i>
-                <span class="text-xs font-medium">Settings</span>
+                <span class="text-sm">Settings</span>
             </a>
 
-            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Dashboard</a>
-            <a href="{{ route('admin.ads.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Ads</a>
-            <a href="{{ route('admin.placements.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Placements</a>
-            <a href="{{ route('admin.reports.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Reports</a>
+            <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">NepAds</div>
+            <a href="{{ route('admin.nepads.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.nepads.dashboard') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
+                <i class="fas fa-gauge-high text-xs"></i>
+                <span class="text-sm">Dashboard</span>
+            </a>
+
+            <a href="{{ route('admin.visits.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.visits.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
+                <i class="fas a fa-chart-line text-xs"></i>
+                <span class="text-sm">Visits</span>
+            </a>
+
+            <a href="{{ route('admin.ads.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.ads.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
+                <i class="fas fa-bullhorn text-xs"></i>
+                <span class="text-sm">Ads</span>
+            </a>
+            <a href="{{ route('admin.placements.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.placements.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
+                <i class="fas fa-th-large text-xs"></i>
+                <span class="text-sm">Placements</span>
+            </a>
+            <a href="{{ route('admin.reports.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.reports.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
+                <i class="fas fa-chart-bar text-xs"></i>
+                <span class="text-sm">Reports</span>
+            </a>
         </nav>
     </div>
 </div>
+

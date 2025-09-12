@@ -36,7 +36,7 @@ class AdController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:image,html'],
             'status' => ['required', 'in:draft,active,paused,archived'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'image'],
             'html_code' => ['nullable', 'string'],
             'destination_url' => ['nullable', 'url'],
             'start_at' => ['nullable', 'date'],
@@ -71,8 +71,11 @@ class AdController extends Controller
         // sync placements with weights
         $sync = [];
         foreach (($data['placements'] ?? []) as $row) {
+            if (!isset($row['id'])) {
+                continue; // only sync placements that were actually checked
+            }
             $sync[$row['id']] = [
-                'weight' => $row['weight'] ?? 1,
+                'weight' => isset($row['weight']) ? (int) $row['weight'] : 1,
                 'priority' => 0,
                 'is_active' => true,
             ];
@@ -97,7 +100,7 @@ class AdController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:image,html'],
             'status' => ['required', 'in:draft,active,paused,archived'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'image'],
             'html_code' => ['nullable', 'string'],
             'destination_url' => ['nullable', 'url'],
             'start_at' => ['nullable', 'date'],
@@ -138,8 +141,11 @@ class AdController extends Controller
 
         $sync = [];
         foreach (($data['placements'] ?? []) as $row) {
+            if (!isset($row['id'])) {
+                continue;
+            }
             $sync[$row['id']] = [
-                'weight' => $row['weight'] ?? 1,
+                'weight' => isset($row['weight']) ? (int) $row['weight'] : 1,
                 'priority' => 0,
                 'is_active' => true,
             ];
