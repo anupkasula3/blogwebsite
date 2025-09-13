@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="bg-white rounded-xl shadow-lg p-8">
-        <div class="flex items-center justify-between mb-6 border-b pb-4">
+        <div class="flex flex-wrap items-center justify-between mb-6 border-b pb-4">
             <h2 class="text-2xl font-bold text-gray-900">All Categories</h2>
             <a href="{{ route('admin.categories.create') }}"
                 class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-lg shadow hover:shadow-lg hover:from-purple-700 hover:to-blue-700 transition-all font-semibold">
@@ -13,9 +13,9 @@
                 Create Category
             </a>
         </div>
-        <div class="w-full overflow-x-auto">
+        <div class="w-full overflow-x-auto overflow-y-auto max-h-[70vh]">
             <table class="min-w-full bg-white rounded-lg shadow divide-y divide-gray-200">
-                <thead class="bg-gray-100">
+                <thead class="bg-gray-100 sticky top-0 z-10">
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Category
                         </th>

@@ -41,7 +41,7 @@
                 <tbody class="divide-y divide-gray-100 text-sm">
                     @forelse($posts as $post)
                         <tr class="hover:bg-purple-50 even:bg-gray-50 transition-all">
-                            <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
+                            <td class="px-6 py-4 flex items-center gap-3">
                                 @if ($post->featured_image)
                                     <img class="h-10 w-10 rounded-lg object-cover border"
                                         src="{{ asset('/uploads/' . $post->featured_image) }}" alt="{{ $post->title }}">

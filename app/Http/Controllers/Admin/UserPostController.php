@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
@@ -11,6 +12,12 @@ use Illuminate\Support\Str;
 
 class UserPostController extends Controller
 {
+
+    public function __construct(
+        protected ImageService $imageService
+
+    ) {
+    }
     public function index()
     {
         $posts = Post::with(['category', 'user'])
@@ -22,32 +29,43 @@ class UserPostController extends Controller
 
     public function show(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         return view('admin.posts.user-show', compact('post'));
     }
 
     public function edit(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+
+        // if ($post->author_type !== 'user')
+        //     abort(404);
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit_userpost', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        // if ($post->author_type !== 'user')
+        //     abort(404);
+        // dd($request->status);
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
+            // 'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
             'category_id' => 'required|exists:categories,id',
             'content' => 'required',
             'excerpt' => 'nullable|string|max:255',
-            'featured_image' => 'nullable|string',
+            // 'featured_image' => 'required',
             'status' => 'required|in:draft,published',
             'is_featured' => 'boolean',
             'is_approved' => 'boolean',
         ]);
-
+        $data['slug'] = Str::slug($request->title);
+        // Handle featured image
+        if ($request->hasFile('featured_image')) {
+            $imagePath = $this->imageService->fileUpload($request->featured_image, "post");
+            // $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
+            $data['featured_image'] = $imagePath;
+        }
         $oldStatus = $post->status;
         $oldApproved = $post->is_approved;
         $oldFeatured = $post->is_featured;
@@ -84,14 +102,16 @@ class UserPostController extends Controller
 
     public function destroy(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         $post->delete();
         return redirect()->route('admin.userposts.index')->with('success', 'User post deleted successfully!');
     }
 
     public function approve(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         $post->update(['is_approved' => true]);
 
         $admin = auth()->guard('admin')->user();
@@ -102,7 +122,8 @@ class UserPostController extends Controller
 
     public function reject(Request $request, Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
 
         $request->validate([
             'rejection_reason' => 'required|string|max:500'
@@ -118,7 +139,8 @@ class UserPostController extends Controller
 
     public function publish(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         $post->update(['status' => 'published']);
 
         $admin = auth()->guard('admin')->user();
@@ -129,7 +151,8 @@ class UserPostController extends Controller
 
     public function unpublish(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         $post->update(['status' => 'draft']);
 
         $admin = auth()->guard('admin')->user();
@@ -140,7 +163,8 @@ class UserPostController extends Controller
 
     public function feature(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         $post->update(['is_featured' => true]);
 
         $admin = auth()->guard('admin')->user();
@@ -151,7 +175,8 @@ class UserPostController extends Controller
 
     public function unfeature(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
         $post->update(['is_featured' => false]);
 
         $admin = auth()->guard('admin')->user();

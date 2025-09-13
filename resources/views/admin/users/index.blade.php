@@ -78,15 +78,15 @@
                             </button>
                         </form>
                         @endif
-                        @if($user->id !== auth()->id())
-                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline delete-user-form">
+
+                        {{-- <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline delete-user-form">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="text-red-600 hover:text-red-800 bg-red-50 rounded p-2 transition delete-user-btn" title="Delete" data-user-name="{{ $user->name }}">
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </form>
-                        @endif
+                        </form> --}}
+
                     </td>
                 </tr>
                 @empty
