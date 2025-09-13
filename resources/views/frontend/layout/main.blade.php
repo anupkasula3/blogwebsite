@@ -29,6 +29,8 @@
     <link rel="icon" type="image/x-icon"
         href="{{ \App\Models\Setting::get('site_favicon') ? Storage::url(\App\Models\Setting::get('site_favicon')) : asset('favicon.ico') }}">
 
+    @include('tinymcescript')
+
     <!-- Canonical URL -->
     @if (isset($canonical_url))
         <link rel="canonical" href="{{ $canonical_url }}">

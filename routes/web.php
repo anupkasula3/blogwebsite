@@ -106,7 +106,7 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/analytics', [UserDashboardController::class, 'analytics'])->name('analytics');
 
     // User Notifications
-    Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'usernotification'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
     Route::get('/notifications/{notification}/redirect', [\App\Http\Controllers\NotificationController::class, 'redirectToAction'])->name('notifications.redirect');

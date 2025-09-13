@@ -38,6 +38,28 @@ class NotificationController extends Controller
             return view('user.notifications.index', compact('notifications'));
         }
     }
+    public function usernotification(Request $request)
+    {
+        $user = auth()->user();
+
+
+        $recipientType =  'user';
+        $recipientId =  $user->id;
+
+        $query = Notification::forRecipient($recipientType, $recipientId);
+
+
+        $notifications = $query->orderBy('created_at', 'desc')->paginate(20);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'notifications' => $notifications,
+                'unread_count' =>$user->unread_notifications_count
+            ]);
+        }
+
+        return view('user.notifications.index', compact('notifications'));
+    }
 
     public function markAsRead(Notification $notification)
     {

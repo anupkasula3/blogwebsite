@@ -113,19 +113,19 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                         <div class="space-y-2">
                             <label class="flex items-center">
-                                <input type="radio" name="status" value="published"
-                                    {{ old('status', $post->status === 'published' ? '1' : '0') == '1' ? 'checked' : '' }}
+                                <input type="radio" name="is_published" value="1"
+                                    {{ old('is_published', $post->status === 'published' ? '1' : '0') == '1' ? 'checked' : '' }}
                                     class="text-purple-600 focus:ring-purple-500">
                                 <span class="ml-2 text-sm text-gray-700">Published</span>
                             </label>
                             <label class="flex items-center">
-                                <input type="radio" name="status" value="draft"
-                                    {{ old('status', $post->status === 'draft' ? '0' : '') == '0' ? 'checked' : '' }}
+                                <input type="radio" name="is_published" value="0"
+                                    {{ old('is_published', $post->status === 'draft' ? '0' : '') == '0' ? 'checked' : '' }}
                                     class="text-purple-600 focus:ring-purple-500">
                                 <span class="ml-2 text-sm text-gray-700">Draft</span>
                             </label>
                         </div>
-                        @error('status')
+                        @error('is_published')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>

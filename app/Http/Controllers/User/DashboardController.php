@@ -79,6 +79,7 @@ class DashboardController extends Controller
         $data['user_id'] = auth()->id();
         $data['author_type'] = 'user';
         $data['admin_id'] = null;
+        
         $data['slug'] = \Str::slug($request->title);
         $data['is_approved'] = false; // Always requires re-approval
 

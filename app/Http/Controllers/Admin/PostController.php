@@ -122,6 +122,8 @@ class PostController extends Controller
         $data['slug'] = Str::slug($request->title);
         $data['is_featured'] = $request->has('is_featured');
         $data['is_approved'] = $request->has('is_approved');
+        $data['status'] = $request->is_published ? 'published' : 'draft';
+        $data['published_at'] = $request->is_published ? now() : null;
 
         // Handle featured image
         if ($request->hasFile('featured_image')) {
@@ -178,6 +180,7 @@ class PostController extends Controller
 
     public function publish(Post $post)
     {
+
         if ($post->author_type !== 'admin') abort(404);
 
         $post->update([

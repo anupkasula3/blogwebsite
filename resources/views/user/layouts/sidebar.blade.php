@@ -42,14 +42,14 @@
                 <i class="fas fa-user-cog w-6 text-center mr-3"></i>
                 <span class="font-medium">Profile</span>
             </a>
-            <a href="{{ route('user.notifications.index') }}"
+            {{-- <a href="{{ route('user.notifications.index') }}"
                class="flex items-center px-4 py-2.5 rounded-lg transition-colors
                       {{ request()->routeIs('user.notifications.*')
                          ? 'bg-purple-600 text-white shadow-lg'
                          : 'hover:bg-gray-700 hover:text-white' }}">
                 <i class="fas fa-bell w-6 text-center mr-3"></i>
                 <span class="font-medium">Notifications</span>
-            </a>
+            </a> --}}
         </nav>
         <div class="p-4 border-t border-gray-700">
             <a href="{{ route('user.posts.create') }}" class="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">

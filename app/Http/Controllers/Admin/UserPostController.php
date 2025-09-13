@@ -55,7 +55,7 @@ class UserPostController extends Controller
             'content' => 'required',
             'excerpt' => 'nullable|string|max:255',
             // 'featured_image' => 'required',
-            'status' => 'required|in:draft,published',
+            'is_published' => 'required|in:0,1',
             'is_featured' => 'boolean',
             'is_approved' => 'boolean',
         ]);
@@ -66,6 +66,8 @@ class UserPostController extends Controller
             // $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
             $data['featured_image'] = $imagePath;
         }
+        $data['published_at'] = $request->is_published ? now() : null;
+        $data['status'] = $request->is_published ? 'published' : 'draft';
         $oldStatus = $post->status;
         $oldApproved = $post->is_approved;
         $oldFeatured = $post->is_featured;
@@ -139,9 +141,16 @@ class UserPostController extends Controller
 
     public function publish(Post $post)
     {
+
         if ($post->author_type !== 'user')
             abort(404);
-        $post->update(['status' => 'published']);
+        $post->update(
+            [
+                'status' => 'published',
+                'published_at' => now(),
+                'is_approved' => true
+            ]
+        );
 
         $admin = auth()->guard('admin')->user();
         Notification::notifyPostPublished($post, $admin);
@@ -153,7 +162,11 @@ class UserPostController extends Controller
     {
         if ($post->author_type !== 'user')
             abort(404);
-        $post->update(['status' => 'draft']);
+        $post->update([
+            'status' => 'draft',
+            'published_at' => null,
+
+        ]);
 
         $admin = auth()->guard('admin')->user();
         Notification::notifyPostUnpublished($post, $admin);

@@ -43,7 +43,7 @@
                     <div>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                         <textarea name="content" id="content" rows="15"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
+                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here..." required>{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -139,30 +139,8 @@
 </div>
 @endsection
 
-@push('scripts')
-<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('#content'), {
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-            heading: {
-                options: [
-                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
-                ]
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
-@endpush
+
 
 @push('styles')
-<style>
-.ck-editor__editable_inline {
-    min-height: 300px;
-}
-</style>
+
 @endpush

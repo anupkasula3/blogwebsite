@@ -69,8 +69,8 @@
                     <!-- Content -->
                     <div>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
-                        <textarea name="content" id="content" rows="15"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
+                        <textarea name="content"  rows="15"
+                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here..." required>{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -193,7 +193,7 @@
                     <!-- Actions -->
                     <div class="bg-gray-50 rounded-lg p-4">
                         <div class="flex space-x-3">
-                            <button type="submit" id="submitBtn"
+                            <button type="submit" 
                                 class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
                                 <i class="fas fa-save mr-2"></i>
                                 Create Post

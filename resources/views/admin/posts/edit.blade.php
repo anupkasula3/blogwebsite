@@ -50,8 +50,8 @@
                     <div>
                         <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-edit mr-1"></i>Use clear headings, bullet points, and images to make your content engaging and scannable</p>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
-                        <textarea name="content" id="content" rows="15" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
+                        <textarea name="content"  rows="15" required
+                            class="w-full px-3 tinymce py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here...">{{ old('content', $post->content) }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
