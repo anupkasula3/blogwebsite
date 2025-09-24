@@ -671,7 +671,7 @@
                         <div class="flex-1 text-center md:text-left">
                             <h3 class="text-2xl md:text-3xl font-extrabold text-blue-900 mb-2">Unlock Exclusive Content!</h3>
                             <p class="text-gray-700 mb-4">Subscribe now and get access to premium articles, expert insights, and special offers. Don’t miss out on the latest trends and stories!</p>
-                            <a href="#" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-base font-semibold rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition-all duration-200">
+                            <a href="{{ route('register') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-base font-semibold rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition-all duration-200">
                                 Get Started
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </a>
