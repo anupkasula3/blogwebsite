@@ -21,9 +21,8 @@
         <div class="grid grid-cols-12 gap-4 items-center py-2">
 
             <div class="col-span-12 order-1 lg:order-2 lg:col-span-8  overflow-hidden">
-                <script src="http://127.0.0.1:8000/ads/embed/bb0edbe5-c125-4dfe-b433-97794aab3c2f.js?count=1"></script>
-                {{-- <script src="http://127.0.0.1:8000/ads/embed/placement/navbar.js?count=1"></script> --}}
-                {{-- <script src="http://127.0.0.1:8000/ads/embed/8ad82cdf-d336-4a03-9369-41cf23bcf186.js"></script> --}}
+        <script src="https://adnebyte.nepbyte.com/ads/embed/6e189765-3196-4da1-a542-5bc5d4708658.js?count=1"></script>
+
             </div>
 
 
