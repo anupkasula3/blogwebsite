@@ -10,7 +10,7 @@
 @endif
 
 @section('content')
-    <div class=" mx-auto max-w-screen-2xl">
+    <div class=" mx-auto max-w-screen-2xl mb-10">
 
         <!-- Reading Progress Bar -->
         <div class="fixed top-0 left-0 w-full h-1 bg-gray-200">
@@ -97,11 +97,11 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <!-- Main Content -->
                     <div class="lg:col-span-2">
-                        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10 mb-8">
+                        <div class=" p-6 md:p-10 mb-8">
                             @if ($post->featured_image)
                                 <div class="mb-8">
                                     <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                                        class="w-full h-96 object-contain rounded-xl border-4 border-white shadow-md">
+                                        class="w-full h-96 object-contain rounded-xl border-4 border-white ">
                                 </div>
                             @endif
 

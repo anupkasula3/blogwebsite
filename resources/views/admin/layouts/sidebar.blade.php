@@ -64,29 +64,7 @@
                 <span class="text-sm">Settings</span>
             </a>
 
-            <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">NepAds</div>
-            <a href="{{ route('admin.nepads.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.nepads.dashboard') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
-                <i class="fas fa-gauge-high text-xs"></i>
-                <span class="text-sm">Dashboard</span>
-            </a>
-
-            <a href="{{ route('admin.visits.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.visits.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
-                <i class="fas fa-chart-line text-xs"></i>
-                <span class="text-sm">Visits</span>
-            </a>
-
-            <a href="{{ route('admin.ads.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.ads.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
-                <i class="fas fa-bullhorn text-xs"></i>
-                <span class="text-sm">Ads</span>
-            </a>
-            <a href="{{ route('admin.placements.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.placements.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
-                <i class="fas fa-th-large text-xs"></i>
-                <span class="text-sm">Placements</span>
-            </a>
-            <a href="{{ route('admin.reports.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.reports.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
-                <i class="fas fa-chart-bar text-xs"></i>
-                <span class="text-sm">Reports</span>
-            </a>
+          
         </nav>
     </div>
 </div>

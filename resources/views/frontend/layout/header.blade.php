@@ -86,15 +86,15 @@
                 <a href="{{ url('/about') }}"
                     class="{{ request()->is('about') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('about') ? 'page' : false }}">About</a>
-                <a href="{{ url('/latest-news') }}"
-                    class="{{ request()->is('latest-news') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                    aria-current="{{ request()->is('latest-news') ? 'page' : false }}">Latest News</a>
+                <a href="{{ url('/latest') }}"
+                    class="{{ request()->is('latest') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
+                    aria-current="{{ request()->is('latest') ? 'page' : false }}">Latest News</a>
                 <a href="{{ url('/contact') }}"
                     class="{{ request()->is('contact') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a>
-                <a href="{{ url('/pages') }}"
+                <!-- <a href="{{ url('/pages') }}"
                     class="{{ request()->is('pages*') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                    aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a>
+                    aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a> -->
             </nav>
 
             <!-- Right Side: Search & Auth -->
