@@ -104,6 +104,14 @@
         .hover\:bg-pink-600:hover { background-color: var(--primary) !important; }
         .hover\:text-pink-600:hover { color: var(--primary) !important; }
 
+        /* Purple accents to primary (for legacy forms/buttons) */
+        .text-purple-600 { color: var(--primary) !important; }
+        .hover\:text-purple-500:hover { color: var(--primary) !important; }
+        .focus\:ring-purple-500:focus { --tw-ring-color: var(--primary) !important; }
+        .text-purple-300 { color: color-mix(in srgb, var(--primary) 50%, white) !important; }
+        .group:hover .group-hover\:text-purple-200 { color: color-mix(in srgb, var(--primary) 20%, white) !important; }
+        .focus\:border-purple-500:focus { border-color: var(--primary) !important; }
+
         body {
             font-family: 'Inter', sans-serif;
         }

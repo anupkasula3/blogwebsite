@@ -1,5 +1,5 @@
 <!-- Footer Advertisement Banner -->
-@if(isset($footerAd) && $footerAd)
+<!-- @if(isset($footerAd) && $footerAd)
 <div class="ad-banner py-4 px-4 text-center">
     <a href="{{ $footerAd->link }}" target="_blank"
        onclick="trackAdClick({{ $footerAd->id }}, 'footer')"
@@ -11,7 +11,7 @@
         <i class="fas fa-external-link-alt text-xl"></i>
     </a>
 </div>
-@endif
+@endif -->
 
 <!-- Main Footer -->
 <footer class="bg-gray-900 text-white">

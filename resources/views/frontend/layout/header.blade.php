@@ -142,7 +142,7 @@
                         </div>
                     @else
                         <a href="{{ route('login') }}"
-                            class="px-5 py-2.5 border border-primary text-primary font-semibold text-sm rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:shadow-lg">
+                            class="px-5 py-2.5 border  border-primary text-primary font-semibold text-sm rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:shadow-lg">
                             Sign In
                         </a>
                         <a href="{{ route('register') }}"
