@@ -20,10 +20,10 @@
             <!-- Brand Section -->
             <div class="lg:col-span-1">
                 <div class="flex items-center space-x-2 mb-4">
-                    <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                         <i class="fas fa-blog text-white text-xl"></i>
                     </div>
-                    <span class="text-2xl font-bold text-gradient">MyBlogSite</span>
+                    <span class="text-2xl font-bold text-primary">MyBlogSite</span>
                 </div>
                 <p class="text-gray-400 mb-6 leading-relaxed">
                     Your ultimate destination for amazing stories, insights, and knowledge. Discover content that inspires, educates, and entertains.
@@ -96,7 +96,7 @@
                     </li>
                     @endforeach
                     <li>
-                        <a href="{{ route('categories.index') }}" class="text-purple-400 hover:text-purple-300 transition-colors font-medium">
+                        <a href="{{ route('categories.index') }}" class="text-primary transition-colors font-medium">
                             View All Categories →
                         </a>
                     </li>
@@ -113,10 +113,10 @@
                     @csrf
                     <div>
                         <input type="email" name="email" placeholder="Enter your email"
-                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
+                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
                                required>
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                    <button type="submit" class="w-full bg-primary text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity">
                         Subscribe
                     </button>
                 </form>
@@ -162,7 +162,7 @@
 </footer>
 
 <!-- Back to Top Button -->
-<button id="backToTop" class="fixed bottom-8 right-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity opacity-0 invisible">
+<button id="backToTop" class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity opacity-0 invisible">
     <i class="fas fa-arrow-up"></i>
 </button>
 

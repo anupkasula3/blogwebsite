@@ -21,28 +21,33 @@
         <div class="grid grid-cols-12 gap-4 items-center py-2">
 
             <div class="col-span-12 order-1 lg:order-2 lg:col-span-8  overflow-hidden">
-                <script src="http://127.0.0.1:8000/ads/embed/bb0edbe5-c125-4dfe-b433-97794aab3c2f.js?count=1"></script>
-                {{-- <script src="http://127.0.0.1:8000/ads/embed/placement/navbar.js?count=1"></script> --}}
-                {{-- <script src="http://127.0.0.1:8000/ads/embed/8ad82cdf-d336-4a03-9369-41cf23bcf186.js"></script> --}}
+            <script src="https://adnebyte.nepbyte.com/ads/embed/6e189765-3196-4da1-a542-5bc5d4708658.js?count=1"></script>
             </div>
 
 
             <!-- Logo Section -->
             <div class="col-span-12 order-2 lg:order-1 lg:col-span-4">
-                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                <!-- <a href="{{ url('/') }}" class="flex items-center gap-3 group">
                     <div class="relative">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo"
                             class="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110">
                         <div
-                            class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary/20">
                         </div>
                     </div>
                     <div class="flex flex-col">
                         <span
-                            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight">Blog</span>
+                            class="text-2xl font-bold text-primary tracking-tight">Blog</span>
                         <span class="text-xs text-gray-500 font-medium -mt-1">Professional Blog</span>
                     </div>
-                </a>
+                </a> -->
+
+                <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <img src="{{ asset('images/logos.png') }}" style="width: 200px; height: auto; max-height: 80px;"
+                alt="NepByte Logo">
+        </a>
 
             </div>
 
@@ -53,15 +58,15 @@
         <div class="flex items-center justify-between py-3 border-t border-gray-100">
             @php
                 $navLink =
-                    'relative pb-3 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-blue-700 transition-colors border-b-2 border-transparent hover:border-blue-600';
+                    'relative pb-3 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary';
             @endphp
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ url('/') }}"
-                    class="{{ request()->is('/') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    class="{{ request()->is('/') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('/') ? 'page' : false }}">Home</a>
                 <div class="relative" x-data="{ catOpen: false }" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
                     <a href="{{ route('categories.index') }}"
-                        class="{{ request()->routeIs('categories.*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }} flex items-center gap-2">
+                        class="{{ request()->routeIs('categories.*') ? 'text-primary border-primary' : '' }} {{ $navLink }} flex items-center gap-2">
                         Category
                         <i class="fas fa-chevron-down text-[11px] mt-0.5"></i>
                     </a>
@@ -69,26 +74,26 @@
                         class="absolute left-0 mt-2 w-[560px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
                         @foreach (($categories ?? collect())->take(8) as $category)
                             <a href="{{ route('category.show', $category->slug) }}"
-                                class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-700 hover:bg-blue-50 transition">
+                                class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary transition">
                                 {{ $category->name }}
                             </a>
                         @endforeach
                         <a href="{{ route('categories.index') }}"
-                            class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition text-center">View
+                            class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-primary transition text-center">View
                             all categories</a>
                     </div>
                 </div>
                 <a href="{{ url('/about') }}"
-                    class="{{ request()->is('about') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    class="{{ request()->is('about') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('about') ? 'page' : false }}">About</a>
                 <a href="{{ url('/latest-news') }}"
-                    class="{{ request()->is('latest-news') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    class="{{ request()->is('latest-news') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('latest-news') ? 'page' : false }}">Latest News</a>
                 <a href="{{ url('/contact') }}"
-                    class="{{ request()->is('contact') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    class="{{ request()->is('contact') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a>
                 <a href="{{ url('/pages') }}"
-                    class="{{ request()->is('pages*') ? 'text-blue-700 border-blue-600' : '' }} {{ $navLink }}"
+                    class="{{ request()->is('pages*') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a>
             </nav>
 
@@ -98,7 +103,7 @@
                 <!-- Search Bar -->
                 <div class="relative hidden md:block" @click.outside="showSearch=false">
                     <button @click="showSearch=!showSearch"
-                        class="p-2.5 rounded-full hover:bg-blue-50 text-gray-600 hover:text-blue-700 transition"
+                        class="p-2.5 rounded-full text-gray-600 hover:text-primary transition"
                         aria-label="Toggle search">
                         <span class="sr-only">Toggle search</span>
                         <i class="fas fa-search"></i>
@@ -109,7 +114,7 @@
                         method="GET" class="absolute bottom-0 right-0 mt-2 w-80">
                         <div class="relative">
                             <input type="text" name="q" placeholder="Search articles..."
-                                class="w-full pl-10 pr-4 py-2.5 text-sm rounded-full bg-white border border-gray-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                class="w-full pl-10 pr-4 py-2.5 text-sm rounded-full bg-white border border-gray-200 shadow-lg focus:outline-none">
                             <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                                 <i class="fas fa-search text-sm"></i>
                             </div>
@@ -122,7 +127,7 @@
                     @auth
                         <div class="flex items-center gap-3">
                             <a href="{{ route('user.dashboard') }}"
-                                class="flex items-center gap-2 px-4 py-2 text-blue-600 font-semibold text-sm hover:bg-blue-50 rounded-lg transition-all duration-300">
+                                class="flex items-center gap-2 px-4 py-2 text-primary font-semibold text-sm rounded-lg transition-all duration-300">
                                 <i class="fas fa-tachometer-alt text-xs"></i>
                                 Dashboard
                             </a>
@@ -137,11 +142,11 @@
                         </div>
                     @else
                         <a href="{{ route('login') }}"
-                            class="px-5 py-2.5 border border-blue-600 text-blue-600 font-semibold text-sm rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 hover:shadow-lg">
+                            class="px-5 py-2.5 border border-primary text-primary font-semibold text-sm rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:shadow-lg">
                             Sign In
                         </a>
                         <a href="{{ route('register') }}"
-                            class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-lg transform hover:scale-105">
+                            class="px-5 py-2.5 bg-primary text-white font-semibold text-sm rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105">
                             Get Started
                         </a>
                     @endauth
@@ -149,7 +154,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button
-                    class="lg:hidden p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
+                    class="lg:hidden p-2 text-gray-700 hover:text-primary rounded-lg transition-all duration-300"
                     @click="open = true" aria-label="Open menu">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
@@ -174,13 +179,13 @@
             class="fixed top-0 left-0 h-screen w-full max-w-sm bg-white z-[9999] shadow-2xl flex flex-col overflow-y-auto">
 
             <!-- Header -->
-            <div class="bg-gradient-to-br from-blue-600 to-purple-600 p-6 text-white">
+            <div class="bg-primary p-6 text-white">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center gap-3">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-10 object-contain">
                         <div>
                             <span class="text-xl font-bold">NEVDO</span>
-                            <p class="text-xs text-blue-100">Professional Blog</p>
+                            <p class="text-xs text-white/80">Professional Blog</p>
                         </div>
                     </div>
                     <button @click="open = false" aria-label="Close menu"
@@ -207,12 +212,12 @@
             <div class="p-4 border-b border-gray-100">
                 <form action="{{ route('search') }}" method="GET" class="relative">
                     <input type="text" name="q" placeholder="Search articles..."
-                        class="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300">
+                        class="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none transition-all duration-300">
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                         <i class="fas fa-search"></i>
                     </div>
                     <button type="submit"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-800 transition-colors duration-300">
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary transition-colors duration-300">
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </form>
@@ -224,15 +229,15 @@
                     <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Categories</h3>
                     @foreach (($categories ?? collect())->take(6) as $category)
                         <a href="{{ route('category.show', $category->slug) }}"
-                            class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 group">
+                            class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-gray-700 hover:text-primary transition-all duration-300 group">
                             <div
-                                class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-blue-600 transition-colors duration-300">
+                                class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-primary transition-colors duration-300">
                             </div>
                             {{ $category->name }}
                         </a>
                     @endforeach
                     <a href="{{ route('categories.index') }}"
-                        class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 transition-all duration-300 mt-3">
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-primary transition-all duration-300 mt-3">
                         <i class="fas fa-th-large text-sm"></i>
                         View All Categories
                     </a>
@@ -243,7 +248,7 @@
                     @auth
                         <div class="space-y-2">
                             <a href="{{ route('user.dashboard') }}"
-                                class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-blue-600 hover:bg-blue-50 transition-all duration-300">
+                                class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-primary transition-all duration-300">
                                 <i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </a>
@@ -259,11 +264,11 @@
                     @else
                         <div class="space-y-3">
                             <a href="{{ route('login') }}"
-                                class="block w-full px-4 py-3 text-center border border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
+                                class="block w-full px-4 py-3 text-center border border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-all duration-300">
                                 Sign In
                             </a>
                             <a href="{{ route('register') }}"
-                                class="block w-full px-4 py-3 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                                class="block w-full px-4 py-3 text-center bg-primary text-white font-semibold rounded-xl transition-all duration-300 shadow-lg">
                                 Get Started
                             </a>
                         </div>

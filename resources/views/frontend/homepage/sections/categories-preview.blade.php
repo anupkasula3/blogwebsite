@@ -15,7 +15,7 @@
               </span>
             @endif
           </h3>
-          <a href="{{ route('category.show', $category->slug) }}" class="text-blue-600 hover:underline">View All</a>
+          <a href="{{ route('category.show', $category->slug) }}" class="text-primary hover:underline">View All</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           @forelse($category->latest_posts as $post)

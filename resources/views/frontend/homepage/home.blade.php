@@ -9,10 +9,10 @@
 @section('content')
     <div class="bg-gray-50 min-h-screen">
         <!-- Breaking News Ticker -->
-        <div class="bg-red-600 text-white py-2 overflow-hidden">
+        <div class="bg-primary text-white py-2 overflow-hidden">
             <div class="container mx-auto px-4">
                 <div class="flex items-center">
-                    <span class="bg-white z-[999] text-red-600 px-3 py-1 text-sm font-bold mr-4 rounded">BREAKING</span>
+                    <span class="bg-white z-[999] text-primary px-3 py-1 text-sm font-bold mr-4 rounded">BREAKING</span>
                     <div class="marquee">
                         <span class="text-sm">{{ $featuredPosts->first()->title ?? 'Latest news and updates from our platform' }}</span>
                     </div>
@@ -77,14 +77,14 @@
             <section class="py-8 bg-white">
                 <div class="container mx-auto px-4">
                     <!-- Section Header with News Portal Style -->
-                    <div class="border-b-4 border-red-600 mb-8">
+                    <div class="border-b-4 border-primary mb-8">
                         <div class="flex justify-between items-center pb-4">
                             <div class="flex items-center gap-4">
                                 <h2 class="text-3xl font-bold text-gray-900 uppercase tracking-wide">Latest News</h2>
-                                <div class="h-8 w-1 bg-red-600"></div>
+                                <div class="h-8 w-1 bg-primary"></div>
                                 <span class="text-sm text-gray-500 font-medium">{{ now()->format('l, F j, Y') }}</span>
                             </div>
-                            <a href="{{ route('all-posts') }}" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition-colors font-semibold text-sm uppercase tracking-wide">
+                            <a href="{{ route('all-posts') }}" class="bg-primary text-white px-6 py-2 rounded hover:bg-primary transition-colors font-semibold text-sm uppercase tracking-wide">
                                 All News
                             </a>
                         </div>
@@ -94,7 +94,7 @@
                         <!-- Main News Content (3/4) -->
                         <div class="lg:col-span-3">
                             <!-- Top Banner Ad -->
-                            <div class="mb-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-4 border-2 border-dashed border-blue-300">
+                            <!-- <div class="mb-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-4 border-2 border-dashed border-blue-300">
                                 <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
                                     @if($headerAd)
@@ -107,7 +107,10 @@
                                         </div>
                                     @endif
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <script src="https://adnebyte.nepbyte.com/ads/embed/34be3c90-b979-48a9-ac96-3debea832472.js?count=1"></script>
+
 
                             <!-- Featured Story -->
                             @if($latestPosts->isNotEmpty())
@@ -126,11 +129,11 @@
                                         </div>
                                         <div class="md:w-1/2 p-6">
                                             <div class="flex items-center gap-2 mb-3">
-                                                <span class="bg-red-600 text-white px-2 py-1 text-xs font-bold rounded">BREAKING</span>
+                                                <span class="bg-primary text-white px-2 py-1 text-xs font-bold rounded">BREAKING</span>
                                                 <span class="text-xs text-gray-500">{{ $latestPosts->first()->published_at->diffForHumans() }}</span>
                                             </div>
                                             <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                                                <a href="{{ route('post.show', $latestPosts->first()->slug) }}" class="hover:text-red-600 transition-colors">
+                                                <a href="{{ route('post.show', $latestPosts->first()->slug) }}" class="hover:text-primary transition-colors">
                                                     {{ $latestPosts->first()->title }}
                                                 </a>
                                             </h3>
@@ -144,7 +147,7 @@
                                                     </div>
                                                     <span class="text-sm font-medium text-gray-700">{{ $latestPosts->first()->author_name }}</span>
                                                 </div>
-                                                <a href="{{ route('post.show', $latestPosts->first()->slug) }}" class="text-red-600 font-semibold text-sm hover:underline">
+                                                <a href="{{ route('post.show', $latestPosts->first()->slug) }}" class="text-primary font-semibold text-sm hover:underline">
                                                     Read More →
                                                 </a>
                                             </div>
@@ -170,11 +173,11 @@
                                         </div>
                                         <div class="p-4">
                                             <div class="flex items-center gap-2 mb-2">
-                                                <span class="text-xs text-red-600 font-semibold">{{ $post->published_at->format('M j') }}</span>
+                                                <span class="text-xs text-primary font-semibold">{{ $post->published_at->format('M j') }}</span>
                                                 <span class="text-xs text-gray-400">•</span>
                                                 <span class="text-xs text-gray-500">{{ $post->published_at->diffForHumans() }}</span>
                                             </div>
-                                            <h4 class="font-bold text-gray-900 mb-2 leading-tight hover:text-red-600 transition-colors">
+                                            <h4 class="font-bold text-gray-900 mb-2 leading-tight hover:text-primary transition-colors">
                                                 <a href="{{ route('post.show', $post->slug) }}">{{ Str::limit($post->title, 80) }}</a>
                                             </h4>
                                             <p class="text-gray-600 text-sm mb-3 leading-relaxed">
@@ -215,7 +218,7 @@
                         <div class="lg:col-span-1 space-y-6">
                             <!-- Trending News -->
                             <div class="bg-white rounded-lg shadow-md border border-gray-200">
-                                <div class="bg-red-600 text-white p-4 rounded-t-lg">
+                                <div class="bg-primary text-white p-4 rounded-t-lg">
                                     <h3 class="font-bold uppercase tracking-wide flex items-center gap-2">
                                         <i class="fas fa-fire"></i>
                                         Trending Now
@@ -224,10 +227,10 @@
                                 <div class="p-4 space-y-4">
                                     @foreach($popularPosts->take(5) as $index => $trendingPost)
                                         <div class="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-b-0">
-                                            <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">{{ $index + 1 }}</span>
+                                            <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">{{ $index + 1 }}</span>
                                             <div class="flex-1">
                                                 <h5 class="font-semibold text-sm text-gray-900 leading-tight mb-1">
-                                                    <a href="{{ route('post.show', $trendingPost->slug) }}" class="hover:text-red-600 transition-colors">
+                                                    <a href="{{ route('post.show', $trendingPost->slug) }}" class="hover:text-primary transition-colors">
                                                         {{ Str::limit($trendingPost->title, 60) }}
                                                     </a>
                                                 </h5>
@@ -259,14 +262,14 @@
                             </div>
 
                             <!-- Newsletter Signup -->
-                            <div class="bg-gradient-to-br from-red-600 to-red-700 rounded-lg p-6 text-white">
+                            <div class="bg-primary rounded-lg p-6 text-white">
                                 <div class="text-center">
                                     <i class="fas fa-newspaper text-3xl mb-3"></i>
                                     <h4 class="font-bold text-lg mb-2">Daily Newsletter</h4>
                                     <p class="text-red-100 text-sm mb-4">Get breaking news delivered to your inbox</p>
                                     <div class="space-y-2">
                                         <input type="email" placeholder="Your email address" class="w-full px-3 py-2 rounded text-gray-900 text-sm">
-                                        <button class="w-full bg-white text-red-600 py-2 rounded font-semibold text-sm hover:bg-gray-100 transition-colors">
+                                        <button class="w-full bg-white text-primary py-2 rounded font-semibold text-sm hover:bg-gray-100 transition-colors">
                                             Subscribe Now
                                         </button>
                                     </div>
