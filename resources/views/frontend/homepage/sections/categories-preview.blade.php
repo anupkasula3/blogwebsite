@@ -18,7 +18,7 @@
           <a href="{{ route('category.show', $category->slug) }}" class="text-blue-600 hover:underline">View All</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          @forelse($category->posts as $post)
+          @forelse($category->latest_posts as $post)
             <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col">
               <img src="{{ $post->featured_image ? Storage::url($post->featured_image) : asset('images/default.jpg') }}" class="w-full h-32 object-cover rounded mb-2">
               <h4 class="font-semibold text-lg mb-1 line-clamp-2"><a href="{{ route('post.show', $post->slug) }}">{{ $post->title }}</a></h4>
