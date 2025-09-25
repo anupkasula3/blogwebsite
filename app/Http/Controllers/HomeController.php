@@ -73,14 +73,22 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
+        // Get categories ordered by post count
         $categoriesWithPosts = Category::where('is_active', true)
-            ->with(['posts' => function($q) {
-                $q->published()->latest('published_at')->take(3);
+            ->withCount(['posts' => function($q) {
+                $q->published();
             }])
-            ->get()
-            ->sortByDesc(function($category) {
-                return $category->posts->sum('views_count');
-            });
+            ->orderBy('posts_count', 'desc')
+            ->get();
+
+        // Load the latest 3 posts for each category separately to avoid window function issues
+        $categoriesWithPosts->each(function($category) {
+            $category->latest_posts = Post::where('category_id', $category->id)
+                ->published()
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+        });
 
         // Advertisements for different positions
         $headerAd = Advertisement::active()->byPosition('header')->first();

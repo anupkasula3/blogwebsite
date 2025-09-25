@@ -14,10 +14,10 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         Admin::updateOrCreate(
-            [ 'email' => 'admin@myblogsite.com' ],
+            [ 'email' => 'test@example.com' ],
             [
                 'name' => 'Default Admin',
-                'password' => 'admin1234', // Will be hashed by model mutator
+                'password' => 'password', // Will be hashed by model mutator
             ]
         );
     }

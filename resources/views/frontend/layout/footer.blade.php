@@ -1,5 +1,5 @@
 <!-- Footer Advertisement Banner -->
-@if(isset($footerAd) && $footerAd)
+<!-- @if (isset($footerAd) && $footerAd)
 <div class="ad-banner py-4 px-4 text-center">
     <a href="{{ $footerAd->link }}" target="_blank"
        onclick="trackAdClick({{ $footerAd->id }}, 'footer')"
@@ -11,22 +11,21 @@
         <i class="fas fa-external-link-alt text-xl"></i>
     </a>
 </div>
-@endif
+@endif -->
 
 <!-- Main Footer -->
 <footer class="bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-screen-2xl mx-auto px-4  py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Brand Section -->
             <div class="lg:col-span-1">
-                <div class="flex items-center space-x-2 mb-4">
-                    <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-blog text-white text-xl"></i>
-                    </div>
-                    <span class="text-2xl font-bold text-gradient">MyBlogSite</span>
-                </div>
+                <a href="{{ route('home') }}" class="logo  d-flex align-items-center me-auto me-xl-0">
+                    <img src="{{ asset('images/NepBlog_white.png') }}" style="width: 200px; height: auto; max-height: 80px;padding-bottom: 2rem;"
+                        alt="NepBlog Logo">
+                </a>
                 <p class="text-gray-400 mb-6 leading-relaxed">
-                    Your ultimate destination for amazing stories, insights, and knowledge. Discover content that inspires, educates, and entertains.
+                    Your ultimate destination for amazing stories, insights, and knowledge. Discover content that
+                    inspires, educates, and entertains.
                 </p>
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-400 hover:text-white transition-colors">
@@ -88,15 +87,16 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">Categories</h3>
                 <ul class="space-y-3">
-                    @foreach($categories ?? [] as $category)
-                    <li>
-                        <a href="{{ route('category.show', $category->slug) }}" class="text-gray-400 hover:text-white transition-colors">
-                            {{ $category->name }}
-                        </a>
-                    </li>
+                    @foreach ($categories ?? [] as $category)
+                        <li>
+                            <a href="{{ route('category.show', $category->slug) }}"
+                                class="text-gray-400 hover:text-white transition-colors">
+                                {{ $category->name }}
+                            </a>
+                        </li>
                     @endforeach
                     <li>
-                        <a href="{{ route('categories.index') }}" class="text-purple-400 hover:text-purple-300 transition-colors font-medium">
+                        <a href="{{ route('categories.index') }}" class="text-primary transition-colors font-medium">
                             View All Categories →
                         </a>
                     </li>
@@ -113,10 +113,11 @@
                     @csrf
                     <div>
                         <input type="email" name="email" placeholder="Enter your email"
-                               class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
-                               required>
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
+                            required>
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                    <button type="submit"
+                        class="w-full bg-primary text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity">
                         Subscribe
                     </button>
                 </form>
@@ -162,28 +163,29 @@
 </footer>
 
 <!-- Back to Top Button -->
-<button id="backToTop" class="fixed bottom-8 right-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity opacity-0 invisible">
+<button id="backToTop"
+    class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity opacity-0 invisible">
     <i class="fas fa-arrow-up"></i>
 </button>
 
 <script>
-// Back to Top functionality
-const backToTopButton = document.getElementById('backToTop');
+    // Back to Top functionality
+    const backToTopButton = document.getElementById('backToTop');
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopButton.classList.remove('opacity-0', 'invisible');
-        backToTopButton.classList.add('opacity-100', 'visible');
-    } else {
-        backToTopButton.classList.add('opacity-0', 'invisible');
-        backToTopButton.classList.remove('opacity-100', 'visible');
-    }
-});
-
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.remove('opacity-0', 'invisible');
+            backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+            backToTopButton.classList.add('opacity-0', 'invisible');
+            backToTopButton.classList.remove('opacity-100', 'visible');
+        }
     });
-});
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 </script>

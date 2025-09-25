@@ -68,6 +68,50 @@
 
     <!-- Custom Styles -->
     <style>
+        :root {
+            --primary: #ff2953;
+            --primary-contrast: #ffffff;
+            --primary-hover: #e0244b; /* slightly darker for hover */
+        }
+
+        /* Primary utility classes */
+        .text-primary { color: var(--primary) !important; }
+        .bg-primary { background-color: var(--primary) !important; }
+        .border-primary { border-color: var(--primary) !important; }
+
+        .hover\:text-primary:hover { color: var(--primary) !important; }
+        .hover\:bg-primary:hover { background-color: var(--primary) !important; }
+        .hover\:border-primary:hover { border-color: var(--primary) !important; }
+
+        .hover\:bg-primary-contrast:hover { background-color: var(--primary-contrast) !important; }
+        .text-on-primary { color: var(--primary-contrast) !important; }
+
+        /* Global aliases: map common accent classes to primary to avoid editing every file */
+        /* Blue accents to primary */
+        .text-blue-600 { color: var(--primary) !important; }
+        .hover\:text-blue-600:hover { color: var(--primary) !important; }
+        .text-blue-700 { color: var(--primary) !important; }
+        .hover\:text-blue-700:hover { color: var(--primary) !important; }
+        .bg-blue-600 { background-color: var(--primary) !important; }
+        .hover\:bg-blue-600:hover { background-color: var(--primary) !important; }
+        .border-blue-600 { border-color: var(--primary) !important; }
+        .hover\:border-blue-600:hover { border-color: var(--primary) !important; }
+        .focus\:ring-blue-500:focus { --tw-ring-color: var(--primary) !important; }
+
+        /* Pink accents to primary */
+        .text-pink-600 { color: var(--primary) !important; }
+        .bg-pink-600 { background-color: var(--primary) !important; }
+        .hover\:bg-pink-600:hover { background-color: var(--primary) !important; }
+        .hover\:text-pink-600:hover { color: var(--primary) !important; }
+
+        /* Purple accents to primary (for legacy forms/buttons) */
+        .text-purple-600 { color: var(--primary) !important; }
+        .hover\:text-purple-500:hover { color: var(--primary) !important; }
+        .focus\:ring-purple-500:focus { --tw-ring-color: var(--primary) !important; }
+        .text-purple-300 { color: color-mix(in srgb, var(--primary) 50%, white) !important; }
+        .group:hover .group-hover\:text-purple-200 { color: color-mix(in srgb, var(--primary) 20%, white) !important; }
+        .focus\:border-purple-500:focus { border-color: var(--primary) !important; }
+
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -128,7 +172,7 @@
             left: 0;
             width: 0%;
             height: 3px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
             z-index: 9999;
             transition: width 0.3s ease;
         }
@@ -164,7 +208,7 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
             transition: all 0.3s ease;
             transform: translateX(-50%);
         }
@@ -248,7 +292,7 @@
 
         /* Gradient Text Animation */
         .gradient-text-animated {
-            background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #764ba2);
+            background: linear-gradient(-45deg, var(--primary), var(--primary-hover), var(--primary), var(--primary-hover));
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
