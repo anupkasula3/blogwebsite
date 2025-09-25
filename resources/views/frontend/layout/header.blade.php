@@ -63,16 +63,16 @@
                         <i class="fas fa-chevron-down text-[11px] mt-0.5"></i>
                     </a>
                     <div x-show="catOpen" x-transition
-                        class="absolute left-0 mt-2 w-[560px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
-                        @foreach (($categories ?? collect())->take(8) as $category)
+                        class="absolute left-0 mt-2 w-[450px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
+                        @foreach ($categories  as $category)
                             <a href="{{ route('category.show', $category->slug) }}"
                                 class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary transition">
                                 {{ $category->name }}
                             </a>
                         @endforeach
-                        <a href="{{ route('categories.index') }}"
+                        {{-- <a href="{{ route('categories.index') }}"
                             class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-primary transition text-center">View
-                            all categories</a>
+                            all categories</a> --}}
                     </div>
                 </div>
                 <a href="{{ url('/about') }}"
@@ -236,7 +236,7 @@
             <div class="flex-1 p-3 overflow-y-auto">
                 <div class="space-y-1.5">
                     <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Categories</h3>
-                    @foreach (($categories ?? collect())->take(6) as $category)
+                    @foreach ($categories  as $category)
                         <a href="{{ route('category.show', $category->slug) }}"
                             class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium text-gray-700 hover:text-primary transition-all duration-300 group">
                             <div
@@ -245,11 +245,11 @@
                             {{ $category->name }}
                         </a>
                     @endforeach
-                    <a href="{{ route('categories.index') }}"
+                    {{-- <a href="{{ route('categories.index') }}"
                         class="flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-primary transition-all duration-300 mt-2">
                         <i class="fas fa-th-large text-xs"></i>
                         View All Categories
-                    </a>
+                    </a> --}}
                 </div>
 
                 <!-- Auth Section -->

@@ -1,4 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -13,6 +14,13 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                // Expose Tailwind's indigo palette as the app's primary color with a DEFAULT shade
+                primary: {
+                    DEFAULT: colors.indigo[600],
+                    ...colors.indigo,
+                },
             },
         },
     },
