@@ -174,43 +174,8 @@
                             <!-- News Grid -->
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                 @foreach ($latestPosts->skip(2)->take(6) as $key => $post)
-                                    <article
-                                        class="bg-white rounded-lg shadow-md overflow-hidden news-card transition-all duration-300 border border-gray-200">
-                                        <div class="relative">
-                                            <img src="{{ asset('uploads/' . $post->featured_image) }}"
-                                                alt="{{ $post->title }}" class="w-full h-40 sm:h-48 object-cover">
-                                            <div class="absolute top-3 left-3">
-                                                <span
-                                                    class="bg-black bg-opacity-75 text-white px-2 py-1 text-xs font-semibold rounded">
-                                                    {{ $post->category->name }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="p-4">
-                                            <div class="flex items-center gap-2 mb-2">
-                                                <span
-                                                    class="text-xs text-primary font-semibold">{{ $post->published_at->format('M j') }}</span>
-                                                <span class="text-xs text-gray-400">•</span>
-                                                <span
-                                                    class="text-xs text-gray-500">{{ $post->published_at->diffForHumans() }}</span>
-                                            </div>
-                                            <h4
-                                                class="font-bold text-gray-900 mb-2 leading-tight hover:text-primary transition-colors">
-                                                <a
-                                                    href="{{ route('post.show', $post->slug) }}">{{ Str::limit($post->title, 80) }}</a>
-                                            </h4>
-                                            <p class="text-gray-600 text-sm mb-3 leading-relaxed">
-                                                {{ Str::limit(strip_tags($post->content), 100) }}
-                                            </p>
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-xs text-gray-500">By {{ $post->author_name }}</span>
-                                                <div class="flex items-center gap-1 text-xs text-gray-400">
-                                                    <i class="fas fa-eye"></i>
-                                                    <span>{{ $post->views_count ?? 0 }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </article>
+                                    @include('frontend.component.postcomponent')
+
 
                                     <!-- Inline Ad after every 3rd article -->
                                     @if (($key + 2) % 3 == 0)
@@ -307,7 +272,7 @@
                                     </div>
                                 </div>
                             </div>
-                    
+
 
                             <!-- Quote of the Day -->
                             <div class="bg-white rounded-lg shadow-md border border-gray-200 p-4">
@@ -395,86 +360,7 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                         @foreach ($popularPosts->take(8) as $key => $post)
-                            <article
-                                class="bg-white rounded-lg shadow-md overflow-hidden news-card transition-all duration-300 border border-gray-200 group">
-                                <!-- Ranking Badge -->
-                                <div class="relative">
-                                    <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-
-                                    <!-- Ranking Number -->
-                                    <div class="absolute top-3 left-3">
-                                        <div
-                                            class="bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
-                                            {{ $key + 1 }}
-                                        </div>
-                                    </div>
-
-                                    <!-- Category Badge -->
-                                    <div class="absolute top-3 right-3">
-                                        <span class="bg-blue-600 text-white px-2 py-1 text-xs font-semibold rounded">
-                                            {{ $post->category->name }}
-                                        </span>
-                                    </div>
-
-                                    <!-- Views Badge -->
-                                    <div
-                                        class="absolute bottom-3 right-3 bg-black bg-opacity-75 text-white px-2 py-1 rounded text-xs flex items-center gap-1">
-                                        <i class="fas fa-eye"></i>
-                                        <span>{{ number_format($post->views_count ?? 0) }}</span>
-                                    </div>
-                                </div>
-
-                                <div class="p-4">
-                                    <!-- Publication Info -->
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <span
-                                            class="text-xs text-blue-600 font-semibold">{{ $post->published_at->format('M j, Y') }}</span>
-                                        <span class="text-xs text-gray-400">•</span>
-                                        <span
-                                            class="text-xs text-gray-500">{{ $post->published_at->diffForHumans() }}</span>
-                                    </div>
-
-                                    <!-- Title -->
-                                    <h4
-                                        class="font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors">
-                                        <a
-                                            href="{{ route('post.show', $post->slug) }}">{{ Str::limit($post->title, 70) }}</a>
-                                    </h4>
-
-                                    <!-- Excerpt -->
-                                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
-                                        {{ Str::limit(strip_tags($post->content), 80) }}
-                                    </p>
-
-                                    <!-- Author and Stats -->
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center">
-                                                <i class="fas fa-user text-xs text-gray-600"></i>
-                                            </div>
-                                            <span
-                                                class="text-xs text-gray-500">{{ Str::limit($post->author_name, 15) }}</span>
-                                        </div>
-
-                                        <!-- Reading Time -->
-                                        <div class="flex items-center gap-1 text-xs text-gray-400">
-                                            <i class="fas fa-clock"></i>
-                                            <span>{{ $post->reading_time ?? 5 }}m read</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Trending Indicator for Top 3 -->
-                                    @if ($key < 3)
-                                        <div class="mt-3 flex items-center gap-2">
-                                            <div
-                                                class="flex-1 bg-gradient-to-r from-red-500 to-orange-500 h-1 rounded-full">
-                                            </div>
-                                            <span class="text-xs font-bold text-red-600 uppercase tracking-wide">Hot</span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </article>
+                           @include('frontend.component.postcomponent')
 
                             <!-- Inline Ad after 4th article -->
                             @if ($key == 3)
@@ -646,7 +532,7 @@
                             <div class="flex flex-col lg:flex-row gap-3">
 
                                 <!-- Newsletter Signup -->
-                                <div class="bg-primary w-1/2 rounded-lg p-6 text-white">
+                                <div class="bg-primary w-1/2 max-sm:w-full rounded-lg p-6 text-white">
                                     <div class="text-center">
                                         <i class="fas fa-newspaper text-3xl mb-3"></i>
                                         <h4 class="font-bold text-lg mb-2">Daily Newsletter</h4>
@@ -662,7 +548,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="bg-gradient-to-b  w-1/2 from-purple-100 to-blue-100 rounded-lg p-4 border-2 border-dashed border-purple-300">
+                                    class="bg-gradient-to-b max-sm:w-full  w-1/2 from-purple-100 to-blue-100 rounded-lg p-4 border-2 border-dashed border-purple-300">
                                     <div class="text-center">
                                         <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
                                         @if ($sidebarAd)

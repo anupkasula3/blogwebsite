@@ -5,32 +5,24 @@
 
 @section('content')
     <!-- Minimal Hero Section -->
-    <section class="relative bg-white py-12 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <div class="text-sm font-semibold tracking-wide text-primary uppercase mb-2">Browse</div>
-                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-3">Explore Categories</h1>
-                <p class="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">Discover topics that match your interests and
-                    explore new perspectives.</p>
-                <div class="mt-6 flex items-center justify-center gap-3">
-                    <a href="{{ route('contact') }}"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white font-semibold shadow-sm hover:brightness-110 transition-all duration-300">
-                        <i class="fas fa-envelope text-sm"></i>
-                        Contact Us
-                    </a>
-                    <a href="#categories-grid"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-all duration-300">
-                        <i class="fas fa-th-large text-sm"></i>
-                        Browse All
-                    </a>
-                </div>
-            </div>
+
+
+    <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-12">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <div class="text-sm font-semibold tracking-wide text-white uppercase mb-2">Browse</div>
+
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Explore Categories</h1>
+            <p class="text-xl text-white leading-relaxed">
+                Discover topics that match your interests and
+                explore new perspectives.
+            </p>
         </div>
+
     </section>
 
     <!-- Categories Grid with Improved Cards -->
     <section id="categories-grid" class="py-16 bg-gradient-to-b from-white to-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Breadcrumb + Toolbar -->
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                 <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
@@ -84,7 +76,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
 
                 @forelse($categories as $category)
-                    <div class=" bg-white rounded-xl overflow-hidden transition-all duration-300 border border-gray-200 hover:border-primary/50 hover:shadow-sm">
+                    <div
+                        class=" bg-white rounded-xl overflow-hidden transition-all duration-300 border border-gray-200 hover:border-primary/50 hover:shadow-sm">
                         <div>
                             @if ($category->image)
                                 <div class="aspect-[16/9] bg-gray-100 overflow-hidden">

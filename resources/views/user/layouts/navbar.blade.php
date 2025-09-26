@@ -1,4 +1,4 @@
-<nav class="bg-white shadow-sm border-b border-gray-200">
+<nav class="bg-white shadow-sm border-b border-gray-200 z-[999]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex items-center">
@@ -95,7 +95,7 @@
                     <button @click="open = !open"
                         class="flex items-center space-x-2 text-gray-700 hover:text-gray-900 focus:outline-none">
                         <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}"
-                            class="w-10 h-10 rounded-full border-2 border-transparent hover:border-purple-500 transition">
+                            class="w-10 h-10 rounded-full border-2 border-transparent hover:border-[#ff2953] transition">
                         <span class="hidden sm:block font-medium">{{ auth()->user()->name }}</span>
                         <i class="fas fa-chevron-down text-xs"></i>
                     </button>
@@ -107,11 +107,11 @@
                                 <p class="text-xs text-gray-600 truncate">{{ auth()->user()->email }}</p>
                             </div>
                             <a href="{{ route('user.profile') }}"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-purple-600 transition-colors">
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#ff2953] transition-colors">
                                 <i class="fas fa-user-cog w-6 mr-2"></i>Profile Settings
                             </a>
                             <a href="{{ route('user.password.change.form') }}"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-purple-600 transition-colors">
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#ff2953] transition-colors">
                                 <i class="fas fa-key w-6 mr-2"></i>Change Password
                             </a>
                             <div class="border-t border-gray-200"></div>

@@ -16,9 +16,9 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Expose Tailwind's indigo palette as the app's primary color with a DEFAULT shade
+                // Set brand primary color while preserving numeric shades used elsewhere
                 primary: {
-                    DEFAULT: colors.indigo[600],
+                    DEFAULT: '#ff2953',
                     ...colors.indigo,
                 },
             },

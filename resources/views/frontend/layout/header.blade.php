@@ -29,7 +29,7 @@
             <div class="col-span-12 lg:block hidden order-2 lg:order-1 lg:col-span-4">
 
 
-                <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+                <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
 
                     <img src="{{ asset('images/logos.png') }}" style="width: 200px; height: auto; max-height: 80px;"
                         alt="NepBlog Logo">
@@ -64,7 +64,7 @@
                     </a>
                     <div x-show="catOpen" x-transition
                         class="absolute left-0 mt-2 w-[450px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
-                        @foreach ($categories  as $category)
+                        @foreach ($categories as $category)
                             <a href="{{ route('category.show', $category->slug) }}"
                                 class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary transition">
                                 {{ $category->name }}
@@ -236,7 +236,7 @@
             <div class="flex-1 p-3 overflow-y-auto">
                 <div class="space-y-1.5">
                     <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Categories</h3>
-                    @foreach ($categories  as $category)
+                    @foreach ($categories as $category)
                         <a href="{{ route('category.show', $category->slug) }}"
                             class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium text-gray-700 hover:text-primary transition-all duration-300 group">
                             <div
@@ -299,4 +299,3 @@
         </script>
     </div>
 </header>
-

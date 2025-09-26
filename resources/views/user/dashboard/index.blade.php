@@ -7,7 +7,7 @@
 
         <!-- Welcome banner -->
         <div
-            class="relative bg-gradient-to-r from-purple-600 to-blue-600 p-6 sm:p-8 rounded-2xl overflow-hidden mb-8 shadow-lg">
+            class="relative bg-gradient-to-r from-[#ff2953] to-[#ff5f7b] p-6 sm:p-8 rounded-2xl overflow-hidden mb-8 shadow-lg">
             <!-- Background illustration -->
             <div class="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block" aria-hidden="true">
                 <svg width="319" height="198" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -52,7 +52,7 @@
             <!-- Content -->
             <div class="relative">
                 <h1 class="text-2xl md:text-3xl text-white font-bold mb-1">Welcome back, {{ auth()->user()->name }} 👋</h1>
-                <p class="text-indigo-200">Here's a snapshot of your content's performance. Keep up the great work!</p>
+                <p class="text-white/80">Here's a snapshot of your content's performance. Keep up the great work!</p>
             </div>
         </div>
 
@@ -60,8 +60,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
             <div
                 class="bg-white shadow-lg rounded-2xl p-6 flex items-center gap-4 transition-transform transform hover:-translate-y-1">
-                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-100">
-                    <i class="fas fa-file-alt text-blue-600 text-2xl"></i>
+                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#ffe2e7]">
+                    <i class="fas fa-file-alt text-[#ff2953] text-2xl"></i>
                 </div>
                 <div>
                     <div class="text-sm text-gray-500 font-medium uppercase tracking-wider">Total Posts</div>
@@ -90,8 +90,8 @@
             </div>
             <div
                 class="bg-white shadow-lg rounded-2xl p-6 flex items-center gap-4 transition-transform transform hover:-translate-y-1">
-                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-purple-100">
-                    <i class="fas fa-eye text-purple-600 text-2xl"></i>
+                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#ffe2e7]">
+                    <i class="fas fa-eye text-[#ff2953] text-2xl"></i>
                 </div>
                 <div>
                     <div class="text-sm text-gray-500 font-medium uppercase tracking-wider">Total Views</div>
@@ -107,7 +107,7 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold text-gray-800">Recent Posts</h2>
                     <a href="{{ route('user.posts.index') }}"
-                        class="text-sm font-medium text-purple-600 hover:text-purple-800">View All</a>
+                        class="text-sm font-medium text-[#ff2953] hover:text-[#e02449]">View All</a>
                 </div>
                 <div class="overflow-x-auto">
                     @if ($recentPosts->count() > 0)
@@ -133,7 +133,7 @@
                                     <tr>
                                         <td class="p-2">
                                             <a href="{{ route('user.posts.show', $post) }}"
-                                                class="font-medium text-gray-800 hover:text-purple-600">{{ $post->title }}</a>
+                                                class="font-medium text-gray-800 hover:text-[#ff2953]">{{ $post->title }}</a>
                                         </td>
                                         <td class="p-2 text-center text-gray-600">{{ number_format($post->views_count) }}
                                         </td>
@@ -181,7 +181,7 @@
                                 </div>
                                 <div>
                                     <a href="{{ route('user.posts.show', $post) }}"
-                                        class="font-semibold text-gray-800 hover:text-purple-600 text-sm leading-tight line-clamp-2">{{ $post->title }}</a>
+                                        class="font-semibold text-gray-800 hover:text-[#ff2953] text-sm leading-tight line-clamp-2">{{ $post->title }}</a>
                                     <div class="text-xs text-gray-500 mt-1">{{ number_format($post->views_count) }} views
                                     </div>
                                 </div>

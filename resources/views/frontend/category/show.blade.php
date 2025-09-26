@@ -16,7 +16,8 @@
 
 
         <!-- Hero Section (smaller height) -->
-        <section class="relative  overflow-hidden bg-primary py-5 sm:py-7 rounded-b-3xl   shadow-lg mb-5">
+        <section
+            class="relative  overflow-hidden bg-gradient-to-r from-[#ff2953] to-[#c51f42] py-5 sm:py-7 rounded-b-3xl   shadow-lg mb-3">
 
             <div class="relative z-10 max-w-7xl mx-auto px-4  text-center flex flex-col items-center">
                 <!-- Breadcrumbs -->
@@ -71,17 +72,10 @@
             </div>
         </section>
 
-        <!-- Ad Banner Below Hero -->
-        <div class="flex justify-center">
-            <div
-                class="ad-frame leaderboard rounded-xl border border-gray-200 bg-white shadow overflow-hidden flex items-center justify-center">
-                <img src="https://placehold.co/728x90?text=Advertisement" alt="Advertisement 728x90"
-                    class="w-full h-full object-contain" loading="lazy">
-            </div>
-        </div>
+
 
         <!-- Posts Grid & Sidebar -->
-        <section class="py-8 sm:py-10 bg-white rounded-3xl shadow-xl">
+        <section class="py-5 bg-white rounded-3xl shadow-xl">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-3 px-4 ">
                 <!-- Main Content -->
                 <div class="lg:col-span-2">
@@ -92,7 +86,6 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             @foreach ($posts as $post)
-                                @include('frontend.component.postcomponent')
                                 @include('frontend.component.postcomponent')
                             @endforeach
                         </div>
@@ -123,7 +116,7 @@
                 </div>
                 <!-- Sidebar -->
                 <div class="lg:col-span-1">
-                    <div class="lg:sticky lg:top-24">
+                    <div class="lg:sticky lg:top-52">
                         <!-- Multiple Sidebar Advertisements -->
                         @if (isset($sidebarAds) && $sidebarAds->count())
                             @foreach ($sidebarAds as $sidebarAd)

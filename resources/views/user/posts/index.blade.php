@@ -3,7 +3,7 @@
 @section('title', 'My Posts')
 
 @section('content')
-    <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+    <div class="py-8 w-full  mx-auto">
         <!-- Page header -->
         <div class="sm:flex sm:justify-between sm:items-center mb-8">
             <div>
@@ -11,7 +11,7 @@
             </div>
             <div>
                 <a href="{{ route('user.posts.create') }}"
-                    class="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg shadow-lg hover:opacity-90 transition-opacity font-semibold">
+                    class="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-[#ff2953] to-[#ff5475] text-white px-6 py-2.5 rounded-lg shadow hover:opacity-95 transition font-semibold">
                     <i class="fas fa-plus mr-2"></i>
                     Create New Post
                 </a>
@@ -33,7 +33,7 @@
                     </thead>
                     <tbody class="text-sm divide-y divide-gray-200">
                         @forelse($posts as $post)
-                            <tr>
+                            <tr class="hover:bg-gray-50">
                                 <td class="p-4">
                                     <div class="flex items-center">
                                         @if ($post->featured_image)
@@ -55,7 +55,7 @@
                                 </td>
                                 <td class="p-4 text-center">
                                     <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider
+                                        class="p-1.5 px-2.5 text-xs font-medium uppercase tracking-wider rounded-full
                                 @switch($post->status)
                                     @case('draft')
                                         text-gray-800 bg-gray-200
@@ -69,7 +69,7 @@
                                     @default
                                         text-gray-800 bg-gray-200
                                 @endswitch
-                                rounded-lg bg-opacity-50">{{ $post->status }}</span>
+                                bg-opacity-50">{{ $post->status }}</span>
                                 </td>
                                 <td class="p-4 text-center text-gray-600">{{ number_format($post->views_count) }}</td>
                                 <td class="p-4 text-gray-600">{{ $post->created_at->format('M d, Y') }}</td>
@@ -88,24 +88,22 @@
                                             <form action="{{ route('user.posts.draft', $post) }}" method="POST"
                                                 class="inline-block">
                                                 @csrf
-                                                <button type="submit" class="text-gray-400 hover:text-yellow-600"
-                                                    title="Move to Drafts">
+                                                <button type="submit" class="text-gray-400 hover:text-yellow-600" title="Move to Drafts">
                                                     <i class="fas fa-download"></i>
                                                 </button>
                                             </form>
                                         @endif
                                         <a href="{{ route('user.posts.show', $post) }}"
-                                            class="text-gray-400 hover:text-blue-600" title="View"><i
-                                                class="fas fa-eye"></i></a>
-                                        <a href="{{ route('user.posts.edit', $post) }}"
-                                            class="text-gray-400 hover:text-indigo-600" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
+                                    class="text-gray-400 hover:text-blue-600" title="View"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{{ route('user.posts.edit', $post) }}"
+                                    class="text-gray-400 hover:text-indigo-600" title="Edit"><i
+                                        class="fas fa-edit"></i></a>
                                         <button class="text-gray-400 hover:text-red-600 delete-post-btn" title="Delete"
                                             data-post-title="{{ $post->title }}"
                                             data-action="{{ route('user.posts.destroy', $post) }}"><i
                                                 class="fas fa-trash"></i></button>
                                     </div>
-                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -141,7 +139,7 @@
                         </div>
                         <div class="flex justify-between items-center text-sm mb-3">
                             <span
-                                class="p-1.5 text-xs font-medium uppercase tracking-wider
+                                class="p-1.5 px-2.5 text-xs font-medium uppercase tracking-wider rounded-full
                         @switch($post->status)
                             @case('draft')
                                 text-gray-800 bg-gray-200
@@ -155,7 +153,7 @@
                             @default
                                 text-gray-800 bg-gray-200
                         @endswitch
-                        rounded-lg bg-opacity-50">{{ $post->status }}</span>
+                        bg-opacity-50">{{ $post->status }}</span>
                             <div class="text-gray-600">
                                 <i class="fas fa-eye mr-1"></i> {{ number_format($post->views_count) }}
                             </div>
