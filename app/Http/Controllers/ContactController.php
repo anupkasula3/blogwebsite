@@ -32,7 +32,7 @@ class ContactController extends Controller
 
         // Send email notification
         try {
-            $adminEmail = \App\Models\Setting::get('contact_email', 'admin@myblogsite.com');
+            $adminEmail = \App\Models\Setting::get('contact_email', 'admin@NepBlog.com');
             Mail::to($adminEmail)->send(new ContactFormMail($contactData));
         } catch (\Exception $e) {
             // Log the error but don't fail the form submission

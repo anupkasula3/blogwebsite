@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', 'Categories - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', 'Categories - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 @section('meta_description', 'Explore all categories and find content that interests you on our blog platform.')
 
 @section('content')

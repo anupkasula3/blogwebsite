@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', 'Page Not Found - MyBlogSite')
+@section('title', 'Page Not Found - NepBlog')
 
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-50">

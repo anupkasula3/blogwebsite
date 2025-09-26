@@ -89,7 +89,7 @@
                             class="w-10 h-10 bg-gradient-to-r from-[#ff2953] to-[#ff5475] rounded-lg flex items-center justify-center shadow-sm">
                             <i class="fas fa-blog text-white text-xl"></i>
                         </div>
-                        <span class="text-xl font-bold text-gray-900">MyBlogSite</span>
+                        <span class="text-xl font-bold text-gray-900">NepBlog</span>
                     </a>
                 </div>
                 <nav class="mt-5 px-2 space-y-1">

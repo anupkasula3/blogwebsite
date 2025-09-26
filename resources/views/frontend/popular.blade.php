@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', 'Popular Posts - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', 'Popular Posts - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 @section('meta_description', 'Discover the most popular and trending articles from our blog community.')
 
 @section('content')

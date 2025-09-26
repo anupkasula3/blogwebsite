@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# MyBlogSite Setup Script
+# NepBlog Setup Script
 # This script will set up the complete blog platform
 
-echo "🚀 MyBlogSite Setup Script"
+echo "🚀 NepBlog Setup Script"
 echo "=========================="
 
 # Colors for output
@@ -128,7 +128,7 @@ setup_database() {
         echo "DB_CONNECTION=mysql"
         echo "DB_HOST=127.0.0.1"
         echo "DB_PORT=3306"
-        echo "DB_DATABASE=myblogsite"
+        echo "DB_DATABASE=NepBlog"
         echo "DB_USERNAME=your_username"
         echo "DB_PASSWORD=your_password"
         echo ""
@@ -254,7 +254,7 @@ show_final_instructions() {
 
 # Main setup function
 main() {
-    echo "Starting MyBlogSite setup..."
+    echo "Starting NepBlog setup..."
     echo ""
 
     check_requirements

@@ -126,7 +126,7 @@
                 <div class="mt-6 space-y-2">
                     <div class="flex items-center space-x-3 text-gray-400">
                         <i class="fas fa-envelope"></i>
-                        <span>contact@myblogsite.com</span>
+                        <span>contact@NepBlog.com</span>
                     </div>
                     <div class="flex items-center space-x-3 text-gray-400">
                         <i class="fas fa-phone"></i>
@@ -144,7 +144,7 @@
         <div class="border-t border-gray-800 mt-12 pt-8">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div class="text-gray-400 text-sm">
-                    © {{ date('Y') }} MyBlogSite. All rights reserved.
+                    © {{ date('Y') }} NepBlog. All rights reserved.
                 </div>
                 <div class="flex items-center space-x-6 text-sm">
                     <a href="{{ route('privacy') }}" class="text-gray-400 hover:text-white transition-colors">

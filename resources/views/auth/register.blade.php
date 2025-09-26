@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', 'Register - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', 'Register - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

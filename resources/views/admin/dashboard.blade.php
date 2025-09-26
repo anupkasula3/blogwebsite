@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Admin Dashboard - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', 'Admin Dashboard - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 
 @section('content')
 <div class="min-h-screen bg-gray-100">

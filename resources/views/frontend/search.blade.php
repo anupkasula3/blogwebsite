@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', 'Search Results for "' . $query . '" - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', 'Search Results for "' . $query . '" - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 @section('meta_description', 'Search results for "' . $query . '" on our blog platform.')
 
 @section('content')

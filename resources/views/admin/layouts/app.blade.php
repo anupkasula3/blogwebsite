@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Admin Dashboard - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))</title>
+    <title>@yield('title', 'Admin Dashboard - ' . \App\Models\Setting::get('site_name', 'NepBlog'))</title>
+    <link rel="shortcut icon" href="{{ asset('images/favicon.jpg') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', 'Contact Us - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', 'Contact Us - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 @section('meta_description', 'Get in touch with us. We\'d love to hear from you! Contact us for any questions, suggestions, or collaborations.')
 
 @section('content')
@@ -105,7 +105,7 @@
                         </div>
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900 mb-1">Email</h3>
-                            <p class="text-gray-600 mb-2">{{ \App\Models\Setting::get('contact_email', 'contact@myblogsite.com') }}</p>
+                            <p class="text-gray-600 mb-2">{{ \App\Models\Setting::get('contact_email', 'contact@NepBlog.com') }}</p>
                             <p class="text-sm text-gray-500">We typically respond within 24 hours</p>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
 
                 </div>
 
-                
+
             </div>
         </div>
     </div>

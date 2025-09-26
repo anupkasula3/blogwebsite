@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', \App\Models\Setting::get('site_name', 'MyBlogSite') . ' - ' .
+@section('title', \App\Models\Setting::get('site_name', 'NepBlog') . ' - ' .
     \App\Models\Setting::get('site_description', 'Your Ultimate Blog Destination'))
 @section('meta_description',
     'Discover amazing stories, insights, and knowledge on our blog platform. Read the latest
@@ -22,7 +22,7 @@
                 <div class="mb-8">
                     <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-4">
                         <i class="fas fa-star mr-2"></i>
-                        Welcome to {{ \App\Models\Setting::get('site_name', 'MyBlogSite') }}
+                        Welcome to {{ \App\Models\Setting::get('site_name', 'NepBlog') }}
                     </span>
                 </div>
 

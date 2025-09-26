@@ -31,8 +31,8 @@ class ContactFormMail extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->isConfirmation
-            ? 'Thank you for contacting us - ' . \App\Models\Setting::get('site_name', 'MyBlogSite')
-            : 'New Contact Form Submission - ' . \App\Models\Setting::get('site_name', 'MyBlogSite');
+            ? 'Thank you for contacting us - ' . \App\Models\Setting::get('site_name', 'NepBlog')
+            : 'New Contact Form Submission - ' . \App\Models\Setting::get('site_name', 'NepBlog');
 
         return new Envelope(
             subject: $subject,
@@ -50,7 +50,7 @@ class ContactFormMail extends Mailable
             view: $view,
             with: [
                 'contactData' => $this->contactData,
-                'siteName' => \App\Models\Setting::get('site_name', 'MyBlogSite'),
+                'siteName' => \App\Models\Setting::get('site_name', 'NepBlog'),
                 'siteUrl' => url('/'),
             ],
         );

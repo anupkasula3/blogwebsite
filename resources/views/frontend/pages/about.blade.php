@@ -1,14 +1,14 @@
 @extends('frontend.layout.main')
 
-@section('title', 'About Us - MyBlogSite')
-@section('meta_description', 'Learn more about MyBlogSite, your ultimate destination for amazing stories, insights, and
+@section('title', 'About Us - NepBlog')
+@section('meta_description', 'Learn more about NepBlog, your ultimate destination for amazing stories, insights, and
     knowledge.')
 
 @section('content')
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-[#ff2953] to-[#b81c3b] text-white py-20">
         <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">About MyBlogSite</h1>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">About NepBlog</h1>
             <p class="text-xl text-gray-300 leading-relaxed">
                 Your ultimate destination for inspiring content, expert insights, and captivating stories that will expand
                 your horizons.
@@ -22,7 +22,7 @@
             <div class="prose prose-lg max-w-none">
                 <h2 class="text-3xl font-bold text-gray-900 mb-8">Our Story</h2>
                 <p class="text-gray-600 mb-6 leading-relaxed">
-                    MyBlogSite was born from a simple idea: to create a platform where knowledge meets inspiration.
+                    NepBlog was born from a simple idea: to create a platform where knowledge meets inspiration.
                     We believe that everyone has a story worth sharing, and every reader deserves access to quality content
                     that educates, entertains, and empowers.
                 </p>
@@ -183,7 +183,7 @@
                 <div class="relative">
                     <span class="absolute -start-3 top-1 w-6 h-6 rounded-full bg-[#ff2953]"></span>
                     <h3 class="text-xl font-semibold text-gray-900">2024 — Launch</h3>
-                    <p class="text-gray-600 mt-1">We launched MyBlogSite with a mission to blend knowledge and inspiration.
+                    <p class="text-gray-600 mt-1">We launched NepBlog with a mission to blend knowledge and inspiration.
                     </p>
                 </div>
                 <div class="relative">
@@ -228,7 +228,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-8">What Readers Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @foreach ([['text' => 'MyBlogSite has transformed the way I learn and stay inspired.', 'author' => 'Aarav, Entrepreneur'], ['text' => 'Top-notch articles with real insights. Highly recommended!', 'author' => 'Maya, Marketer'], ['text' => 'Clean design, great UX, and valuable content.', 'author' => 'Daniel, Developer']] as $t)
+                @foreach ([['text' => 'NepBlog has transformed the way I learn and stay inspired.', 'author' => 'Aarav, Entrepreneur'], ['text' => 'Top-notch articles with real insights. Highly recommended!', 'author' => 'Maya, Marketer'], ['text' => 'Clean design, great UX, and valuable content.', 'author' => 'Daniel, Developer']] as $t)
                     <div class="rounded-xl border border-gray-100 p-6 shadow-sm">
                         <div class="flex items-start gap-3">
                             <i class="fas fa-quote-left text-[#ff2953] mt-1"></i>
@@ -246,7 +246,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @foreach ([['q' => 'Is MyBlogSite free to read?', 'a' => 'Yes, the majority of our content is free. We may offer optional premium features in the future.'], ['q' => 'How can I become a contributor?', 'a' => 'Visit our contact page to pitch topics. Our editorial team will get back to you.'], ['q' => 'Do you accept sponsored content?', 'a' => 'We work with select partners who share our values. Get in touch for guidelines.'], ['q' => 'How do you ensure content quality?', 'a' => 'We follow strict editorial standards and fact-check critical information.']] as $item)
+                @foreach ([['q' => 'Is NepBlog free to read?', 'a' => 'Yes, the majority of our content is free. We may offer optional premium features in the future.'], ['q' => 'How can I become a contributor?', 'a' => 'Visit our contact page to pitch topics. Our editorial team will get back to you.'], ['q' => 'Do you accept sponsored content?', 'a' => 'We work with select partners who share our values. Get in touch for guidelines.'], ['q' => 'How do you ensure content quality?', 'a' => 'We follow strict editorial standards and fact-check critical information.']] as $item)
                     <details class="group bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
                         <summary class="flex items-center justify-between cursor-pointer list-none">
                             <span class="font-semibold text-gray-900">{{ $item['q'] }}</span>
@@ -265,11 +265,11 @@
 {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "name": "About MyBlogSite",
-  "description": "Learn about MyBlogSite — our mission, values, team, and journey.",
+  "name": "About NepBlog",
+  "description": "Learn about NepBlog — our mission, values, team, and journey.",
   "publisher": {
     "@type": "Organization",
-    "name": "MyBlogSite",
+    "name": "NepBlog",
     "url": "{{ url('/') }}"
   }
 }

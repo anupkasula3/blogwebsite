@@ -1,6 +1,6 @@
 @extends('frontend.layout.main')
 
-@section('title', $post->title . ' - ' . \App\Models\Setting::get('site_name', 'MyBlogSite'))
+@section('title', $post->title . ' - ' . \App\Models\Setting::get('site_name', 'NepBlog'))
 @section('meta_description', $post->excerpt)
 @section('meta_keywords', $post->meta_keywords)
 @section('meta_author', $post->author_name)

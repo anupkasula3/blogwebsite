@@ -1,4 +1,4 @@
-# MyBlogSite - Professional Blog Platform
+# NepBlog - Professional Blog Platform
 
 A fully responsive, feature-rich blog website built with Laravel 11 and Tailwind CSS. This platform includes comprehensive SEO optimization, admin and user dashboards, advertisement management, and a complete content management system.
 
@@ -61,7 +61,7 @@ A fully responsive, feature-rich blog website built with Laravel 11 and Tailwind
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>
-cd MyBlogSite
+cd NepBlog
 ```
 
 ### 2. Install Dependencies
@@ -88,7 +88,7 @@ Edit `.env` file with your database credentials:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=myblogsite
+DB_DATABASE=NepBlog
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
@@ -102,8 +102,8 @@ MAIL_PORT=587
 MAIL_USERNAME=your_email
 MAIL_PASSWORD=your_password
 MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=contact@myblogsite.com
-MAIL_FROM_NAME="MyBlogSite"
+MAIL_FROM_ADDRESS=contact@NepBlog.com
+MAIL_FROM_NAME="NepBlog"
 ```
 
 ### 6. Run Database Setup
@@ -140,7 +140,7 @@ php artisan tinker
 ```php
 $user = \App\Models\User::create([
     'name' => 'Admin User',
-    'email' => 'admin@myblogsite.com',
+    'email' => 'admin@NepBlog.com',
     'password' => bcrypt('password'),
     'is_admin' => true,
     'is_verified' => true,
@@ -158,7 +158,7 @@ Visit `http://localhost:8000` to see your blog!
 ## 🗂️ Project Structure
 
 ```
-MyBlogSite/
+NepBlog/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/
@@ -406,6 +406,6 @@ To update the application:
 
 ---
 
-**MyBlogSite** - Your Ultimate Blog Destination 🚀
+**NepBlog** - Your Ultimate Blog Destination 🚀
 
 Built with ❤️ using Laravel 11 and Tailwind CSS

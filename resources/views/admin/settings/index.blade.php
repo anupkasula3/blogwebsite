@@ -22,7 +22,7 @@
                 <div>
                     <label for="site_name" class="block text-sm font-medium text-gray-700 mb-2">Site Name *</label>
                     <input type="text" name="site_name" id="site_name"
-                           value="{{ old('site_name', $settings->get('site_name', 'MyBlogSite')) }}"
+                           value="{{ old('site_name', $settings->get('site_name', 'NepBlog')) }}"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                            required>
                 </div>

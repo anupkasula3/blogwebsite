@@ -1,7 +1,7 @@
 @extends('frontend.layout.main')
 
 @section('title', $category->meta_title ?: $category->name . ' - ' . \App\Models\Setting::get('site_name',
-    'MyBlogSite'))
+    'NepBlog'))
 @section('meta_description',
     $category->meta_description ?:
     ($category->description ?:
