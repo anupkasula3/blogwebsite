@@ -14,7 +14,7 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="@yield('og_title', \App\Models\Setting::get('site_name', 'NepBlog'))">
     <meta property="og:description" content="@yield('og_description', \App\Models\Setting::get('default_meta_description', 'Your Ultimate Blog Destination'))">
-    <meta property="og:image" content="@yield('og_image', \App\Models\Setting::get('site_logo') ? Storage::url(\App\Models\Setting::get('site_logo')) : asset('images/default-og.jpg'))">
+    <meta property="og:image" content="@yield('og_image', \App\Models\Setting::get('site_logo') ? asset('uploads/' . \App\Models\Setting::get('site_logo')) : asset('images/default-og.jpg'))">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ \App\Models\Setting::get('site_name', 'NepBlog') }}">
@@ -23,7 +23,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('twitter_title', \App\Models\Setting::get('site_name', 'NepBlog'))">
     <meta name="twitter:description" content="@yield('twitter_description', \App\Models\Setting::get('default_meta_description', 'Your Ultimate Blog Destination'))">
-    <meta name="twitter:image" content="@yield('twitter_image', \App\Models\Setting::get('site_logo') ? Storage::url(\App\Models\Setting::get('site_logo')) : asset('images/default-twitter.jpg'))">
+    <meta name="twitter:image" content="@yield('twitter_image', \App\Models\Setting::get('site_logo') ? asset('uploads/' . \App\Models\Setting::get('site_logo')) : asset('images/default-twitter.jpg'))">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.jpg') }}">

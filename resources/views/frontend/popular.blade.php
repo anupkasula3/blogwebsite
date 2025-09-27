@@ -23,7 +23,7 @@
             <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
                 @if($post->featured_image)
                 <div class="h-48 bg-gray-200">
-                    <img src="{{ Storage::url($post->featured_image) }}"
+                    <img src="{{ asset('uploads/' . $post->featured_image) }}"
                          alt="{{ $post->title }}"
                          class="w-full h-full object-cover">
                 </div>
@@ -106,7 +106,7 @@
                onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')"
                class="block hover:opacity-90 transition-opacity">
                 @if($sidebarAd->image)
-                <img src="{{ Storage::url($sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="mx-auto mb-4 max-h-32">
+                <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}" class="mx-auto mb-4 max-h-32">
                 @endif
                 <h3 class="text-2xl font-bold mb-3">{{ $sidebarAd->title }}</h3>
                 <p class="text-lg mb-4">{{ $sidebarAd->description }}</p>

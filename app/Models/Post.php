@@ -201,16 +201,16 @@ class Post extends Model
     public function getOgImageUrlAttribute()
     {
         if ($this->og_image) {
-            return Storage::url($this->og_image);
+            return asset('uploads/' . $this->og_image);
         }
-        return $this->featured_image ? Storage::url($this->featured_image) : asset('images/default-og.jpg');
+        return $this->featured_image ? asset('uploads/' . $this->featured_image) : asset('images/default-og.jpg');
     }
 
     public function getTwitterImageUrlAttribute()
     {
         if ($this->twitter_image) {
-            return Storage::url($this->twitter_image);
+            return asset('uploads/' . $this->twitter_image);
         }
-        return $this->featured_image ? Storage::url($this->featured_image) : asset('images/default-twitter.jpg');
+        return $this->featured_image ? asset('uploads/' . $this->featured_image) : asset('images/default-twitter.jpg');
     }
 }

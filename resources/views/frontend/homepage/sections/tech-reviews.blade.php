@@ -16,7 +16,7 @@
         $slug = data_get($post, 'slug');
         $featured = data_get($post, 'featured_image');
         $excerpt = data_get($post, 'excerpt');
-        $imageUrl = $featured ? Storage::url($featured) : asset('images/default.jpg');
+        $imageUrl = $featured ? asset('uploads/' . $featured) : asset('images/default.jpg');
         $postUrl = $slug ? route('post.show', $slug) : '#';
       @endphp
       <div class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition p-4 flex flex-col">

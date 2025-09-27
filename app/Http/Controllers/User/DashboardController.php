@@ -79,7 +79,7 @@ class DashboardController extends Controller
         $data['user_id'] = auth()->id();
         $data['author_type'] = 'user';
         $data['admin_id'] = null;
-        
+
         $data['slug'] = \Str::slug($request->title);
         $data['is_approved'] = false; // Always requires re-approval
 
@@ -280,9 +280,9 @@ class DashboardController extends Controller
 
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
-                Storage::disk('public')->delete($user->avatar);
+                $this->imageService->imageDelete($user->avatar);
             }
-            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+            $data['avatar'] = $this->imageService->fileUpload($request->avatar, "avatar");
         }
 
         $user->update($data);

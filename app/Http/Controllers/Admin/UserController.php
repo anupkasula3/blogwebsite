@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\FileService\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
+    public function __construct(
+        protected ImageService $imageService
+
+    ) {
+    }
     public function index()
     {
         $users = User::withCount(['posts', 'approvedPosts', 'pendingPosts'])
@@ -22,9 +28,11 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $user->load(['posts' => function($query) {
-            $query->with(['category'])->latest();
-        }]);
+        $user->load([
+            'posts' => function ($query) {
+                $query->with(['category'])->latest();
+            }
+        ]);
 
         $stats = [
             'total_posts' => $user->total_posts_count,
@@ -102,13 +110,14 @@ class UserController extends Controller
         // Delete user's posts and associated files
         foreach ($user->posts as $post) {
             if ($post->featured_image) {
-                Storage::disk('public')->delete($post->featured_image);
+
+                $this->imageService->imageDelete($post->featured_image);
             }
             if ($post->og_image) {
-                Storage::disk('public')->delete($post->og_image);
+                $this->imageService->imageDelete($post->og_image);
             }
             if ($post->twitter_image) {
-                Storage::disk('public')->delete($post->twitter_image);
+                $this->imageService->imageDelete($post->twitter_image);
             }
         }
 

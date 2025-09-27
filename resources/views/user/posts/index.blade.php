@@ -88,17 +88,18 @@
                                             <form action="{{ route('user.posts.draft', $post) }}" method="POST"
                                                 class="inline-block">
                                                 @csrf
-                                                <button type="submit" class="text-gray-400 hover:text-yellow-600" title="Move to Drafts">
+                                                <button type="submit" class="text-gray-400 hover:text-yellow-600"
+                                                    title="Move to Drafts">
                                                     <i class="fas fa-download"></i>
                                                 </button>
                                             </form>
                                         @endif
                                         <a href="{{ route('user.posts.show', $post) }}"
-                                    class="text-gray-400 hover:text-blue-600" title="View"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{{ route('user.posts.edit', $post) }}"
-                                    class="text-gray-400 hover:text-indigo-600" title="Edit"><i
-                                        class="fas fa-edit"></i></a>
+                                            class="text-gray-400 hover:text-blue-600" title="View"><i
+                                                class="fas fa-eye"></i></a>
+                                        <a href="{{ route('user.posts.edit', $post) }}"
+                                            class="text-gray-400 hover:text-indigo-600" title="Edit"><i
+                                                class="fas fa-edit"></i></a>
                                         <button class="text-gray-400 hover:text-red-600 delete-post-btn" title="Delete"
                                             data-post-title="{{ $post->title }}"
                                             data-action="{{ route('user.posts.destroy', $post) }}"><i
@@ -124,7 +125,7 @@
                         <div class="flex items-center mb-3">
                             @if ($post->featured_image)
                                 <img class="w-10 h-10 rounded-lg object-cover mr-3"
-                                    src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}">
+                                    src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}">
                             @else
                                 <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center mr-3">
                                     <i class="fas fa-image text-gray-400"></i>
