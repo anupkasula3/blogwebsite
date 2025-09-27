@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Advertisement;
@@ -102,6 +103,8 @@ class HomeController extends Controller
         $randomQuote = $quotes->get(0) ?? null;
         $randomQuote2 = $quotes->get(1) ?? null;
 
+        $banners = Banner::first();
+
         return view('frontend.homepage.home', compact(
             'featuredPosts',
             'editorsPick',
@@ -116,7 +119,8 @@ class HomeController extends Controller
             'footerAd',
             'contentAd',
             'randomQuote',
-            'randomQuote2'
+            'randomQuote2',
+            'banners'
         ));
     }
 

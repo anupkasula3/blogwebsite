@@ -42,7 +42,7 @@
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                         <input type="text" name="title" id="title" value="{{ old('title') }}" maxlength="120"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('title') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('title') border-red-500 @enderror"
                             placeholder="Enter post title" required>
                         <div class="mt-1 flex items-center justify-between">
                             <p class="text-xs text-gray-500">Aim for a clear, concise title.</p>
@@ -56,7 +56,7 @@
                     <div>
                         <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
                         <textarea name="excerpt" id="excerpt" rows="3" maxlength="250"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('excerpt') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
                             placeholder="Brief description of the post">{{ old('excerpt') }}</textarea>
                         <div class="mt-1 flex items-center justify-between">
                             <p class="text-xs text-gray-500">A short summary shown in listings and SEO.</p>
@@ -70,7 +70,7 @@
                     <div>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                         <textarea name="content" id="content" rows="15"
-                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
+                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here..." required>{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -103,7 +103,7 @@
                     <div class="bg-gray-50 rounded-lg p-4">
                         <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
                         <select name="category_id" id="category_id"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('category_id') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('category_id') border-red-500 @enderror"
                             required>
                             <option value="">Select a category</option>
                             @foreach ($categories as $category)
@@ -126,7 +126,7 @@
                                 <label for="meta_title" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Title</label>
                                 <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title') }}" maxlength="60"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-purple-500 focus:border-transparent @error('meta_title') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_title') border-red-500 @enderror"
                                     placeholder="SEO title">
                                 <div class="mt-1 flex items-center justify-between">
                                     <p class="text-[11px] text-gray-500">Keep under 60 characters for best SERP display.</p>
@@ -141,7 +141,7 @@
                                 <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Description</label>
                                 <textarea name="meta_description" id="meta_description" rows="2" maxlength="160"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-purple-500 focus:border-transparent @error('meta_description') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description">{{ old('meta_description') }}</textarea>
                                 <div class="mt-1 flex items-center justify-between">
                                     <p class="text-[11px] text-gray-500">Ideal length 50-160 characters.</p>
@@ -157,7 +157,7 @@
                                     Keywords</label>
                                 <input type="text" name="meta_keywords" id="meta_keywords" maxlength="255"
                                     value="{{ old('meta_keywords') }}"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-purple-500 focus:border-transparent @error('meta_keywords') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_keywords') border-red-500 @enderror"
                                     placeholder="keyword1, keyword2, keyword3">
                                 <p class="mt-1 text-[11px] text-gray-500">Separate with commas.
                                 </p>
@@ -173,7 +173,7 @@
                             <button type="submit" name="action" value="draft" class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                 Save Draft
                             </button>
-                            <button type="submit" name="action" value="publish" class="px-6 py-2 ml-4 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-300">
+                            <button type="submit" name="action" value="publish" class="px-6 py-2 ml-4 text-sm font-medium text-white bg-[#ff3131] rounded-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-[#ff3131]/40">
                                 Submit for Review
                             </button>
                         </div>

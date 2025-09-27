@@ -23,7 +23,7 @@
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                         <input type="text" name="title" id="title" value="{{ old('title', $post->title) }}"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff2953] focus:border-transparent @error('title') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('title') border-red-500 @enderror"
                             placeholder="Enter post title" required>
                         @error('title')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -32,7 +32,7 @@
                     <div>
                         <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
                         <textarea name="excerpt" id="excerpt" rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff2953] focus:border-transparent @error('excerpt') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
                             placeholder="Brief description of the post">{{ old('excerpt', $post->excerpt) }}</textarea>
                         @error('excerpt')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -41,7 +41,7 @@
                     <div>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                         <textarea name="content" id="content" rows="15"
-                            class="w-full px-3 tinymce py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff2953] focus:border-transparent @error('content') border-red-500 @enderror"
+                            class="w-full px-3 tinymce py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here..." required>{{ old('content', $post->content) }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -60,7 +60,7 @@
                         </div>
                         @endif
                         <input type="file" name="featured_image" onchange="loadFile(event)" id="featured_image" accept="image/*"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff2953] focus:border-transparent @error('featured_image') border-red-500 @enderror">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('featured_image') border-red-500 @enderror">
                         <img id="output" style="width: 70px; margin-bottom: 2px;" />
                         <p class="text-sm text-gray-500 mt-1">Recommended size: 1200x630px</p>
                         @error('featured_image')
@@ -70,7 +70,7 @@
                     <div class="bg-gray-50 rounded-xl p-4 shadow-sm ring-1 ring-gray-100">
                         <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
                         <select name="category_id" id="category_id"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff2953] focus:border-transparent @error('category_id') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('category_id') border-red-500 @enderror"
                             required>
                             <option value="">Select a category</option>
                             @foreach ($categories as $category)
@@ -90,7 +90,7 @@
                                 <label for="meta_title" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Title</label>
                                 <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $post->meta_title) }}"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-[#ff2953] focus:border-transparent @error('meta_title') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_title') border-red-500 @enderror"
                                     placeholder="SEO title">
                                 @error('meta_title')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -100,7 +100,7 @@
                                 <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Description</label>
                                 <textarea name="meta_description" id="meta_description" rows="2"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-[#ff2953] focus:border-transparent @error('meta_description') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description">{{ old('meta_description', $post->meta_description) }}</textarea>
                                 @error('meta_description')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -111,7 +111,7 @@
                                     Keywords</label>
                                 <input type="text" name="meta_keywords" id="meta_keywords"
                                     value="{{ old('meta_keywords', $post->meta_keywords) }}"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-[#ff2953] focus:border-transparent @error('meta_keywords') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_keywords') border-red-500 @enderror"
                                     placeholder="keyword1, keyword2, keyword3">
                                 @error('meta_keywords')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -124,7 +124,7 @@
                             <button type="submit" name="action" value="draft" class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-300">
                                 Save as Draft
                             </button>
-                            <button type="submit" name="action" value="publish" class="px-6 py-2 ml-4 text-sm font-medium text-white bg-[#ff2953] rounded-lg hover:bg-[#e02449] focus:outline-none focus:ring-4 focus:ring-[#ff2953]/30 shadow">
+                            <button type="submit" name="action" value="publish" class="px-6 py-2 ml-4 text-sm font-medium text-white bg-[#ff3131] rounded-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-[#ff3131]/40 shadow">
                                 Update & Submit for Review
                             </button>
                         </div>

@@ -50,7 +50,7 @@ class CategoryController extends Controller
         $data['color'] = $request->input('color_hex', $request->input('color', null));
 
         if ($request->hasFile('image')) {
-            $imagePath = $this->imageservice->fileUpload($request->image, "category");
+            $imagePath = $this->imageService->fileUpload($request->image, "category");
             $data['image'] = $imagePath;
         }
 
@@ -70,7 +70,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_active' => 'boolean',
             'color' => 'nullable|string|max:20',
             'is_featured' => 'boolean',
@@ -90,9 +90,9 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
             if ($category->image) {
-                $this->imageservice->imageDelete($category->image);
+                $this->imageService->imageDelete($category->image);
             }
-            $imagePath = $this->imageservice->fileUpload($request->image, "category");
+            $imagePath = $this->imageService->fileUpload($request->image, "category");
             $data['image'] = $imagePath;
         }
 
@@ -105,7 +105,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category->image) {
-            $this->imageservice->imageDelete($category->image);
+            $this->imageService->imageDelete($category->image);
         }
         $category->delete();
         return redirect()->route('admin.categories.index')

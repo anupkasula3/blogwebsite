@@ -27,7 +27,7 @@
                         <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-lightbulb mr-1"></i>Use a compelling title that includes your target keyword for better SEO</p>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                         <input type="text" name="title" id="title" value="{{ old('title', $post->title) }}"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('title') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('title') border-red-500 @enderror"
                             placeholder="Enter post title" required>
                         @error('title')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -39,7 +39,7 @@
                         <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short description for post previews and search results (150-160 characters recommended)</p>
                         <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
                         <textarea name="excerpt" id="excerpt" rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('excerpt') border-red-500 @enderror"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
                             placeholder="Brief description of the post">{{ old('excerpt', $post->excerpt) }}</textarea>
                         @error('excerpt')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -51,7 +51,7 @@
                         <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-edit mr-1"></i>Use clear headings, bullet points, and images to make your content engaging and scannable</p>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                         <textarea name="content"  rows="15" required
-                            class="w-full px-3 tinymce py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('content') border-red-500 @enderror"
+                            class="w-full px-3 tinymce py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here...">{{ old('content', $post->content) }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -73,7 +73,7 @@
                         @endif
                         <input type="file" name="featured_image" onchange="loadFile(event)" id="featured_image"
                             accept="image/*"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('featured_image') border-red-500 @enderror">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('featured_image') border-red-500 @enderror">
                         <img id="output" style="width: 70px; margin-bottom: 2px;" />
                         @error('featured_image')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -85,7 +85,7 @@
                         <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-folder mr-1"></i>Choose the most relevant category for better organization</p>
                         <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
                         <select name="category_id" id="category_id" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('category_id') border-red-500 @enderror">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('category_id') border-red-500 @enderror">
                             <option value="">Select a category</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
@@ -107,13 +107,13 @@
                             <label class="flex items-center">
                                 <input type="radio" name="is_published" value="1"
                                     {{ old('is_published', $post->status === 'published' ? '1' : '0') == '1' ? 'checked' : '' }}
-                                    class="text-purple-600 focus:ring-purple-500">
+                                    class="text-blue-600 focus:ring-blue-500">
                                 <span class="ml-2 text-sm text-gray-700">Published</span>
                             </label>
                             <label class="flex items-center">
                                 <input type="radio" name="is_published" value="0"
                                     {{ old('is_published', $post->status === 'draft' ? '0' : '') == '0' ? 'checked' : '' }}
-                                    class="text-purple-600 focus:ring-purple-500">
+                                    class="text-blue-600 focus:ring-blue-500">
                                 <span class="ml-2 text-sm text-gray-700">Draft</span>
                             </label>
                         </div>
@@ -127,7 +127,7 @@
                         <label class="flex items-center">
                             <input type="checkbox" name="is_featured" value="1"
                                 {{ old('is_featured', $post->is_featured) ? 'checked' : '' }}
-                                class="text-purple-600 focus:ring-purple-500 rounded">
+                                class="text-blue-600 focus:ring-blue-500 rounded">
                             <span class="ml-2 text-sm font-medium text-gray-700">Featured Post</span>
                         </label>
                         <p class="text-sm text-gray-500 mt-1">Featured posts appear on the homepage</p>
@@ -144,7 +144,7 @@
                             <div>
                                 <label for="meta_title" class="block text-xs font-medium text-gray-600 mb-1">Meta Title</label>
                                 <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $post->meta_title) }}"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-purple-500 focus:border-transparent @error('meta_title') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_title') border-red-500 @enderror"
                                     placeholder="SEO title">
                                 @error('meta_title')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -153,7 +153,7 @@
                             <div>
                                 <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta Description</label>
                                 <textarea name="meta_description" id="meta_description" rows="2"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-purple-500 focus:border-transparent @error('meta_description') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description">{{ old('meta_description', $post->meta_description) }}</textarea>
                                 @error('meta_description')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -162,7 +162,7 @@
                             <div>
                                 <label for="meta_keywords" class="block text-xs font-medium text-gray-600 mb-1">Meta Keywords</label>
                                 <input type="text" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords', $post->meta_keywords) }}"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-purple-500 focus:border-transparent @error('meta_keywords') border-red-500 @enderror"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_keywords') border-red-500 @enderror"
                                     placeholder="keyword1, keyword2, keyword3">
                                 @error('meta_keywords')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -175,7 +175,7 @@
                     <div class="bg-gray-50 rounded-lg p-4">
                         <div class="flex space-x-3">
                             <button type="submit" name="action" value="update"
-                                class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                class="flex-1 bg-[#ff3131] text-white px-4 py-2 rounded-lg hover:opacity-90 transition-colors">
                                 <i class="fas fa-save mr-2"></i>
                                 Update Post
                             </button>

@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <form action="{{ route('admin.categories.update', $category) }}" method="POST" class="p-6">
+    <form action="{{ route('admin.categories.update', $category) }}" method="POST" class="p-6" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -29,7 +29,7 @@
                         Category Name <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}" required
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                            placeholder="Enter category name">
                     <p class="mt-1 text-sm text-gray-500">
                         <i class="fas fa-lightbulb mr-1"></i>
@@ -40,22 +40,7 @@
                     @enderror
                 </div>
 
-                <!-- Slug -->
-                <div>
-                    <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">
-                        URL Slug
-                    </label>
-                    <input type="text" name="slug" id="slug" value="{{ old('slug', $category->slug) }}"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                           placeholder="category-url-slug">
-                    <p class="mt-1 text-sm text-gray-500">
-                        <i class="fas fa-link mr-1"></i>
-                        URL-friendly version of the name. Leave empty to auto-generate from name
-                    </p>
-                    @error('slug')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
+
 
                 <!-- Description -->
                 <div>
@@ -63,7 +48,7 @@
                         Description
                     </label>
                     <textarea name="description" id="description" rows="4"
-                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                               placeholder="Brief description of this category">{{ old('description', $category->description) }}</textarea>
                     <p class="mt-1 text-sm text-gray-500">
                         <i class="fas fa-align-left mr-1"></i>
@@ -74,6 +59,25 @@
                     @enderror
                 </div>
 
+                <div class="mt-3">
+                    <label class='text-sm font-semibold'>Banner Image</label>
+                    <div class='w-full p-2 mt-2 mb-1 text-sm border rounded-md shadow-sm form-control border-grey-400'>
+                        <input type="file" name="image"
+                            class="image hover:border-blue-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 "
+                            onchange="loadFile(event)" />
+                    </div>
+                    <img class="oldimage" src="{{ asset('/uploads/' . $category->image) }}" alt="Card"
+                        style="width: 70px;margin-bottom:2px;">
+                    <img id="output" style="width: 70px; margin-bottom: 2px;" />
+
+
+                    @error('image')
+                        <div class="text-sm text-red-400 invalid-feedback" style="display: block;">
+                            * {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
                 <!-- Color -->
                 <div>
                     <label for="color" class="block text-sm font-medium text-gray-700 mb-2">
@@ -81,9 +85,9 @@
                     </label>
                     <div class="flex items-center space-x-3">
                         <input type="color" name="color" id="color" value="{{ old('color', $category->color) }}"
-                               class="w-16 h-10 border border-gray-300 rounded-lg cursor-pointer">
+                               class="w-16 h-10 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500">
                         <input type="text" name="color_hex" id="color_hex" value="{{ old('color', $category->color) }}"
-                               class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                                placeholder="#6B7280">
                     </div>
                     <p class="mt-1 text-sm text-gray-500">
@@ -106,7 +110,7 @@
                         <div class="flex items-center">
                             <input type="checkbox" name="is_active" id="is_active" value="1"
                                    {{ old('is_active', $category->is_active) ? 'checked' : '' }}
-                                   class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                             <label for="is_active" class="ml-2 block text-sm text-gray-700">
                                 Active Category
                             </label>
@@ -119,7 +123,7 @@
                         <div class="flex items-center">
                             <input type="checkbox" name="is_featured" id="is_featured" value="1"
                                    {{ old('is_featured', $category->is_featured) ? 'checked' : '' }}
-                                   class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                             <label for="is_featured" class="ml-2 block text-sm text-gray-700">
                                 Featured Category
                             </label>
@@ -132,7 +136,7 @@
                         <div class="flex items-center">
                             <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"
                                    {{ old('show_in_menu', $category->show_in_menu) ? 'checked' : '' }}
-                                   class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                             <label for="show_in_menu" class="ml-2 block text-sm text-gray-700">
                                 Show in Navigation Menu
                             </label>
@@ -155,7 +159,7 @@
                             </label>
                             <input type="text" name="meta_title" id="meta_title"
                                    value="{{ old('meta_title', $category->meta_title) }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                                    placeholder="SEO title for search engines">
                             <p class="mt-1 text-sm text-gray-500">
                                 <i class="fas fa-search mr-1"></i>
@@ -168,7 +172,7 @@
                                 Meta Description
                             </label>
                             <textarea name="meta_description" id="meta_description" rows="3"
-                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                                       placeholder="Brief description for search engines">{{ old('meta_description', $category->meta_description) }}</textarea>
                             <p class="mt-1 text-sm text-gray-500">
                                 <i class="fas fa-info-circle mr-1"></i>
@@ -182,7 +186,7 @@
                             </label>
                             <input type="text" name="meta_keywords" id="meta_keywords"
                                    value="{{ old('meta_keywords', $category->meta_keywords) }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                                    placeholder="keyword1, keyword2, keyword3">
                             <p class="mt-1 text-sm text-gray-500">
                                 <i class="fas fa-key mr-1"></i>
@@ -201,7 +205,7 @@
                             Icon Class
                         </label>
                         <input type="text" name="icon" id="icon" value="{{ old('icon', $category->icon) }}"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                                placeholder="fas fa-folder">
                         <p class="mt-1 text-sm text-gray-500">
                             <i class="fas fa-icons mr-1"></i>
@@ -273,7 +277,7 @@
         <div class="mt-8 flex items-center justify-between pt-6 border-t border-gray-200">
             <div class="flex items-center space-x-4">
                 <button type="submit" name="action" value="update"
-                        class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        class="bg-[#ff3131] text-white px-6 py-2 rounded-lg hover:opacity-90 transition-colors">
                     <i class="fas fa-save mr-2"></i>
                     Update Category
                 </button>

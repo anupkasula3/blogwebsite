@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AdPlacementController;
 use App\Http\Controllers\Admin\AdServeController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\VisitReportController;
 use Illuminate\Support\Facades\Route;
@@ -122,6 +123,9 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 
     // Categories
     Route::resource('categories', CategoryController::class);
+
+    // banner
+    Route::resource('banners', BannerController::class);
 
     // User Posts (separate controller, no create/store)
     Route::resource('userposts', \App\Http\Controllers\Admin\UserPostController::class)->parameters(['userposts' => 'post']);

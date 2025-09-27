@@ -54,38 +54,8 @@
 
         <div class="bg-light">
 
-            <!-- Hero Section -->
-            <section class="relative mx-auto max-w-screen-2xl">
-                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
-                <img src="https://placehold.co/1920x1080"
-                    alt="Aerial view of a modern workspace with laptop, notebooks, and coffee cup on a wooden desk"
-                    class="w-full h-96 sm:h-80 md:h-[28rem] lg:h-[32rem] object-cover">
-                <div class="absolute inset-0">
-                    <div class="max-w-screen-2xl mx-auto h-full px-4  flex items-center">
-                        <div class="max-w-2xl text-center md:text-left">
-                            <span
-                                class="text-primary  py-1 rounded-full text-xs sm:text-sm font-semibold mb-2 inline-block">Featured
-                                Post</span>
-                            <h2
-                                class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
-                                The
-                                Ultimate Guide to Professional Blogging Success</h2>
-                            <p class="text-white/90 text-sm sm:text-base md:text-lg mb-4 sm:mb-6">Learn how to create
-                                compelling content that engages your audience and
-                                grows your brand. Discover proven strategies used by industry leaders.</p>
-                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                                <button type="button" aria-label="Read Article"
-                                    class="w-full sm:w-auto bg-primary text-white px-5 sm:px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors text-sm sm:text-base">Read
-                                    Article</button>
-                                <button type="button" aria-label="Save for later"
-                                    class="w-full sm:w-auto bg-transparent border-2 border-white/80 text-white px-5 sm:px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-dark transition-colors flex items-center justify-center gap-2 text-sm sm:text-base">
-                                    <i class="fas fa-bookmark"></i> Save for later
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            @include("frontend.homepage.sections.banner")
+           
 
 
 
@@ -360,7 +330,7 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                         @foreach ($popularPosts->take(8) as $key => $post)
-                           @include('frontend.component.postcomponent')
+                            @include('frontend.component.postcomponent')
 
                             <!-- Inline Ad after 4th article -->
                             @if ($key == 3)

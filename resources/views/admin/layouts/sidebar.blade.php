@@ -19,9 +19,13 @@
             </div>
         </div>
         <nav class="flex flex-col gap-1 text-sm">
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-800 transition">
+            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.dashboard') ? 'bg-slate-800 text-white' : '' }}">
                 <i class="fas fa-tachometer-alt text-xs"></i>
                 <span class="text-xs font-medium">Dashboard</span>
+            </a>
+            <a href="{{ route('admin.banners.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.banners.*') ? 'bg-slate-800 text-white' : '' }}">
+                <i class="fas fa-tachometer-alt text-xs"></i>
+                <span class="text-xs font-medium">Banners</span>
             </a>
             <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">Content</div>
             <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.categories.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
@@ -64,7 +68,7 @@
                 <span class="text-sm">Settings</span>
             </a>
 
-          
+
         </nav>
     </div>
 </div>
