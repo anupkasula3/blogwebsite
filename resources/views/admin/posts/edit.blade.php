@@ -128,7 +128,7 @@
                             <input type="checkbox" name="is_featured" value="1"
                                 {{ old('is_featured', $post->is_featured) ? 'checked' : '' }}
                                 class="text-blue-600 focus:ring-blue-500 rounded">
-                            <span class="ml-2 text-sm font-medium text-gray-700">Featured Post</span>
+                            <span class="ml-2 text-sm font-medium text-gray-700">Breaking  News</span>
                         </label>
                         <p class="text-sm text-gray-500 mt-1">Featured posts appear on the homepage</p>
                         @error('is_featured')
