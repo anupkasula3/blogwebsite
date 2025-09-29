@@ -325,22 +325,17 @@
     </script>
     @endif
 </head>
-
 <body class="bg-gray-50 text-gray-900">
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="readingProgress"></div>
 
-    <div class="z-[9999] sticky top-0 shadow">
-
-        <!-- Header -->
-        @include('frontend.layout.header')
-    </div>
+    <!-- Header -->
+    @include('frontend.layout.header')
 
     <!-- Main Content -->
     <main class="min-h-screen z-[10]">
         @yield('content')
     </main>
-
     <!-- Footer -->
     @include('frontend.layout.footer')
 

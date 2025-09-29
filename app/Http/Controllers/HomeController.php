@@ -58,6 +58,7 @@ class HomeController extends Controller
 
         $latestPosts = Post::with(['category', 'user', 'admin'])
             ->published()
+            ->featured()
             ->latest('published_at')
             ->take(8)
             ->get();
@@ -87,7 +88,7 @@ class HomeController extends Controller
             $category->latest_posts = Post::where('category_id', $category->id)
                 ->published()
                 ->latest('published_at')
-                ->take(3)
+                ->take(8)
                 ->get();
         });
 

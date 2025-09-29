@@ -9,10 +9,10 @@
 @section('content')
     <div class="bg-gray-50 min-h-screen">
         <!-- Breaking News Ticker -->
-        <div class="bg-primary text-white py-2 overflow-hidden">
-            <div class="max-w-screen-2xl mx-auto px-4">
+        <div class="bg-black text-white py-2 overflow-hidden">
+            <div class=" ">
                 <div class="flex items-center">
-                    <span class="bg-white z-[999] text-primary  py-1 text-sm font-bold mr-4 rounded">BREAKING</span>
+                    <span class="bg-white z-[999] text-primary  py-1 text-sm font-bold mr-4 p-2 rounded">BREAKING</span>
                     <div class="marquee">
                         <span
                             class="text-sm">{{ $featuredPosts->first()->title ?? 'Latest news and updates from our platform' }}</span>
@@ -52,31 +52,35 @@
 
 
 
-        <div class="bg-light">
+        <div class="bg-white">
 
-            @include("frontend.homepage.sections.banner")
-           
+            
 
+        @include('frontend.homepage.sections.banner')
 
 
             <!-- Latest News Section -->
             <section class="py-8 sm:py-10 md:py-12 bg-white">
                 <div class="max-w-screen-2xl mx-auto px-4 ">
                     <!-- Section Header with News Portal Style -->
-                    <div class="border-b-4 border-primary mb-8">
-                        <div class="flex  justify-between items-center gap-3 pb-4">
-                            <div class="flex items-center gap-2 sm:gap-4 flex-wrap">
-                                <h2
-                                    class="text-sm sm:text-3xl md:text-4xl font-bold text-gray-900 uppercase tracking-wide leading-tight">
-                                    Latest News</h2>
-
+                    <div class="border-b-2 border-primary mb-8">
+                        <div class="flex justify-between items-center gap-3 pb-2">
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center text-xl gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                                    <i class="fas fa-newspaper"></i>
+                                    Latest News
+                                </span>
+                          
                             </div>
                             <a href="{{ route('all-posts') }}"
-                                class=" text-center bg-primary text-white max-sm:text-xs px-5 sm:px-6 py-2 rounded hover:bg-primary transition-colors font-semibold text-sm uppercase tracking-wide">
-                                All News
+                               class="inline-flex items-center gap-2 bg-primary text-white px-4 sm:px-5 py-2 rounded-md hover:bg-primary/90 transition-colors text-sm font-semibold">
+                               <span>View All</span>
+                               <i class="fas fa-arrow-right text-xs"></i>
                             </a>
                         </div>
                     </div>
+
+                    
 
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-3">
                         <!-- Main News Content (3/4) -->
@@ -291,6 +295,12 @@
             </section>
 
 
+
+@include('frontend.homepage.sections.categories-preview')
+
+
+
+            
             <!-- Most Read Stories Section -->
             <section class="py-8 bg-gray-100">
                 <div class="max-w-screen-2xl mx-auto px-4">

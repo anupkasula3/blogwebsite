@@ -18,7 +18,7 @@
 
     <div class=" max-w-screen-2xl mx-auto px-4 ">
         <!-- Top Row: Logo + Banner Ad (ad on top for mobile) -->
-        <div class="grid grid-cols-12 gap-4 items-center py-2">
+        <div class="grid grid-cols-12 gap-4 items-center py-2" x-show="!scrolled" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2">
 
             <div class="col-span-12 order-1 lg:order-2 lg:col-span-8  overflow-hidden">
                 <script src="https://adnebyte.nepbyte.com/ads/embed/6e189765-3196-4da1-a542-5bc5d4708658.js?count=1"></script>
@@ -42,9 +42,9 @@
 
         <!-- Bottom Row: Navigation + Search/Auth -->
         <div class="flex items-center justify-between py-3 border-t border-gray-100">
-            <a href="/" class="logo block lg:hidden d-flex align-items-center me-auto me-xl-0">
+                <a href="/" class="logo block lg:hidden d-flex align-items-center me-auto me-xl-0">
 
-                <img src="{{ asset('images/logos.png') }}" style="width: 200px; height: auto; max-height: 80px;"
+                <img src="{{ asset('images/logos.png') }}" style="width: 150px; height: auto; max-height: 80px;"
                     alt="NepByte Logo">
             </a>
 
@@ -55,8 +55,8 @@
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ url('/') }}"
                     class="{{ request()->is('/') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                    aria-current="{{ request()->is('/') ? 'page' : false }}">Home</a>
-                <div class="relative" x-data="{ catOpen: false }" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
+                    aria-current="{{ request()->is('/') ? 'page' : false }}">News</a>
+                <!-- <div class="relative" x-data="{ catOpen: false }" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
                     <a href="{{ route('categories.index') }}"
                         class="{{ request()->routeIs('categories.*') ? 'text-primary border-primary' : '' }} {{ $navLink }} flex items-center gap-2">
                         Category
@@ -74,16 +74,22 @@
                             class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-primary transition text-center">View
                             all categories</a> --}}
                     </div>
-                </div>
-                <a href="{{ url('/about') }}"
-                    class="{{ request()->is('about') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                    aria-current="{{ request()->is('about') ? 'page' : false }}">About</a>
-                <a href="{{ url('/latest') }}"
+                </div> -->
+
+                @foreach($categories as $category)
+    <a href="{{ route('category.show', $category->slug) }}"
+       class="{{ request()->is('category/'.$category->slug) ? 'text-primary border-primary' : '' }} {{ $navLink }}"
+       aria-current="{{ request()->is('category/'.$category->slug) ? 'page' : false }}">
+       {{ $category->name }}
+    </a>
+@endforeach
+
+                <!-- <a href="{{ url('/latest') }}"
                     class="{{ request()->is('latest') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('latest') ? 'page' : false }}">Latest News</a>
                 <a href="{{ url('/contact') }}"
                     class="{{ request()->is('contact') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                    aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a>
+                    aria-current="{{ request()->is('contact') ? 'page' : false }}">Contact</a> -->
                 <!-- <a href="{{ url('/pages') }}"
                     class="{{ request()->is('pages*') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('pages*') ? 'page' : false }}">Pages</a> -->
@@ -133,14 +139,20 @@
                             </form>
                         </div>
                     @else
-                        <a href="{{ route('login') }}"
-                            class="px-5 py-2.5 border  border-primary text-primary font-semibold text-sm rounded-full hover:bg-primary hover:text-[#ffffff] transition-all duration-300 hover:shadow-lg">
-                            Sign In
-                        </a>
-                        {{-- <a href="{{ route('register') }}"
-                            class="px-5 py-2.5 bg-primary text-white font-semibold text-sm rounded-full transition-all duration-300 hover:shadow-lg transform hover:scale-105">
-                            Get Started
-                        </a> --}}
+                    <a href="{{ route('login') }}"
+   class="px-5 py-2.5 border border-primary text-primary font-semibold text-sm rounded-full 
+          hover:text-white transition-all duration-300 hover:shadow-lg 
+          sm:px-4 sm:py-2 sm:text-xs">
+   Sign In
+</a>
+
+<a href="{{ route('register') }}"
+   class="px-5 py-2.5 bg-primary text-white font-semibold text-sm rounded-full 
+          transition-all duration-300 hover:shadow-lg transform hover:scale-105 
+          sm:px-4 sm:py-2 sm:text-xs">
+   SignUp
+</a>
+
                     @endauth
                 </div>
 
