@@ -38,7 +38,7 @@
                     {{ $post->excerpt }}
                 </p>
                 <div class="flex flex-wrap justify-center gap-2 text-xs sm:text-sm font-medium w-full">
-                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow">
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow meta-chip">
                         @if ($post->isAdminPost())
                             <span class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center"><i
                                     class="fas fa-user-shield text-rose-600 text-sm"></i></span>
@@ -48,13 +48,21 @@
                         @endif
                         <span class="font-semibold text-gray-800">{{ $post->author_name }}</span>
                     </div>
-                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow">
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow meta-chip">
                         <i class="fas fa-calendar-alt text-rose-500"></i>
                         <span>{{ $post->published_at->format('M j, Y') }}</span>
                     </div>
-                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow">
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow meta-chip">
                         <i class="fas fa-eye text-rose-500"></i>
                         <span>{{ number_format($post->views_count) }} views</span>
+                    </div>
+                    @php
+                        $wordCount = str_word_count(strip_tags($post->content));
+                        $readingTime = max(1, (int) ceil($wordCount / 200));
+                    @endphp
+                    <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow meta-chip">
+                        <i class="fas fa-clock text-rose-500"></i>
+                        <span>{{ $readingTime }} min read</span>
                     </div>
                     @if ($post->is_featured)
                         <div class="flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full shadow">
@@ -83,15 +91,15 @@
 
         <!-- Post Content -->
         <section class=" bg-white">
-            <div class="px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div class=" px-4">
+                <div class="grid  grid-cols-1 lg:grid-cols-3 gap-12">
                     <!-- Main Content -->
                     <div class="lg:col-span-2">
-                        <div class=" p-6 md:p-10 mb-8">
+                        <div class="  mb-6">
                             @if ($post->featured_image)
-                                <div class="mb-8">
+                                <div class="mb-6">
                                     <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                                        class="w-full h-96 object-contain rounded-xl border-4 border-white ">
+                                        class="w-full rounded-xl border-4 border-white ">
                                 </div>
                             @endif
 
@@ -128,7 +136,7 @@
                             </article>
 
                             <!-- Below Content Advertisement (728x90) -->
-                            <div class="mt-10 flex justify-center">
+                            <div class="mt-8 flex justify-center">
                                 <div class="ad-box ad-728x90">
                                     <div class="ad-label">ADVERTISEMENT</div>
                                     @if (isset($belowContentAd) && $belowContentAd)
@@ -151,7 +159,7 @@
                                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach (explode(',', $post->tags) as $tag)
-                                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-rose-50 hover:text-rose-700 transition">
                                                 {{ trim($tag) }}
                                             </span>
                                         @endforeach
@@ -163,22 +171,22 @@
                             <div class="mt-8 pt-8 border-t border-gray-200">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this post</h3>
                                 <div class="flex flex-wrap gap-3">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank" class="share-btn bg-[#1877F2]">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank" rel="noopener" class="share-btn bg-[#1877F2]" aria-label="Share on Facebook">
                                         <i class="fab fa-facebook-f"></i><span>Facebook</span>
                                     </a>
-                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" class="share-btn bg-[#1DA1F2]">
+                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" rel="noopener" class="share-btn bg-[#1DA1F2]" aria-label="Share on Twitter/X">
                                         <i class="fab fa-x-twitter"></i><span>Twitter/X</span>
                                     </a>
-                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}" target="_blank" class="share-btn bg-[#0A66C2]">
+                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}" target="_blank" rel="noopener" class="share-btn bg-[#0A66C2]" aria-label="Share on LinkedIn">
                                         <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
                                     </a>
-                                    <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title.' '.request()->url()) }}" target="_blank" class="share-btn bg-[#25D366]">
+                                    <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title.' '.request()->url()) }}" target="_blank" rel="noopener" class="share-btn bg-[#25D366]" aria-label="Share on WhatsApp">
                                         <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
                                     </a>
-                                    <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" class="share-btn bg-[#229ED9]">
+                                    <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" rel="noopener" class="share-btn bg-[#229ED9]" aria-label="Share on Telegram">
                                         <i class="fab fa-telegram-plane"></i><span>Telegram</span>
                                     </a>
-                                    <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}" target="_blank" class="share-btn bg-[#FF4500]">
+                                    <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}" target="_blank" rel="noopener" class="share-btn bg-[#FF4500]" aria-label="Share on Reddit">
                                         <i class="fab fa-reddit-alien"></i><span>Reddit</span>
                                     </a>
                                     <a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}" class="share-btn bg-gray-700">
@@ -208,31 +216,51 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-6 bg-white rounded-xl p-4 sm:p-6 shadow hover:shadow-lg transition-shadow">
+                                <div class="mt-6 l p-4 ">
                                     <div class="flex items-center justify-between mb-4">
                                         <h3 class="text-lg font-semibold text-gray-900">Related Posts</h3>
                                         <a href="{{ route('category.show', $post->category->slug) }}" class="text-sm text-[#ff2953] hover:text-[#e02448]">More in {{ $post->category->name }} →</a>
                                     </div>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         @foreach ($relatedPosts as $relatedPost)
-                                            <article class="group rounded-lg overflow-hidden border border-gray-100 hover:border-rose-200 transition">
-                                                <a href="{{ route('post.show', $relatedPost->slug) }}" class="block">
-                                                    @if ($relatedPost->featured_image)
-                                                        <img src="{{ asset('uploads/' . $relatedPost->featured_image) }}" alt="{{ $relatedPost->title }}" class="w-full h-40 object-cover">
-                                                    @endif
-                                                    <div class="p-3">
-                                                        <h4 class="font-semibold text-gray-900 group-hover:text-[#ff2953] transition line-clamp-2">{{ $relatedPost->title }}</h4>
-                                                        <div class="mt-1 flex items-center text-xs text-gray-500 gap-2">
-                                                            <span>{{ $relatedPost->published_at->diffForHumans() }}</span>
-                                                            <span>•</span>
-                                                            <span>{{ number_format($relatedPost->views_count) }} views</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </article>
+                                        @include("frontend.component.postcomponent")
                                         @endforeach
                                     </div>
                                 </div>
+                            @endif
+
+                            <!-- Prev / Next Navigation -->
+                            @if (isset($prevPost) || isset($nextPost))
+                                <nav class="mt-10 p-4 sm:p-6 bg-white rounded-xl border border-gray-100 shadow-sm">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            @if (isset($prevPost))
+                                                <a href="{{ route('post.show', $prevPost->slug) }}" class="group flex items-center gap-3">
+                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-600">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </span>
+                                                    <div>
+                                                        <p class="text-xs text-gray-500">Previous</p>
+                                                        <p class="text-sm font-medium text-gray-900 group-hover:text-[#ff2953] line-clamp-2">{{ $prevPost->title }}</p>
+                                                    </div>
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <div class="text-right">
+                                            @if (isset($nextPost))
+                                                <a href="{{ route('post.show', $nextPost->slug) }}" class="group flex items-center justify-end gap-3">
+                                                    <div>
+                                                        <p class="text-xs text-gray-500">Next</p>
+                                                        <p class="text-sm font-medium text-gray-900 group-hover:text-[#ff2953] line-clamp-2">{{ $nextPost->title }}</p>
+                                                    </div>
+                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-600">
+                                                        <i class="fas fa-arrow-right"></i>
+                                                    </span>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </nav>
                             @endif
                         </div>
                     </div>
@@ -332,6 +360,8 @@
                 </div>
             </div>
 
+
+
             @push('scripts')
                     <script>
                         // Reading Progress Bar
@@ -380,6 +410,7 @@
                                     })
                                 });
                             });
+
                         });
 
                         // Track ad clicks
@@ -432,6 +463,12 @@
                             border-radius: 8px;
                         }
 
+                        /* Meta chips */
+                        .meta-chip {
+                            border: 1px solid rgba(255, 41, 83, 0.12);
+                            box-shadow: 0 2px 10px rgba(255, 41, 83, 0.07);
+                        }
+
                         /* Ad sizes */
                         .ad-728x90 {
                             width: 100%;
@@ -454,6 +491,13 @@
                             margin: 0 auto;
                         }
 
+                        .ad-320x50 {
+                            width: 100%;
+                            max-width: 320px;
+                            height: 50px;
+                            margin: 0 auto;
+                        }
+
                         /* Share buttons */
                         .share-btn {
                             display: inline-flex;
@@ -468,6 +512,8 @@
                         }
                         .share-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
                         .share-btn i { font-size: 16px; }
+
+
 
                         /* Copy toast */
                         .copy-toast {
@@ -569,6 +615,8 @@
                             border-radius: 0.5rem;
                             margin: 2rem 0;
                         }
+
+
                     </style>
                 @endpush
         </section>

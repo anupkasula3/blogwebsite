@@ -69,46 +69,122 @@
         :root {
             --primary: #ff2953;
             --primary-contrast: #ffffff;
-            --primary-hover: #e0244b; /* slightly darker for hover */
+            --primary-hover: #e0244b;
+            /* slightly darker for hover */
         }
 
         /* Primary utility classes */
-        .text-primary { color: var(--primary) !important; }
-        .bg-primary { background-color: var(--primary) !important; }
-        .border-primary { border-color: var(--primary) !important; }
+        .text-primary {
+            color: var(--primary) !important;
+        }
 
-        .hover\:text-primary:hover { color: var(--primary) !important; }
-        .hover\:bg-primary:hover { background-color: var(--primary) !important; }
-        .hover\:border-primary:hover { border-color: var(--primary) !important; }
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
 
-        .hover\:bg-primary-contrast:hover { background-color: var(--primary-contrast) !important; }
-        .text-on-primary { color: var(--primary-contrast) !important; }
+        .border-primary {
+            border-color: var(--primary) !important;
+        }
+
+        .hover\:text-primary:hover {
+            color: var(--primary) !important;
+        }
+
+        .hover\:bg-primary:hover {
+            background-color: var(--primary) !important;
+        }
+
+        .hover\:border-primary:hover {
+            border-color: var(--primary) !important;
+        }
+
+        .hover\:bg-primary-contrast:hover {
+            background-color: var(--primary-contrast) !important;
+        }
+
+        .text-on-primary {
+            color: var(--primary-contrast) !important;
+        }
 
         /* Global aliases: map common accent classes to primary to avoid editing every file */
         /* Blue accents to primary */
-        .text-blue-600 { color: var(--primary) !important; }
-        .hover\:text-blue-600:hover { color: var(--primary) !important; }
-        .text-blue-700 { color: var(--primary) !important; }
-        .hover\:text-blue-700:hover { color: var(--primary) !important; }
-        .bg-blue-600 { background-color: var(--primary) !important; }
-        .hover\:bg-blue-600:hover { background-color: var(--primary) !important; }
-        .border-blue-600 { border-color: var(--primary) !important; }
-        .hover\:border-blue-600:hover { border-color: var(--primary) !important; }
-        .focus\:ring-blue-500:focus { --tw-ring-color: var(--primary) !important; }
+        .text-blue-600 {
+            color: var(--primary) !important;
+        }
+
+        .hover\:text-blue-600:hover {
+            color: var(--primary) !important;
+        }
+
+        .text-blue-700 {
+            color: var(--primary) !important;
+        }
+
+        .hover\:text-blue-700:hover {
+            color: var(--primary) !important;
+        }
+
+        .bg-blue-600 {
+            background-color: var(--primary) !important;
+        }
+
+        .hover\:bg-blue-600:hover {
+            background-color: var(--primary) !important;
+        }
+
+        .border-blue-600 {
+            border-color: var(--primary) !important;
+        }
+
+        .hover\:border-blue-600:hover {
+            border-color: var(--primary) !important;
+        }
+
+        .focus\:ring-blue-500:focus {
+            --tw-ring-color: var(--primary) !important;
+        }
 
         /* Pink accents to primary */
-        .text-pink-600 { color: var(--primary) !important; }
-        .bg-pink-600 { background-color: var(--primary) !important; }
-        .hover\:bg-pink-600:hover { background-color: var(--primary) !important; }
-        .hover\:text-pink-600:hover { color: var(--primary) !important; }
+        .text-pink-600 {
+            color: var(--primary) !important;
+        }
+
+        .bg-pink-600 {
+            background-color: var(--primary) !important;
+        }
+
+        .hover\:bg-pink-600:hover {
+            background-color: var(--primary) !important;
+        }
+
+        .hover\:text-pink-600:hover {
+            color: var(--primary) !important;
+        }
 
         /* Purple accents to primary (for legacy forms/buttons) */
-        .text-purple-600 { color: var(--primary) !important; }
-        .hover\:text-purple-500:hover { color: var(--primary) !important; }
-        .focus\:ring-purple-500:focus { --tw-ring-color: var(--primary) !important; }
-        .text-purple-300 { color: color-mix(in srgb, var(--primary) 50%, white) !important; }
-        .group:hover .group-hover\:text-purple-200 { color: color-mix(in srgb, var(--primary) 20%, white) !important; }
-        .focus\:border-purple-500:focus { border-color: var(--primary) !important; }
+        .text-purple-600 {
+            color: var(--primary) !important;
+        }
+
+        .hover\:text-purple-500:hover {
+            color: var(--primary) !important;
+        }
+
+        .focus\:ring-purple-500:focus {
+            --tw-ring-color: var(--primary) !important;
+        }
+
+        .text-purple-300 {
+            color: color-mix(in srgb, var(--primary) 50%, white) !important;
+        }
+
+        .group:hover .group-hover\:text-purple-200 {
+            color: color-mix(in srgb, var(--primary) 20%, white) !important;
+        }
+
+        .focus\:border-purple-500:focus {
+            border-color: var(--primary) !important;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -228,7 +304,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: left 0.5s;
         }
 
@@ -250,7 +326,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
         }
 
@@ -265,12 +341,29 @@
             animation: slideInLeft 0.3s ease forwards;
         }
 
-        .mobile-menu-item:nth-child(1) { animation-delay: 0.1s; }
-        .mobile-menu-item:nth-child(2) { animation-delay: 0.2s; }
-        .mobile-menu-item:nth-child(3) { animation-delay: 0.3s; }
-        .mobile-menu-item:nth-child(4) { animation-delay: 0.4s; }
-        .mobile-menu-item:nth-child(5) { animation-delay: 0.5s; }
-        .mobile-menu-item:nth-child(6) { animation-delay: 0.6s; }
+        .mobile-menu-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .mobile-menu-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .mobile-menu-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .mobile-menu-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .mobile-menu-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .mobile-menu-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
 
         @keyframes slideInLeft {
             to {
@@ -299,13 +392,22 @@
         }
 
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 
     @stack('styles')
+    @include('frontend.ads.sticky-footer-styles')
 
     <!-- Schema Markup -->
     @if (\App\Models\Setting::get('enable_schema_markup', true))
@@ -327,6 +429,10 @@
 </head>
 
 <body class="bg-gray-50 text-gray-900">
+
+    @include('frontend.ads.sticky-footer')
+
+    
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="readingProgress"></div>
 
@@ -348,6 +454,7 @@
     <!-- Alpine.js is already loaded in header -->
 
     @stack('scripts')
+    @include('frontend.ads.sticky-footer-scripts')
 
     <!-- Advertisement Tracking Script -->
     <script>

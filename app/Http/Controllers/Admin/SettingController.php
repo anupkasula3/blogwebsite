@@ -11,7 +11,8 @@ class SettingController extends Controller
 {
     public function index()
     {
-        $settings = Setting::all()->groupBy('group');
+        $settings = Setting::all();
+        // dd($settings);
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -25,6 +26,7 @@ class SettingController extends Controller
             'contact_email' => 'nullable|email',
             'contact_phone' => 'nullable|string',
             'contact_address' => 'nullable|string',
+            'contact_working_hours' => 'nullable|string',
             'social_facebook' => 'nullable|url',
             'social_twitter' => 'nullable|url',
             'social_instagram' => 'nullable|url',
@@ -55,7 +57,7 @@ class SettingController extends Controller
         // Update each setting individually
         $fields = [
             'site_name', 'site_description', 'site_keywords', 'site_url',
-            'contact_email', 'contact_phone', 'contact_address',
+            'contact_email', 'contact_phone', 'contact_address', 'contact_working_hours',
             'social_facebook', 'social_twitter', 'social_instagram', 'social_linkedin', 'social_youtube', 'social_github',
             'google_analytics', 'google_search_console',
             'posts_per_page', 'featured_posts_count', 'latest_posts_count',
