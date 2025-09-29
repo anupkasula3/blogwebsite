@@ -106,6 +106,14 @@ class HomeController extends Controller
 
         $banners = Banner::first();
 
+        // Stories: group latest posts into chunks of 3
+        $storyPosts = Post::with(['category'])
+            ->published()
+            ->latest('published_at')
+            ->take(24)
+            ->get();
+        $storyGroups = $storyPosts->chunk(3);
+
         return view('frontend.homepage.home', compact(
             'featuredPosts',
             'editorsPick',
@@ -121,7 +129,8 @@ class HomeController extends Controller
             'contentAd',
             'randomQuote',
             'randomQuote2',
-            'banners'
+            'banners',
+            'storyGroups'
         ));
     }
 
