@@ -141,36 +141,44 @@
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900 mb-3">Follow Us</h3>
                             <div class="flex space-x-3">
-                                @if(\App\Models\Setting::get('facebook_url'))
-                                <a href="{{ \App\Models\Setting::get('facebook_url') }}" target="_blank" aria-label="Facebook"
+                                @php
+                                    $fb = \App\Models\Setting::get('social_facebook') ?: \App\Models\Setting::get('facebook_url');
+                                    $tw = \App\Models\Setting::get('social_twitter') ?: \App\Models\Setting::get('twitter_url');
+                                    $ig = \App\Models\Setting::get('social_instagram') ?: \App\Models\Setting::get('instagram_url');
+                                    $li = \App\Models\Setting::get('social_linkedin') ?: \App\Models\Setting::get('linkedin_url');
+                                    $yt = \App\Models\Setting::get('social_youtube') ?: \App\Models\Setting::get('youtube_url');
+                                @endphp
+
+                                @if($fb)
+                                <a href="{{ $fb }}" target="_blank" aria-label="Facebook"
                                    class="social-btn w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                                 @endif
 
-                                @if(\App\Models\Setting::get('twitter_url'))
-                                <a href="{{ \App\Models\Setting::get('twitter_url') }}" target="_blank" aria-label="Twitter"
+                                @if($tw)
+                                <a href="{{ $tw }}" target="_blank" aria-label="Twitter"
                                    class="social-btn w-10 h-10 bg-blue-400 rounded-lg flex items-center justify-center text-white">
                                     <i class="fab fa-twitter"></i>
                                 </a>
                                 @endif
 
-                                @if(\App\Models\Setting::get('instagram_url'))
-                                <a href="{{ \App\Models\Setting::get('instagram_url') }}" target="_blank" aria-label="Instagram"
+                                @if($ig)
+                                <a href="{{ $ig }}" target="_blank" aria-label="Instagram"
                                    class="social-btn w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center text-white">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                                 @endif
 
-                                @if(\App\Models\Setting::get('linkedin_url'))
-                                <a href="{{ \App\Models\Setting::get('linkedin_url') }}" target="_blank" aria-label="LinkedIn"
+                                @if($li)
+                                <a href="{{ $li }}" target="_blank" aria-label="LinkedIn"
                                    class="social-btn w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center text-white">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
                                 @endif
 
-                                @if(\App\Models\Setting::get('youtube_url'))
-                                <a href="{{ \App\Models\Setting::get('youtube_url') }}" target="_blank" aria-label="YouTube"
+                                @if($yt)
+                                <a href="{{ $yt }}" target="_blank" aria-label="YouTube"
                                    class="social-btn w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center text-white">
                                     <i class="fab fa-youtube"></i>
                                 </a>

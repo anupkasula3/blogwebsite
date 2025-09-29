@@ -20,29 +20,45 @@
             <!-- Brand Section -->
             <div class="lg:col-span-1">
                 <a href="{{ route('home') }}" class="logo  d-flex align-items-center me-auto me-xl-0">
-                    <img src="{{ asset('images/NepBlog_white.png') }}" style="width: 200px; height: auto; max-height: 80px;padding-bottom: 2rem;"
-                        alt="NepBlog Logo">
+                    <img src="{{ \App\Models\Setting::get('site_logo') ? asset('storage/' . \App\Models\Setting::get('site_logo')) : asset('images/NepBlog_white.png') }}" style="width: 200px; height: auto; max-height: 80px;padding-bottom: 2rem;"
+                        alt="{{ \App\Models\Setting::get('site_name', 'NepBlog') }} Logo">
                 </a>
                 <p class="text-gray-400 mb-6 leading-relaxed">
-                    Your ultimate destination for amazing stories, insights, and knowledge. Discover content that
-                    inspires, educates, and entertains.
+                    {{ \App\Models\Setting::get('site_description', 'Your ultimate destination for amazing stories, insights, and knowledge. Discover content that inspires, educates, and entertains.') }}
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-facebook-f text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-linkedin-in text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-youtube text-xl"></i>
-                    </a>
+                    @php
+                        $fb = \App\Models\Setting::get('social_facebook') ?: \App\Models\Setting::get('facebook_url');
+                        $tw = \App\Models\Setting::get('social_twitter') ?: \App\Models\Setting::get('twitter_url');
+                        $ig = \App\Models\Setting::get('social_instagram') ?: \App\Models\Setting::get('instagram_url');
+                        $li = \App\Models\Setting::get('social_linkedin') ?: \App\Models\Setting::get('linkedin_url');
+                        $yt = \App\Models\Setting::get('social_youtube') ?: \App\Models\Setting::get('youtube_url');
+                    @endphp
+                    @if($fb)
+                        <a href="{{ $fb }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                    @endif
+                    @if($tw)
+                        <a href="{{ $tw }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    @endif
+                    @if($ig)
+                        <a href="{{ $ig }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    @endif
+                    @if($li)
+                        <a href="{{ $li }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    @endif
+                    @if($yt)
+                        <a href="{{ $yt }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
 
@@ -126,15 +142,15 @@
                 <div class="mt-6 space-y-2">
                     <div class="flex items-center space-x-3 text-gray-400">
                         <i class="fas fa-envelope"></i>
-                        <span>contact@NepBlog.com</span>
+                        <span>{{ \App\Models\Setting::get('contact_email', 'contact@NepBlog.com') }}</span>
                     </div>
                     <div class="flex items-center space-x-3 text-gray-400">
                         <i class="fas fa-phone"></i>
-                        <span>+1 (555) 123-4567</span>
+                        <span>{{ \App\Models\Setting::get('contact_phone', '+1 (555) 123-4567') }}</span>
                     </div>
                     <div class="flex items-center space-x-3 text-gray-400">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>123 Blog Street, Content City</span>
+                        <span>{{ \App\Models\Setting::get('contact_address', '123 Blog Street, Content City') }}</span>
                     </div>
                 </div>
             </div>
@@ -144,7 +160,7 @@
         <div class="border-t border-gray-800 mt-12 pt-8">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div class="text-gray-400 text-sm">
-                    © {{ date('Y') }} NepBlog. All rights reserved.
+                    © {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'NepBlog') }}. All rights reserved.
                 </div>
                 <div class="flex items-center space-x-6 text-sm">
                     <a href="{{ route('privacy') }}" class="text-gray-400 hover:text-white transition-colors">
