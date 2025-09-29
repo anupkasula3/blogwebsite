@@ -243,58 +243,7 @@ Route::prefix('api')->group(function () {
     Route::get('/notifications/unread-count', [\App\Http\Controllers\NotificationController::class, 'getUnreadCount']);
     Route::get('/notifications/latest', [\App\Http\Controllers\NotificationController::class, 'getLatestNotifications']);
 
-    // Proxy for external stock API to avoid CORS in the browser
-    Route::get('/stocks', function () {
-        try {
-            $response = Http::withHeaders([
-                'Accept' => 'application/json',
-                'User-Agent' => 'NepBlog/1.0'
-            ])->timeout(10)
-              ->withOptions(['allow_redirects' => true])
-              ->get('https://nepse-test.vercel.app/api');
 
-            if ($response->successful()) {
-                return response()->json($response->json());
-            }
-
-            return response()->json([
-                'error' => 'Upstream service error',
-                'status' => $response->status(),
-            ], $response->status() ?: 502);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'error' => 'Failed to fetch stock data',
-                'message' => $e->getMessage(),
-            ], 502);
-        }
-    });
-
-    Route::get('/stocks/{symbol}', function ($symbol) {
-        try {
-            $response = Http::withHeaders([
-                'Accept' => 'application/json',
-                'User-Agent' => 'NepBlog/1.0'
-            ])->timeout(10)
-              ->withOptions(['allow_redirects' => true])
-              ->get('https://nepse-test.vercel.app/api', [
-                  'symbol' => $symbol,
-              ]);
-
-            if ($response->successful()) {
-                return response()->json($response->json());
-            }
-
-            return response()->json([
-                'error' => 'Upstream service error',
-                'status' => $response->status(),
-            ], $response->status() ?: 502);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'error' => 'Failed to fetch stock data',
-                'message' => $e->getMessage(),
-            ], 502);
-        }
-    });
 
 });
 
