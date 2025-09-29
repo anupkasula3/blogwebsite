@@ -1,17 +1,3 @@
-<!-- Footer Advertisement Banner -->
-<!-- @if (isset($footerAd) && $footerAd)
-<div class="ad-banner py-4 px-4 text-center">
-    <a href="{{ $footerAd->link }}" target="_blank"
-       onclick="trackAdClick({{ $footerAd->id }}, 'footer')"
-       class="flex items-center justify-center space-x-3 hover:opacity-90 transition-opacity">
-        <div class="flex-1 max-w-md">
-            <h3 class="font-bold text-lg">{{ $footerAd->title }}</h3>
-            <p class="text-sm opacity-90">{{ $footerAd->description }}</p>
-        </div>
-        <i class="fas fa-external-link-alt text-xl"></i>
-    </a>
-</div>
-@endif -->
 
 <!-- Main Footer -->
 <footer class="bg-black text-white">
