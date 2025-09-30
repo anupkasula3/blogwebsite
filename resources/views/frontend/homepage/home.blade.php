@@ -57,6 +57,7 @@
             
 
         @include('frontend.homepage.sections.banner')
+        @include('frontend.homepage.sections.stories')
 
 
             <!-- Latest News Section -->
@@ -305,7 +306,7 @@
             <section class="py-8 bg-gray-100">
                 <div class="max-w-screen-2xl mx-auto px-4">
                     <!-- Section Header -->
-                    <div class="border-b-4 border-blue-600 mb-8">
+                    <!-- <div class="border-b-4 border-blue-600 mb-8">
                         <div class="flex justify-between items-center pb-4">
                             <div class="flex items-center gap-4">
                                 <h2 class="text-3xl max-sm:text-sm font-bold text-gray-900 uppercase tracking-wide">Most
@@ -318,66 +319,86 @@
                                 <span>Trending</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <!-- Banner Ad Space -->
-                    <div
-                        class="mb-8 bg-gradient-to-r from-green-100 to-teal-100 rounded-lg p-4 border-2 border-dashed border-green-300">
-                        <div class="text-center">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Sponsored Content</span>
-                            @if ($contentAd)
-                                <div class="mt-2">
-                                    <img src="{{ asset('uploads/' . $contentAd->image) }}" alt="{{ $contentAd->title }}"
-                                        class="w-full h-20 object-cover rounded">
-                                </div>
-                            @else
-                                <div class="mt-2 bg-gray-200 h-20 rounded flex items-center justify-center">
-                                    <span class="text-gray-500">728x90 Sponsored Content Banner</span>
-                                </div>
-                            @endif
+                    <div class="border-b-2 border-primary mb-8">
+                        <div class="flex justify-between items-center gap-3 pb-2">
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center text-xl gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                                    <i class="fas fa-newspaper"></i>
+                                    Most
+                                    Read Storie
+                                </span>
+                                <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
+                                <span class="text-sm text-gray-500 font-medium max-sm:hidden">This Week</span>
+                          
+                            </div>
+                            <a href="{{ route('popular') }}"
+                               class="inline-flex items-center gap-2 bg-primary text-white px-4 sm:px-5 py-2 rounded-md hover:bg-primary/90 transition-colors text-sm font-semibold">
+                               <span>View All</span>
+                               <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                        @foreach ($popularPosts->take(8) as $key => $post)
-                            @include('frontend.component.postcomponent')
+                    <!-- Banner Ad Space -->
+                        <div
+                            class="mb-8 bg-gradient-to-r from-green-100 to-teal-100 rounded-lg p-4 border-2 border-dashed border-green-300">
+                            <div class="text-center">
+                                <span class="text-xs text-gray-500 uppercase tracking-wide">Sponsored Content</span>
+                                @if ($contentAd)
+                                    <div class="mt-2">
+                                        <img src="{{ asset('uploads/' . $contentAd->image) }}" alt="{{ $contentAd->title }}"
+                                            class="w-full h-20 object-cover rounded">
+                                    </div>
+                                @else
+                                    <div class="mt-2 bg-gray-200 h-20 rounded flex items-center justify-center">
+                                        <span class="text-gray-500">728x90 Sponsored Content Banner</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
 
-                            <!-- Inline Ad after 4th article -->
-                            @if ($key == 3)
-                                <div
-                                    class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-6 border-2 border-dashed border-purple-300 flex flex-col justify-center items-center">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide mb-2">Advertisement</span>
-                                    @if ($sidebarAd)
-                                        <img src="{{ asset('uploads/' . $sidebarAd->image) }}"
-                                            alt="{{ $sidebarAd->title }}" class="w-full h-32 object-cover rounded mb-2">
-                                    @else
-                                        <div class="w-full h-32 bg-gray-200 rounded flex items-center justify-center mb-2">
-                                            <span class="text-gray-500 text-sm">Ad Space</span>
-                                        </div>
-                                    @endif
-                                    <h4 class="font-semibold text-gray-900 text-center text-sm">Premium Content</h4>
-                                    <p class="text-xs text-gray-600 text-center">Discover exclusive stories</p>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                            @foreach ($popularPosts->take(8) as $key => $post)
+                                @include('frontend.component.postcomponent')
+
+                                <!-- Inline Ad after 4th article -->
+                                @if ($key == 3)
+                                    <div
+                                        class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-6 border-2 border-dashed border-purple-300 flex flex-col justify-center items-center">
+                                        <span class="text-xs text-gray-500 uppercase tracking-wide mb-2">Advertisement</span>
+                                        @if ($sidebarAd)
+                                            <img src="{{ asset('uploads/' . $sidebarAd->image) }}"
+                                                alt="{{ $sidebarAd->title }}" class="w-full h-32 object-cover rounded mb-2">
+                                        @else
+                                            <div class="w-full h-32 bg-gray-200 rounded flex items-center justify-center mb-2">
+                                                <span class="text-gray-500 text-sm">Ad Space</span>
+                                            </div>
+                                        @endif
+                                        <h4 class="font-semibold text-gray-900 text-center text-sm">Premium Content</h4>
+                                        <p class="text-xs text-gray-600 text-center">Discover exclusive stories</p>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
 
                     <!-- View More Button -->
-                    <div class="text-center mt-8">
+                    <!-- <div class="text-center mt-8">
                         <a href="{{ route('popular') }}"
                             class="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
                             <i class="fas fa-chart-line mr-2"></i>
                             View All Popular Stories
                             <i class="fas fa-arrow-right ml-2"></i>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </section>
 
 
 
 
-            <section class=" mx-auto max-w-screen-2xl px-4 text-black relative overflow-hidden ">
+            <section class=" mx-auto max-w-screen-2xl mt-10 px-4 text-black relative overflow-hidden ">
                 <div class="">
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="w-full lg:w-1/2">
@@ -420,11 +441,28 @@
             <section class="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 text-zinc-900 relative overflow-hidden">
                 <div class="max-w-screen-2xl mx-auto px-4 ">
                     <!-- Section Header -->
-                    <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+                    <!-- <div class="text-center mb-8 sm:mb-12 lg:mb-16">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Featured
                             Articles</h2>
                         <p class="text-gray-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">Discover our most
                             engaging and informative content curated just for you</p>
+                    </div> -->
+
+                    <div class="border-b-2 border-primary mb-8">
+                        <div class="flex justify-between items-center gap-3 pb-2">
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center text-xl gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                                    <i class="fas fa-newspaper"></i>
+                                    Featured
+                                    Articles
+                                </span>
+                                <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
+                                <span class="text-sm text-gray-500 font-medium max-sm:hidden">Discover our most
+                                engaging and informative content curated just for you .</span>
+                          
+                            </div>
+                           
+                        </div>
                     </div>
 
                     <div class="flex flex-col lg:flex-row gap-3">
@@ -564,26 +602,43 @@
 
 
             <!-- Attractive Read More Section -->
-            <section class="py-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-100 relative overflow-hidden">
+            <section class="py-8 relative overflow-hidden">
                 <div class="max-w-screen-2xl mx-auto px-4">
-                    <div class="text-center mb-10">
+                    <!-- <div class="text-center mb-10">
                         <h2
                             class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 mb-4">
                             Discover More Stories</h2>
                         <p class="text-lg text-gray-700 max-w-2xl mx-auto">Dive into a world of inspiring articles,
                             trending topics, and expert insights. Find your next favorite read and stay ahead with our
                             handpicked recommendations!</p>
+                    </div> -->
+
+                    <div class="border-b-2 border-primary mb-8">
+                        <div class="flex justify-between items-center gap-3 pb-2">
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center text-xl gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                                    <i class="fas fa-newspaper"></i>
+                                    Discover More Stories
+                                </span>
+                                <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
+                                <span class="text-sm text-gray-500 font-medium max-sm:hidden">Dive into a world of inspiring articles,
+                            trending topics, and expert insights. Find your next favorite read and stay ahead with our
+                            handpicked recommendations!</span>
+                          
+                            </div>
+                           
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mb-10">
-                        @foreach (\App\Models\Post::published()->inRandomOrder()->take(4)->get() as $post)
+                        @foreach (\App\Models\Post::published()->inRandomOrder(12)->get() as $post)
                             @include('frontend.component.postcomponent')
                         @endforeach
                     </div>
                     <div class="flex justify-center">
                         <a href="{{ route('all-posts') }}"
-                            class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-lg font-semibold rounded-full shadow-lg hover:from-purple-600 hover:to-indigo-600 transition-all duration-200">
+                            class="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white text-lg font-semibold rounded-full shadow-lg hover:bg-primary/90 transition-colors duration-200">
                             Explore All Posts
-                            <i class="fas fa-arrow-right ml-3"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -593,18 +648,18 @@
             <section class="py-8">
                 <div class="max-w-screen-2xl mx-auto px-4">
                     <div
-                        class="max-w-4xl mx-auto bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-6 p-6 md:p-10 border border-blue-200 relative overflow-hidden">
+                        class="max-w-4xl mx-auto bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-6 p-6 md:p-10 border border-primary relative overflow-hidden">
                         <div class="flex-shrink-0 w-full md:w-1/3 flex justify-center">
                             <img src="{{ asset('images/adddds.jpg') }}" alt="Special Offer Banner"
-                                class="h-32 md:h-40 w-auto object-contain rounded-2xl shadow-lg">
+                                class="h-40 md:h-48 w-full object-cover shadow-lg">
                         </div>
                         <div class="flex-1 text-center md:text-left">
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-blue-900 mb-2">Unlock Exclusive Content!
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-primary mb-2">Unlock Exclusive Content!
                             </h3>
                             <p class="text-gray-700 mb-4">Subscribe now and get access to premium articles, expert
                                 insights, and special offers. Don’t miss out on the latest trends and stories!</p>
                             <a href="{{ route('register') }}"
-                                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-base font-semibold rounded-full shadow hover:from-purple-600 hover:to-indigo-600 transition-all duration-200">
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-base font-semibold rounded-full shadow-md hover:bg-primary/90 transition-colors duration-200 ring-1 ring-primary/20">
                                 Get Started
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </a>
