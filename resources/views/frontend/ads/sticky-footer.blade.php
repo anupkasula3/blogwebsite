@@ -1,7 +1,7 @@
 {{-- Sticky Footer Advertisement (mobile-first) --}}
 <div class="sticky-footer-ad" id="sticky-footer-ad" aria-live="polite" aria-label="Advertisement"
     @if (isset($stickyFooterAd) && $stickyFooterAd) data-ad-id="{{ $stickyFooterAd->id }}" data-ad-position="sticky_footer" @endif>
-    <div class="sticky-footer-inner">
+    <div class="sticky-footer-inner relative ">
         <button type="button" class="sticky-footer-close" id="sticky-footer-close" aria-label="Close advertisement">
             <i class="fas fa-times"></i>
         </button>

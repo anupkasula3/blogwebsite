@@ -28,7 +28,7 @@
     .sticky-footer-close {
         position: absolute;
         top: -16px;
-        right: 8px;
+        right: -7px;
         background: #111827;
         color: #fff;
         border: none;
