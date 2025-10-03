@@ -17,7 +17,7 @@
         background: #ffffff;
         border: 2px dashed #ffb4c1;
         border-radius: 14px 14px 0 0;
-        padding: 10px 14px 6px 14px;
+
         box-shadow: 0 10px 30px rgba(255, 41, 83, 0.18);
     }
 
@@ -47,6 +47,6 @@
     @media (min-width: 768px) {
         .sticky-footer-mobile { display: none; }
         .sticky-footer-desktop { display: block; }
-        .sticky-footer-ad .sticky-footer-inner { padding: 12px 16px 8px 16px; }
+        /* .sticky-footer-ad .sticky-footer-inner { padding: 12px 16px 8px 16px; } */
     }
 </style>
