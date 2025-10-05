@@ -54,7 +54,7 @@
 
         <div class="bg-white">
 
-            
+
 
         @include('frontend.homepage.sections.banner')
         @include('frontend.homepage.sections.stories')
@@ -71,7 +71,7 @@
                                     <i class="fas fa-newspaper"></i>
                                     Latest News
                                 </span>
-                          
+
                             </div>
                             <a href="{{ route('all-posts') }}"
                                class="inline-flex items-center gap-2 bg-primary text-white px-4 sm:px-5 py-2 rounded-md hover:bg-primary/90 transition-colors text-sm font-semibold">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-3">
                         <!-- Main News Content (3/4) -->
@@ -213,8 +213,14 @@
 
                             <!-- Sidebar Ad -->
                             <div
-                                class="bg-gradient-to-b from-purple-100 to-blue-100 rounded-lg p-4 border-2 border-dashed border-purple-300">
-                                <div class="text-center">
+                                class="">
+
+                                <div class="mt-2">
+                                            <img src="{{ asset('images/ads.gif') }}"
+                                                alt="Ads Nepbyte"
+                                                class="w-full h-44 sm:h-20 md:h-60 object-cover rounded">
+                                        </div>
+                                {{-- <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
                                     @if ($sidebarAd)
                                         <div class="mt-2">
@@ -227,7 +233,7 @@
                                             <span class="text-gray-500 text-sm">300x250 Sidebar Ad</span>
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
                             </div>
 
                             <!-- Calender -->
@@ -262,8 +268,14 @@
                             </div>
                             <!-- Sidebar Ad -->
                             <div
-                                class="bg-gradient-to-b from-purple-100 to-blue-100 rounded-lg p-4 border-2 border-dashed border-purple-300">
-                                <div class="text-center">
+                                class="">
+
+                                   <div class="mt-2">
+                                            <img src="{{ asset('images/tihar.gif') }}"
+                                                alt="TIhar"
+                                                class="w-full h-44 sm:h-20 md:h-72  object-cover rounded">
+                                        </div>
+                                {{-- <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
                                     @if ($sidebarAd)
                                         <div class="mt-2">
@@ -276,7 +288,7 @@
                                             <span class="text-gray-500 text-sm">300x250 Sidebar Ad</span>
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- Quote of the Day -->
                             <div class="bg-white rounded-lg shadow-md border border-gray-200 p-4">
@@ -301,7 +313,7 @@
 
 
 
-            
+
             <!-- Most Read Stories Section -->
             <section class="py-8 bg-gray-100">
                 <div class="max-w-screen-2xl mx-auto px-4">
@@ -331,7 +343,7 @@
                                 </span>
                                 <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
                                 <span class="text-sm text-gray-500 font-medium max-sm:hidden">This Week</span>
-                          
+
                             </div>
                             <a href="{{ route('popular') }}"
                                class="inline-flex items-center gap-2 bg-primary text-white px-4 sm:px-5 py-2 rounded-md hover:bg-primary/90 transition-colors text-sm font-semibold">
@@ -343,8 +355,12 @@
 
                     <!-- Banner Ad Space -->
                         <div
-                            class="mb-8 bg-gradient-to-r from-green-100 to-teal-100 rounded-lg p-4 border-2 border-dashed border-green-300">
-                            <div class="text-center">
+                            class="mb-8 ">
+                              <div class="mt-2">
+                                        <img src="{{ asset('uploads/' . $contentAd->image) }}" alt="{{ $contentAd->title }}"
+                                            class="w-full h-full object-cover rounded">
+                                    </div>
+                            {{-- <div class="text-center">
                                 <span class="text-xs text-gray-500 uppercase tracking-wide">Sponsored Content</span>
                                 @if ($contentAd)
                                     <div class="mt-2">
@@ -356,7 +372,7 @@
                                         <span class="text-gray-500">728x90 Sponsored Content Banner</span>
                                     </div>
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
@@ -459,9 +475,9 @@
                                 <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
                                 <span class="text-sm text-gray-500 font-medium max-sm:hidden">Discover our most
                                 engaging and informative content curated just for you .</span>
-                          
+
                             </div>
-                           
+
                         </div>
                     </div>
 
@@ -624,9 +640,9 @@
                                 <span class="text-sm text-gray-500 font-medium max-sm:hidden">Dive into a world of inspiring articles,
                             trending topics, and expert insights. Find your next favorite read and stay ahead with our
                             handpicked recommendations!</span>
-                          
+
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mb-10">
