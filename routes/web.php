@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdServeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\VisitReportController;
+use App\Http\Controllers\Admin\MetapageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -127,6 +128,9 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
 
     // banner
     Route::resource('banners', BannerController::class);
+
+    // metapages
+    Route::resource('metapages', MetapageController::class);
 
     // User Posts (separate controller, no create/store)
     Route::resource('userposts', \App\Http\Controllers\Admin\UserPostController::class)->parameters(['userposts' => 'post']);

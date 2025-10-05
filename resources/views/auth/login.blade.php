@@ -101,12 +101,7 @@
                 </div>
             </div>
 
-            <div class="mt-6 text-center">
-                <a href="{{ route('admin.login') }}" class="text-primary font-medium hover:underline">
-                    <i class="fas fa-shield-alt mr-2"></i>
-                    Admin Login
-                </a>
-            </div>
+           
         </div>
     </div>
 </div>

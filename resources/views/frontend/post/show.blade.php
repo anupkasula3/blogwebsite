@@ -27,7 +27,8 @@
                 <div class="flex items-center gap-2 text-xs text-white/80 mb-3">
                     <a href="{{ url('/') }}" class="hover:text-white transition-colors">Home</a>
                     <span>/</span>
-                    <a href="{{ route('category.show', $post->category->slug) }}" class="hover:text-white transition-colors">{{ $post->category->name }}</a>
+                    <a href="{{ route('category.show', $post->category->slug) }}"
+                        class="hover:text-white transition-colors">{{ $post->category->name }}</a>
                 </div>
                 <h1
                     class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 text-white text-center leading-tight drop-shadow">
@@ -159,7 +160,8 @@
                                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach (explode(',', $post->tags) as $tag)
-                                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-rose-50 hover:text-rose-700 transition">
+                                            <span
+                                                class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-rose-50 hover:text-rose-700 transition">
                                                 {{ trim($tag) }}
                                             </span>
                                         @endforeach
@@ -171,28 +173,42 @@
                             <div class="mt-8 pt-8 border-t border-gray-200">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this post</h3>
                                 <div class="flex flex-wrap gap-3">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank" rel="noopener" class="share-btn bg-[#1877F2]" aria-label="Share on Facebook">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                                        target="_blank" rel="noopener" class="share-btn bg-[#1877F2]"
+                                        aria-label="Share on Facebook">
                                         <i class="fab fa-facebook-f"></i><span>Facebook</span>
                                     </a>
-                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" rel="noopener" class="share-btn bg-[#1DA1F2]" aria-label="Share on Twitter/X">
+                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                                        target="_blank" rel="noopener" class="share-btn bg-[#1DA1F2]"
+                                        aria-label="Share on Twitter/X">
                                         <i class="fab fa-x-twitter"></i><span>Twitter/X</span>
                                     </a>
-                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}" target="_blank" rel="noopener" class="share-btn bg-[#0A66C2]" aria-label="Share on LinkedIn">
+                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
+                                        target="_blank" rel="noopener" class="share-btn bg-[#0A66C2]"
+                                        aria-label="Share on LinkedIn">
                                         <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
                                     </a>
-                                    <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title.' '.request()->url()) }}" target="_blank" rel="noopener" class="share-btn bg-[#25D366]" aria-label="Share on WhatsApp">
+                                    <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' ' . request()->url()) }}"
+                                        target="_blank" rel="noopener" class="share-btn bg-[#25D366]"
+                                        aria-label="Share on WhatsApp">
                                         <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
                                     </a>
-                                    <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" rel="noopener" class="share-btn bg-[#229ED9]" aria-label="Share on Telegram">
+                                    <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                                        target="_blank" rel="noopener" class="share-btn bg-[#229ED9]"
+                                        aria-label="Share on Telegram">
                                         <i class="fab fa-telegram-plane"></i><span>Telegram</span>
                                     </a>
-                                    <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}" target="_blank" rel="noopener" class="share-btn bg-[#FF4500]" aria-label="Share on Reddit">
+                                    <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
+                                        target="_blank" rel="noopener" class="share-btn bg-[#FF4500]"
+                                        aria-label="Share on Reddit">
                                         <i class="fab fa-reddit-alien"></i><span>Reddit</span>
                                     </a>
-                                    <a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}" class="share-btn bg-gray-700">
+                                    <a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}"
+                                        class="share-btn bg-gray-700">
                                         <i class="fas fa-envelope"></i><span>Email</span>
                                     </a>
-                                    <button type="button" onclick="copyToClipboard('{{ request()->url() }}')" class="share-btn bg-[#ff2953]">
+                                    <button type="button" onclick="copyToClipboard('{{ request()->url() }}')"
+                                        class="share-btn bg-[#ff2953]">
                                         <i class="fas fa-link"></i><span>Copy Link</span>
                                     </button>
                                 </div>
@@ -207,11 +223,14 @@
                                         <div class="ad-label">ADVERTISEMENT</div>
                                         @if (isset($aboveRelatedAd) && $aboveRelatedAd)
                                             <a href="{{ $aboveRelatedAd->link }}" target="_blank"
-                                               onclick="trackAdClick({{ $aboveRelatedAd->id }}, 'aboveRelated')" class="block">
-                                                <img src="{{ asset('uploads/' . $aboveRelatedAd->image) }}" alt="{{ $aboveRelatedAd->title }}" class="ad-media">
+                                                onclick="trackAdClick({{ $aboveRelatedAd->id }}, 'aboveRelated')"
+                                                class="block">
+                                                <img src="{{ asset('uploads/' . $aboveRelatedAd->image) }}"
+                                                    alt="{{ $aboveRelatedAd->title }}" class="ad-media">
                                             </a>
                                         @else
-                                            <img src="https://placehold.co/728x90?text=728x90+Leaderboard" alt="Advertisement" class="ad-media">
+                                            <img src="https://placehold.co/728x90?text=728x90+Leaderboard"
+                                                alt="Advertisement" class="ad-media">
                                         @endif
                                     </div>
                                 </div>
@@ -219,11 +238,13 @@
                                 <div class="mt-6 l p-4 ">
                                     <div class="flex items-center justify-between mb-4">
                                         <h3 class="text-lg font-semibold text-gray-900">Related Posts</h3>
-                                        <a href="{{ route('category.show', $post->category->slug) }}" class="text-sm text-[#ff2953] hover:text-[#e02448]">More in {{ $post->category->name }} →</a>
+                                        <a href="{{ route('category.show', $post->category->slug) }}"
+                                            class="text-sm text-[#ff2953] hover:text-[#e02448]">More in
+                                            {{ $post->category->name }} →</a>
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         @foreach ($relatedPosts as $relatedPost)
-                                        @include("frontend.component.postcomponent")
+                                            @include('frontend.component.postcomponent',['post'=>$relatedPost])
                                         @endforeach
                                     </div>
                                 </div>
@@ -235,25 +256,33 @@
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
                                             @if (isset($prevPost))
-                                                <a href="{{ route('post.show', $prevPost->slug) }}" class="group flex items-center gap-3">
-                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-600">
+                                                <a href="{{ route('post.show', $prevPost->slug) }}"
+                                                    class="group flex items-center gap-3">
+                                                    <span
+                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-600">
                                                         <i class="fas fa-arrow-left"></i>
                                                     </span>
                                                     <div>
                                                         <p class="text-xs text-gray-500">Previous</p>
-                                                        <p class="text-sm font-medium text-gray-900 group-hover:text-[#ff2953] line-clamp-2">{{ $prevPost->title }}</p>
+                                                        <p
+                                                            class="text-sm font-medium text-gray-900 group-hover:text-[#ff2953] line-clamp-2">
+                                                            {{ $prevPost->title }}</p>
                                                     </div>
                                                 </a>
                                             @endif
                                         </div>
                                         <div class="text-right">
                                             @if (isset($nextPost))
-                                                <a href="{{ route('post.show', $nextPost->slug) }}" class="group flex items-center justify-end gap-3">
+                                                <a href="{{ route('post.show', $nextPost->slug) }}"
+                                                    class="group flex items-center justify-end gap-3">
                                                     <div>
                                                         <p class="text-xs text-gray-500">Next</p>
-                                                        <p class="text-sm font-medium text-gray-900 group-hover:text-[#ff2953] line-clamp-2">{{ $nextPost->title }}</p>
+                                                        <p
+                                                            class="text-sm font-medium text-gray-900 group-hover:text-[#ff2953] line-clamp-2">
+                                                            {{ $nextPost->title }}</p>
                                                     </div>
-                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-600">
+                                                    <span
+                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-600">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </span>
                                                 </a>
@@ -267,7 +296,7 @@
 
                     <!-- Sidebar -->
                     <div class="lg:col-span-1">
-                        <div class="sticky top-52">
+                        <div class="sticky top-28">
                             <!-- Author Info -->
                             <div class="bg-white rounded-xl p-6 mb-8 shadow hover:shadow-lg transition-shadow">
                                 <h3 class="text-lg font-semibold text-gray-900 mb-4">About the Author</h3>
@@ -319,18 +348,10 @@
                             <div class="mt-6">
                                 <div class="ad-box ad-300x250">
                                     <div class="ad-label">ADVERTISEMENT</div>
-                                    @if (isset($sidebarAd) && $sidebarAd)
-                                        <a href="{{ $sidebarAd->link }}" target="_blank"
-                                            onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')" class="block">
-                                            @if ($sidebarAd->image)
-                                                <img src="{{ asset('uploads/' . $sidebarAd->image) }}"
-                                                    alt="{{ $sidebarAd->title }}" class="ad-media">
-                                            @endif
-                                        </a>
-                                    @else
-                                        <img src="https://placehold.co/300x250?text=300x250+Sidebar+Ad"
-                                            alt="Advertisement" class="ad-media">
-                                    @endif
+
+                                    <img src="https://placehold.co/300x250?text=300x250+Sidebar+Ad" alt="Advertisement"
+                                        class="ad-media">
+
                                 </div>
                             </div>
 
@@ -338,19 +359,10 @@
                             <div class="mt-6">
                                 <div class="ad-box ad-300x250">
                                     <div class="ad-label">ADVERTISEMENT</div>
-                                    @if (isset($sidebarAd2) && $sidebarAd2)
-                                        <a href="{{ $sidebarAd2->link }}" target="_blank"
-                                            onclick="trackAdClick({{ $sidebarAd2->id }}, 'sidebar_secondary')"
-                                            class="block">
-                                            @if ($sidebarAd2->image)
-                                                <img src="{{ asset('uploads/' . $sidebarAd2->image) }}"
-                                                    alt="{{ $sidebarAd2->title }}" class="ad-media">
-                                            @endif
-                                        </a>
-                                    @else
-                                        <img src="https://placehold.co/300x250?text=300x250+Sidebar+Ad"
-                                            alt="Advertisement" class="ad-media">
-                                    @endif
+
+                                    <img src="https://placehold.co/300x250?text=300x250+Sidebar+Ad" alt="Advertisement"
+                                        class="ad-media">
+
                                 </div>
                             </div>
 
@@ -363,262 +375,271 @@
 
 
             @push('scripts')
-                    <script>
-                        // Reading Progress Bar
-                        window.addEventListener('scroll', function() {
-                            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                            const scrollPercent = (scrollTop / docHeight) * 100;
-                            document.getElementById('reading-progress').style.width = scrollPercent + '%';
-                        });
+                <script>
+                    // Reading Progress Bar
+                    window.addEventListener('scroll', function() {
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                        const scrollPercent = (scrollTop / docHeight) * 100;
+                        document.getElementById('reading-progress').style.width = scrollPercent + '%';
+                    });
 
-                        // Copy to Clipboard
-                        function copyToClipboard(text) {
-                            navigator.clipboard.writeText(text).then(function() {
-                                const toast = document.getElementById('copy-toast');
-                                if (toast) {
-                                    toast.classList.remove('hidden');
-                                    toast.classList.add('show');
-                                    setTimeout(() => {
-                                        toast.classList.remove('show');
-                                        toast.classList.add('hidden');
-                                    }, 1800);
-                                }
-                            }, function(err) {
-                                console.error('Could not copy text: ', err);
-                            });
-                        }
-
-                        // Track ad impressions
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const adElements = document.querySelectorAll('[onclick*="trackAdClick"]');
-                            adElements.forEach(function(element) {
-                                const adId = element.getAttribute('onclick').match(/trackAdClick\((\d+)/)[1];
-                                const position = element.getAttribute('onclick').match(/,\s*'([^']+)'/)[1];
-
-                                // Track impression
-                                fetch('/api/ads/impression', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                            .getAttribute('content')
-                                    },
-                                    body: JSON.stringify({
-                                        ad_id: adId,
-                                        position: position
-                                    })
-                                });
-                            });
-
-                        });
-
-                        // Track ad clicks
-                        function trackAdClick(adId, position) {
-                            try {
-                                fetch('/api/ads/click', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                    },
-                                    body: JSON.stringify({
-                                        ad_id: adId,
-                                        position
-                                    })
-                                });
-                            } catch (e) {
-                                console.error('Ad click track failed', e);
+                    // Copy to Clipboard
+                    function copyToClipboard(text) {
+                        navigator.clipboard.writeText(text).then(function() {
+                            const toast = document.getElementById('copy-toast');
+                            if (toast) {
+                                toast.classList.remove('hidden');
+                                toast.classList.add('show');
+                                setTimeout(() => {
+                                    toast.classList.remove('show');
+                                    toast.classList.add('hidden');
+                                }, 1800);
                             }
+                        }, function(err) {
+                            console.error('Could not copy text: ', err);
+                        });
+                    }
+
+                    // Track ad impressions
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const adElements = document.querySelectorAll('[onclick*="trackAdClick"]');
+                        adElements.forEach(function(element) {
+                            const adId = element.getAttribute('onclick').match(/trackAdClick\((\d+)/)[1];
+                            const position = element.getAttribute('onclick').match(/,\s*'([^']+)'/)[1];
+
+                            // Track impression
+                            fetch('/api/ads/impression', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute('content')
+                                },
+                                body: JSON.stringify({
+                                    ad_id: adId,
+                                    position: position
+                                })
+                            });
+                        });
+
+                    });
+
+                    // Track ad clicks
+                    function trackAdClick(adId, position) {
+                        try {
+                            fetch('/api/ads/click', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({
+                                    ad_id: adId,
+                                    position
+                                })
+                            });
+                        } catch (e) {
+                            console.error('Ad click track failed', e);
                         }
-                    </script>
-                @endpush
+                    }
+                </script>
+            @endpush
 
-                @push('styles')
-                    <style>
-                        /* Standard Ad Box */
-                        .ad-box {
-                            background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
-                            border: 2px dashed #ffb4c1;
-                            border-radius: 16px;
-                            padding: 12px;
-                            box-shadow: 0 8px 24px rgba(255, 41, 83, 0.08);
-                        }
+            @push('styles')
+                <style>
+                    /* Standard Ad Box */
+                    .ad-box {
+                        background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
+                        border: 2px dashed #ffb4c1;
+                        border-radius: 16px;
+                        padding: 12px;
+                        box-shadow: 0 8px 24px rgba(255, 41, 83, 0.08);
+                    }
 
-                        .ad-label {
-                            text-align: center;
-                            font-weight: 700;
-                            font-size: 12px;
-                            letter-spacing: .1em;
-                            color: #ff2953;
-                            margin-bottom: 8px;
-                        }
+                    .ad-label {
+                        text-align: center;
+                        font-weight: 700;
+                        font-size: 12px;
+                        letter-spacing: .1em;
+                        color: #ff2953;
+                        margin-bottom: 8px;
+                    }
 
-                        .ad-media {
-                            display: block;
-                            width: 100%;
-                            height: 100%;
-                            object-fit: contain;
-                            background: #eef2f7;
-                            border-radius: 8px;
-                        }
+                    .ad-media {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        background: #eef2f7;
+                        border-radius: 8px;
+                    }
 
-                        /* Meta chips */
-                        .meta-chip {
-                            border: 1px solid rgba(255, 41, 83, 0.12);
-                            box-shadow: 0 2px 10px rgba(255, 41, 83, 0.07);
-                        }
+                    /* Meta chips */
+                    .meta-chip {
+                        border: 1px solid rgba(255, 41, 83, 0.12);
+                        box-shadow: 0 2px 10px rgba(255, 41, 83, 0.07);
+                    }
 
-                        /* Ad sizes */
-                        .ad-728x90 {
-                            width: 100%;
-                            max-width: 728px;
-                            height: 90px;
-                            margin: 0 auto;
-                        }
+                    /* Ad sizes */
+                    .ad-728x90 {
+                        width: 100%;
+                        max-width: 728px;
+                        height: 90px;
+                        margin: 0 auto;
+                    }
 
-                        .ad-468x60 {
-                            width: 100%;
-                            max-width: 468px;
-                            height: 60px;
-                            margin: 0 auto;
-                        }
+                    .ad-468x60 {
+                        width: 100%;
+                        max-width: 468px;
+                        height: 60px;
+                        margin: 0 auto;
+                    }
 
-                        .ad-300x250 {
-                            width: 100%;
-                            max-width: 300px;
-                            height: 250px;
-                            margin: 0 auto;
-                        }
+                    .ad-300x250 {
+                        width: 100%;
+                        max-width: 300px;
+                        height: 250px;
+                        margin: 0 auto;
+                    }
 
-                        .ad-320x50 {
-                            width: 100%;
-                            max-width: 320px;
-                            height: 50px;
-                            margin: 0 auto;
-                        }
+                    .ad-320x50 {
+                        width: 100%;
+                        max-width: 320px;
+                        height: 50px;
+                        margin: 0 auto;
+                    }
 
-                        /* Share buttons */
-                        .share-btn {
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 8px;
-                            color: #fff;
-                            padding: 8px 12px;
-                            border-radius: 10px;
-                            font-weight: 600;
-                            font-size: 14px;
-                            transition: transform 0.15s ease, filter 0.15s ease;
-                        }
-                        .share-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
-                        .share-btn i { font-size: 16px; }
+                    /* Share buttons */
+                    .share-btn {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        color: #fff;
+                        padding: 8px 12px;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        font-size: 14px;
+                        transition: transform 0.15s ease, filter 0.15s ease;
+                    }
 
+                    .share-btn:hover {
+                        filter: brightness(1.05);
+                        transform: translateY(-1px);
+                    }
 
-
-                        /* Copy toast */
-                        .copy-toast {
-                            position: fixed;
-                            bottom: 24px;
-                            right: 24px;
-                            background: rgba(17, 24, 39, 0.95);
-                            color: #fff;
-                            padding: 10px 14px;
-                            border-radius: 10px;
-                            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                            z-index: 60;
-                            opacity: 0;
-                            transform: translateY(10px);
-                            transition: opacity .2s ease, transform .2s ease;
-                        }
-                        .copy-toast.show { opacity: 1; transform: translateY(0); }
-
-                        /* Restore line clamp */
-                        .line-clamp-2 {
-                            display: -webkit-box;
-                            -webkit-line-clamp: 2;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                        }
-
-                        .prose {
-                            color: #374151;
-                            line-height: 1.75;
-                        }
-
-                        .prose h1,
-                        .prose h2,
-                        .prose h3,
-                        .prose h4,
-                        .prose h5,
-                        .prose h6 {
-                            color: #111827;
-                            font-weight: 700;
-                            margin-top: 2rem;
-                            margin-bottom: 1rem;
-                        }
-
-                        .prose h1 {
-                            font-size: 2.25rem;
-                        }
-
-                        .prose h2 {
-                            font-size: 1.875rem;
-                        }
-
-                        .prose h3 {
-                            font-size: 1.5rem;
-                        }
-
-                        .prose h4 {
-                            font-size: 1.25rem;
-                        }
-
-                        .prose p {
-                            margin-bottom: 1.5rem;
-                        }
-
-                        .prose ul,
-                        .prose ol {
-                            margin-bottom: 1.5rem;
-                            padding-left: 1.5rem;
-                        }
-
-                        .prose li {
-                            margin-bottom: 0.5rem;
-                        }
-
-                        .prose blockquote {
-                            border-left: 4px solid #ff2953;
-                            padding-left: 1rem;
-                            margin: 2rem 0;
-                            font-style: italic;
-                            color: #6b7280;
-                        }
-
-                        .prose code {
-                            background-color: #f3f4f6;
-                            padding: 0.25rem 0.5rem;
-                            border-radius: 0.375rem;
-                            font-size: 0.875rem;
-                        }
-
-                        .prose pre {
-                            background-color: #1f2937;
-                            color: #f9fafb;
-                            padding: 1rem;
-                            border-radius: 0.5rem;
-                            overflow-x: auto;
-                            margin: 2rem 0;
-                        }
-
-                        .prose img {
-                            border-radius: 0.5rem;
-                            margin: 2rem 0;
-                        }
+                    .share-btn i {
+                        font-size: 16px;
+                    }
 
 
-                    </style>
-                @endpush
+
+                    /* Copy toast */
+                    .copy-toast {
+                        position: fixed;
+                        bottom: 24px;
+                        right: 24px;
+                        background: rgba(17, 24, 39, 0.95);
+                        color: #fff;
+                        padding: 10px 14px;
+                        border-radius: 10px;
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                        z-index: 60;
+                        opacity: 0;
+                        transform: translateY(10px);
+                        transition: opacity .2s ease, transform .2s ease;
+                    }
+
+                    .copy-toast.show {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+
+                    /* Restore line clamp */
+                    .line-clamp-2 {
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                    }
+
+                    .prose {
+                        color: #374151;
+                        line-height: 1.75;
+                    }
+
+                    .prose h1,
+                    .prose h2,
+                    .prose h3,
+                    .prose h4,
+                    .prose h5,
+                    .prose h6 {
+                        color: #111827;
+                        font-weight: 700;
+                        margin-top: 2rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .prose h1 {
+                        font-size: 2.25rem;
+                    }
+
+                    .prose h2 {
+                        font-size: 1.875rem;
+                    }
+
+                    .prose h3 {
+                        font-size: 1.5rem;
+                    }
+
+                    .prose h4 {
+                        font-size: 1.25rem;
+                    }
+
+                    .prose p {
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .prose ul,
+                    .prose ol {
+                        margin-bottom: 1.5rem;
+                        padding-left: 1.5rem;
+                    }
+
+                    .prose li {
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .prose blockquote {
+                        border-left: 4px solid #ff2953;
+                        padding-left: 1rem;
+                        margin: 2rem 0;
+                        font-style: italic;
+                        color: #6b7280;
+                    }
+
+                    .prose code {
+                        background-color: #f3f4f6;
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 0.375rem;
+                        font-size: 0.875rem;
+                    }
+
+                    .prose pre {
+                        background-color: #1f2937;
+                        color: #f9fafb;
+                        padding: 1rem;
+                        border-radius: 0.5rem;
+                        overflow-x: auto;
+                        margin: 2rem 0;
+                    }
+
+                    .prose img {
+                        border-radius: 0.5rem;
+                        margin: 2rem 0;
+                    }
+                </style>
+            @endpush
         </section>
     </div>
 @endsection

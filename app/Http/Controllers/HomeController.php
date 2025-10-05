@@ -169,9 +169,8 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.post.show', compact('post', 'relatedPosts', 'sidebarAd'));
+        return view('frontend.post.show', compact('post', 'relatedPosts'));
     }
 
     public function categories()

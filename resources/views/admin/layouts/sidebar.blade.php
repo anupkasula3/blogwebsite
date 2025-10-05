@@ -26,11 +26,14 @@
             <a href="{{ route('admin.banners.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.banners.*') ? 'bg-slate-800 text-white' : '' }}">
                 <i class="fas fa-tachometer-alt text-xs"></i>
                 <span class="text-xs font-medium">Banners</span>
-            </a>
             <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">Content</div>
             <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.categories.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
                 <i class="fas fa-folder text-xs"></i>
                 <span class="text-sm">Categories</span>
+            </a>
+            <a href="{{ route('admin.metapages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-800 transition {{ request()->routeIs('admin.metapages.*') ? 'bg-slate-800 text-white' : 'text-slate-300' }}">
+                <i class="fas fa-file-alt text-xs"></i>
+                <span class="text-sm">Meta Pages</span>
             </a>
             <div x-data="{ open: {{ request()->routeIs('admin.posts.*') || request()->routeIs('admin.userposts.*') ? 'true' : 'false' }} }" class="relative" @click.away="open = false">
                 <button @click="open = !open" @keydown.escape.window="open = false"
@@ -42,7 +45,6 @@
                 <div x-show="open" x-transition
                     class="mt-1 ml-2 pl-6 border-l border-slate-800">
                     <a href="{{ route('admin.posts.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.posts.*') ? 'bg-slate-800 text-white' : '' }}">Admin Posts</a>
-                    <a href="{{ route('admin.userposts.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.userposts.*') ? 'bg-slate-800 text-white' : '' }}">User Posts</a>
                 </div>
             </div>
 
