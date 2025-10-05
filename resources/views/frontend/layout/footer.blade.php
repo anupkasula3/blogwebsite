@@ -153,11 +153,9 @@
                         Privacy Policy
                     </a>
                     <a href="{{ route('terms') }}" class="text-white hover:text-white transition-colors">
-                        Terms of Service
+                        Terms and Conditions
                     </a>
-                    <a href="{{ route('cookies') }}" class="text-white hover:text-white transition-colors">
-                        Cookie Policy
-                    </a>
+
                 </div>
             </div>
         </div>
