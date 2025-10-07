@@ -7,34 +7,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', \App\Models\Setting::get('site_name', 'NepBlog') . ' - ' . \App\Models\Setting::get('site_description', 'Your Ultimate Blog Destination'))</title>
-    <meta name="description" content="@yield('meta_description', \App\Models\Setting::get('default_meta_description', 'Discover amazing stories, insights, and knowledge on our blog platform.'))">
-    <meta name="keywords" content="@yield('meta_keywords', \App\Models\Setting::get('default_meta_keywords', 'blog, articles, stories, insights'))">
+    @php
+        $segment = request()->segment(1);
+        $meta = getMetas(Request::segment(1), Request::segment(2));
+    @endphp
+    @if ($meta)
+        <meta name="title" content="{{ $meta->title }}" />
+        <meta name="description" content="{{ $meta->description }}" />
+
+        <meta property="twitter:url" content="{{ 'https://nepblog.com/' }}" />
+        <meta property="twitter:title" content="{{ $meta->title }}" />
+        <meta name="keywords" content="{{ $meta->keywords ?? 'nepblog' }}">
+        <meta property="twitter:description" content="{{ $meta->description }}" />
+        <meta property="twitter:image" content="{{ 'https://nepblog.com/' . $meta->image }}">
+
+        <meta name="og:title" content="{{ $meta->title }}" />
+        <meta name="og:description" content="{{ $meta->description }}" />
+        <meta property="og:image"
+        content="{{ Str::startsWith($meta->image, 'http') ? $meta->image : url($meta->image) }}" />
+        <meta property="og:pinterest" content="pin_it" />
+        <meta property="og:pinterest:rich_pins" content="true" />
+        <meta property="og:linkedin" content="share" />
+        <title>
+            {{ $meta->title . ' | NepBlog' }}
+        </title>
+    @endif
+
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="@yield('og_title', \App\Models\Setting::get('site_name', 'NepBlog'))">
-    <meta property="og:description" content="@yield('og_description', \App\Models\Setting::get('default_meta_description', 'Your Ultimate Blog Destination'))">
-    <meta property="og:image" content="@yield('og_image', \App\Models\Setting::get('site_logo') ? asset('uploads/' . \App\Models\Setting::get('site_logo')) : asset('images/default-og.jpg'))">
+
+
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="{{ \App\Models\Setting::get('site_name', 'NepBlog') }}">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('twitter_title', \App\Models\Setting::get('site_name', 'NepBlog'))">
-    <meta name="twitter:description" content="@yield('twitter_description', \App\Models\Setting::get('default_meta_description', 'Your Ultimate Blog Destination'))">
-    <meta name="twitter:image" content="@yield('twitter_image', \App\Models\Setting::get('site_logo') ? asset('uploads/' . \App\Models\Setting::get('site_logo')) : asset('images/default-twitter.jpg'))">
-
+    <meta property="og:site_name" content="NepBlog">
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.jpg') }}">
     @include('tinymcescript')
-
-    <!-- Canonical URL -->
-    @if (isset($canonical_url))
-        <link rel="canonical" href="{{ $canonical_url }}">
-    @else
-        <link rel="canonical" href="{{ url()->current() }}">
-    @endif
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,9 +54,6 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Styles -->
-
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Analytics -->
     @if (\App\Models\Setting::get('google_analytics_id'))
@@ -427,11 +433,12 @@
     </script>
     @endif
 </head>
+
 <body class="bg-gray-50 text-gray-900">
 
     @include('frontend.ads.sticky-footer')
 
-    
+
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="readingProgress"></div>
 

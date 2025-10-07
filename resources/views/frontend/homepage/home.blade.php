@@ -1,11 +1,4 @@
 @extends('frontend.layout.main')
-
-@section('title', \App\Models\Setting::get('site_name', 'NepBlog') . ' - ' .
-    \App\Models\Setting::get('site_description', 'Your Ultimate Blog Destination'))
-@section('meta_description',
-    'Discover amazing stories, insights, and knowledge on our blog platform. Read the latest
-    articles from top categories.')
-
 @section('content')
     <div class="bg-gray-50 min-h-screen">
         <!-- Breaking News Ticker -->

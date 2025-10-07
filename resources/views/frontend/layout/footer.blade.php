@@ -77,11 +77,7 @@
                             Terms of Service
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('sitemap') }}" class="text-white hover:text-white transition-colors">
-                            Sitemap
-                        </a>
-                    </li>
+                   
                 </ul>
             </div>
 

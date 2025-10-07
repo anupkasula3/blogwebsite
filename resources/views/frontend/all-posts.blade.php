@@ -4,45 +4,43 @@
 @section('meta_description', 'Browse all articles and blog posts from our community of writers.')
 
 @section('content')
-    <!-- Hero Banner Section -->
-    <section
-        class="relative overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 py-6 sm:py-8 rounded-b-3xl shadow-lg mb-6">
-        <div class="absolute bottom-0 left-0 w-full pointer-events-none z-0">
-            <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-6 sm:h-10 md:h-14">
-                <path fill="url(#wave-gradient)" fill-opacity="0.3" d="M0,80 C480,120 960,40 1440,80 L1440,100 L0,100 Z">
-                </path>
-                <defs>
-                    <linearGradient id="wave-gradient" x1="0" y1="0" x2="1440" y2="0"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#6366f1" />
-                        <stop offset="1" stop-color="#a21caf" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-            <div class="mb-4">
-                <div class="w-20 h-20 mx-auto rounded-lg flex items-center justify-center mb-2 bg-white/10">
-                    <i class="fas fa-newspaper text-white text-2xl"></i>
-                </div>
-            </div>
-            <h1
-                class="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2 text-white flex items-center justify-center gap-2 drop-shadow-lg">
-                All Posts
-            </h1>
-            <p class="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto mb-2">Discover all articles from our community
-                of writers</p>
-            <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-medium w-full">
-                <span class="flex items-center bg-white/80 px-3 py-1 rounded-full shadow text-gray-800">
-                    <i class="fas fa-newspaper mr-2 text-blue-500"></i> {{ $posts->total() }} posts
-                </span>
-                <span class="flex items-center bg-white/80 px-3 py-1 rounded-full shadow text-gray-800">
-                    <i class="fas fa-eye mr-2 text-blue-500"></i> {{ number_format($posts->sum('views_count')) }} total
-                    views
-                </span>
-            </div>
+    <!-- Hero Banner Section (aligned with /categories) -->
+    <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-12">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <div class="text-sm font-semibold tracking-wide text-white uppercase mb-2">Browse</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">All Posts</h1>
+            <p class="text-xl text-white leading-relaxed">
+                Discover all articles from our community of writers.
+            </p>
         </div>
     </section>
+
+    <!-- Toolbar: breadcrumb + search (consistent with /categories) -->
+    <div class="bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
+                    <ol class="flex items-center gap-2">
+                        <li><a href="{{ route('home') }}" class="hover:text-primary">Home</a></li>
+                        <li class="text-gray-400">/</li>
+                        <li class="text-gray-700 font-medium">All Posts</li>
+                    </ol>
+                </nav>
+                <form action="{{ route('search') }}" method="GET" class="w-full md:w-auto">
+                    <div class="flex items-center gap-2">
+                        <div class="relative w-full md:w-80">
+                            <input type="text" name="q" value="{{ request('q') }}" placeholder="Search posts..."
+                                class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-300 bg-white text-sm outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-colors" />
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i class="fas fa-search"></i></span>
+                        </div>
+                        <button
+                            class="px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:brightness-110 btn-professional"
+                            type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Top Banner Advertisement -->
     @if (isset($headerAd) && $headerAd)

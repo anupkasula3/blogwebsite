@@ -18,7 +18,10 @@
 
     <div class=" max-w-screen-2xl mx-auto px-4 ">
         <!-- Top Row: Logo + Banner Ad (ad on top for mobile) -->
-        <div class="grid grid-cols-12 gap-4 items-center py-2" x-show="!scrolled" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2">
+        <div class="grid grid-cols-12 gap-4 items-center py-2" x-show="!scrolled"
+            x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2">
 
             <div class="col-span-12 order-1 lg:order-2 lg:col-span-8  overflow-hidden">
                 <script src="https://adnebyte.nepbyte.com/ads/embed/6e189765-3196-4da1-a542-5bc5d4708658.js?count=1"></script>
@@ -42,7 +45,7 @@
 
         <!-- Bottom Row: Navigation + Search/Auth -->
         <div class="flex items-center justify-between py-3 border-t border-gray-100">
-                <a href="/" class="logo block lg:hidden d-flex align-items-center me-auto me-xl-0">
+            <a href="/" class="logo block lg:hidden d-flex align-items-center me-auto me-xl-0">
 
                 <img src="{{ asset('images/logos.png') }}" style="width: 150px; height: auto; max-height: 80px;"
                     alt="NepByte Logo">
@@ -65,24 +68,24 @@
                     <div x-show="catOpen" x-transition
                         class="absolute left-0 mt-2 w-[450px] bg-white shadow-xl border border-gray-100 rounded-xl p-4 grid grid-cols-2 gap-2 z-[10000]">
                         @foreach ($categories as $category)
-                            <a href="{{ route('category.show', $category->slug) }}"
+<a href="{{ route('category.show', $category->slug) }}"
                                 class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary transition">
                                 {{ $category->name }}
                             </a>
-                        @endforeach
+@endforeach
                         {{-- <a href="{{ route('categories.index') }}"
                             class="col-span-2 mt-1 px-3 py-2 rounded-lg text-sm font-semibold text-primary transition text-center">View
                             all categories</a> --}}
                     </div>
                 </div> -->
 
-                @foreach($categories as $category)
-    <a href="{{ route('category.show', $category->slug) }}"
-       class="{{ request()->is('category/'.$category->slug) ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-       aria-current="{{ request()->is('category/'.$category->slug) ? 'page' : false }}">
-       {{ $category->name }}
-    </a>
-@endforeach
+                @foreach ($categories as $category)
+                    <a href="{{ route('category.show', $category->slug) }}"
+                        class="{{ request()->is('category/' . $category->slug) ? 'text-primary border-primary' : '' }} {{ $navLink }}"
+                        aria-current="{{ request()->is('category/' . $category->slug) ? 'page' : false }}">
+                        {{ $category->name }}
+                    </a>
+                @endforeach
 
                 <!-- <a href="{{ url('/latest') }}"
                     class="{{ request()->is('latest') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
@@ -139,19 +142,19 @@
                             </form>
                         </div>
                     @else
-                    <a href="{{ route('login') }}"
-   class="px-5 py-2.5 border border-primary text-primary font-semibold text-sm rounded-full 
-          hover:text-white transition-all duration-300 hover:shadow-lg 
+                        <a href="{{ route('login') }}"
+                            class="px-5 max-sm:py-1 max-sm:px-3 py-2.5 border border-primary text-primary font-semibold text-sm rounded-full
+          hover:text-white transition-all duration-300 hover:shadow-lg
           sm:px-4 sm:py-2 sm:text-xs">
-   Sign In
-</a>
+                            Sign In
+                        </a>
 
-<a href="{{ route('register') }}"
-   class="px-5 py-2.5 bg-primary text-white font-semibold text-sm rounded-full 
-          transition-all duration-300 hover:shadow-lg transform hover:scale-105 
+                        <a href="{{ route('register') }}"
+                            class="px-5  py-2.5 bg-primary max-sm:hidden text-white font-semibold text-sm rounded-full
+          transition-all duration-300 hover:shadow-lg transform hover:scale-105
           sm:px-4 sm:py-2 sm:text-xs">
-   SignUp
-</a>
+                            SignUp
+                        </a>
 
                     @endauth
                 </div>
