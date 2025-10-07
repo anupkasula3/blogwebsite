@@ -4,8 +4,8 @@
             @if ($category->latest_posts->count() > 0)
                 <div>
                     <!-- Category Header -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-2">
-                        <h2 class="text-2xl font-bold text-gray-800">{{ $category->name }} <span
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
+                        <h2 class="text-2xl font-bold text-gray-800 mt-5">{{ $category->name }} <span
                                 class="text-primary">Updates</span></h2>
                         <a href="{{ route('category.show', $category->slug) }}"
                             class="group inline-flex items-center gap-2 text-sm font-medium  hover:text-white bg-white hover:bg-primary border border-primary/20 hover:border-primary px-4 py-2.5 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-transparent hover:ring-primary/30">
@@ -18,7 +18,7 @@
                     <!-- Category Description -->
                     @if (!empty($category->description))
                         <p class="text-gray-600 leading-relaxed max-w-3xl">
-                            {{ Str::limit(strip_tags($category->description), 220) }}
+                            {{ $category->description }}
                         </p>
                     @endif
 

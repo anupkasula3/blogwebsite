@@ -27,7 +27,7 @@
                     @endif
                     @if($tw)
                         <a href="{{ $tw }}" target="_blank" rel="noopener" class="text-white hover:text-white transition-colors" aria-label="Twitter">
-                            <i class="fab fa-twitter text-xl"></i>
+                            <i class="fab fa-tiktok text-xl"></i>
                         </a>
                     @endif
                     @if($ig)

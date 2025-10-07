@@ -55,7 +55,7 @@
             <nav class="hidden lg:flex items-center gap-8">
                 <a href="{{ url('/') }}"
                     class="{{ request()->is('/') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                    aria-current="{{ request()->is('/') ? 'page' : false }}">News</a>
+                    aria-current="{{ request()->is('/') ? 'page' : false }}">NepTalk</a>
                 <!-- <div class="relative" x-data="{ catOpen: false }" @mouseenter="catOpen=true" @mouseleave="catOpen=false">
                     <a href="{{ route('categories.index') }}"
                         class="{{ request()->routeIs('categories.*') ? 'text-primary border-primary' : '' }} {{ $navLink }} flex items-center gap-2">

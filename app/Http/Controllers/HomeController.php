@@ -109,6 +109,7 @@ class HomeController extends Controller
         // Stories: group latest posts into chunks of 3
         $storyPosts = Post::with(['category'])
             ->published()
+            ->featured()
             ->latest('published_at')
             ->take(24)
             ->get();
@@ -190,6 +191,7 @@ class HomeController extends Controller
     {
         $posts = Post::with(['category', 'user', 'admin'])
             ->published()
+            ->featured()
             ->latest('published_at')
             ->paginate(12);
 
