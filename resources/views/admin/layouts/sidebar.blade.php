@@ -46,6 +46,10 @@
                     class="mt-1 ml-2 pl-6 border-l border-slate-800">
                     <a href="{{ route('admin.posts.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.posts.*') ? 'bg-slate-800 text-white' : '' }}">Admin Posts</a>
                 </div>
+                <div x-show="open" x-transition
+                    class="mt-1 ml-2 pl-6 border-l border-slate-800">
+                    <a href="{{ route('admin.userposts.index') }}" class="block px-3 py-2 rounded text-slate-300 hover:bg-slate-800 {{ request()->routeIs('admin.userposts.*') ? 'bg-slate-800 text-white' : '' }}">User Posts</a>
+                </div>
             </div>
 
             <div class="mt-3 mb-1 px-3 text-[10px] uppercase tracking-wider text-slate-500">Users & Settings</div>
