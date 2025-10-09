@@ -140,6 +140,7 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::post('/userposts/{post}/unfeature', [\App\Http\Controllers\Admin\UserPostController::class, 'unfeature'])->name('userposts.unfeature');
     Route::post('/userposts/{post}/approve', [\App\Http\Controllers\Admin\UserPostController::class, 'approve'])->name('userposts.approve');
     Route::post('/userposts/{post}/reject', [\App\Http\Controllers\Admin\UserPostController::class, 'reject'])->name('userposts.reject');
+    Route::post('/userposts/{post}/story-toggle', [\App\Http\Controllers\Admin\UserPostController::class, 'toggleStory'])->name('userposts.story-toggle');
 
     // Posts (admin-created)
     Route::resource('posts', PostController::class);
@@ -149,6 +150,7 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::post('/posts/{post}/unfeature', [PostController::class, 'unfeature'])->name('posts.unfeature');
     Route::post('/posts/{post}/approve', [PostController::class, 'approve'])->name('posts.approve');
     Route::post('/posts/{post}/reject', [PostController::class, 'reject'])->name('posts.reject');
+    Route::post('/posts/{post}/story-toggle', [PostController::class, 'toggleStory'])->name('posts.story-toggle');
 
     // Advertisements
     Route::resource('advertisements', AdvertisementController::class);

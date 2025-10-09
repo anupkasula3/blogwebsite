@@ -8,7 +8,7 @@
     <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-6">Latest Posts</h1>
-            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p class="text-xl text-white max-w-3xl mx-auto">
                 Stay up to date with the freshest content from our community of writers and thinkers.
             </p>
         </div>

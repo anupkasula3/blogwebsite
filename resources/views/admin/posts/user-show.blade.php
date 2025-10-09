@@ -197,6 +197,28 @@
                                 </div>
                             @endif
 
+                            @if (!$post->story)
+                                <form method="POST" action="{{ route('admin.userposts.story-toggle', $post) }}"
+                                    class="inline w-full">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">
+                                        <i class="fas fa-plus mr-2"></i>
+                                        Add to Story
+                                    </button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('admin.userposts.story-toggle', $post) }}"
+                                    class="inline w-full">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                                        <i class="fas fa-minus mr-2"></i>
+                                        Remove from Story
+                                    </button>
+                                </form>
+                            @endif
+
                             @if ($post->status === 'draft' || $post->status === 'pending')
                                 <form method="POST" action="{{ route('admin.userposts.publish', $post) }}"
                                     class="inline w-full">

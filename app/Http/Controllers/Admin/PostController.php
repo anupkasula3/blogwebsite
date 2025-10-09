@@ -226,6 +226,15 @@ class PostController extends Controller
             ->with('success', 'Post unfeatured successfully!');
     }
 
+    public function toggleStory(Post $post)
+    {
+        if ($post->author_type !== 'admin') abort(404);
+
+        $post->update(['story' => !$post->story]);
+
+        return redirect()->back()->with('success', $post->story ? 'Added to Story' : 'Removed from Story');
+    }
+
     public function approve(Post $post)
     {
         if ($post->author_type !== 'admin') abort(404);

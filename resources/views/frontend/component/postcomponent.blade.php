@@ -1,5 +1,6 @@
-<article
-    class="bg-white rounded-lg shadow-md overflow-hidden news-card transition-all duration-300 border border-gray-200 group">
+<a href="{{ route('post.show', $post->slug) }}"
+   class="block group bg-white rounded-lg shadow-md overflow-hidden news-card transition-all duration-300 border border-gray-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/30">
+<article>
     <!-- Ranking Badge -->
     <div class="relative">
         <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
@@ -32,7 +33,7 @@
 
         <!-- Title -->
         <h4 class="font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#ff2953] transition-colors">
-            <a href="{{ route('post.show', $post->slug) }}">{{ Str::limit($post->title, 70) }}</a>
+            {{ Str::limit($post->title, 70) }}
         </h4>
 
         <!-- Excerpt -->
@@ -59,3 +60,4 @@
 
     </div>
 </article>
+</a>

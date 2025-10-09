@@ -67,7 +67,7 @@
                                 </span>
 
                             </div>
-                            <a href="{{ route('all-posts') }}"
+                            <a href="{{ route('latest') }}"
                                 class="inline-flex items-center gap-2 bg-primary text-white px-4 sm:px-5 py-2 rounded-md hover:bg-primary/90 transition-colors text-sm font-semibold">
                                 <span>View All</span>
                                 <i class="fas fa-arrow-right text-xs"></i>
@@ -88,7 +88,9 @@
                             <!-- Featured Story -->
                             @if ($latestPosts->isNotEmpty())
                                 @foreach ($latestPosts->take(2) as $key => $latestPost)
+                                
                                     <div class="mb-3">
+                                        <a href="{{ route('post.show', $latestPost->slug) }}" class="block group">
                                         <div
                                             class="relative bg-white rounded-lg shadow-lg overflow-hidden news-card transition-all duration-300">
                                             <div class="md:flex">
@@ -110,11 +112,8 @@
                                                         <span
                                                             class="text-xs text-gray-500">{{ $latestPost->published_at->diffForHumans() }}</span>
                                                     </div>
-                                                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                                                        <a href="{{ route('post.show', $latestPost->slug) }}"
-                                                            class="hover:text-primary transition-colors">
-                                                            {{ $latestPost->title }}
-                                                        </a>
+                                                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition-colors">
+                                                        {{ $latestPost->title }}
                                                     </h3>
                                                     <p class="text-gray-600 mb-4 leading-relaxed">
                                                         {{ Str::limit(strip_tags($latestPost->content), 150) }}
@@ -128,14 +127,12 @@
                                                             <span
                                                                 class="text-sm font-medium text-gray-700">{{ $latestPost->author_name }}</span>
                                                         </div>
-                                                        <a href="{{ route('post.show', $latestPost->slug) }}"
-                                                            class="text-primary font-semibold text-sm hover:underline">
-                                                            Read More →
-                                                        </a>
+                                                        <span class="text-primary font-semibold text-sm group-hover:underline">Read More →</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        </a>
                                     </div>
                                 @endforeach
                             @endif
@@ -209,11 +206,13 @@
                             <div
                                 class="">
 
+                                <a href="https://aryanmiyamansoor.com.np/" target="_blank" rel="noopener noreferrer">
                                 <div class="mt-2">
-                                            <img src="{{ asset('images/ads.gif') }}"
+                                            <img src="{{ asset('images/aryan.gif') }}"
                                                 alt="Ads Nepbyte"
-                                                class="w-full h-44 sm:h-20 md:h-60 object-cover rounded">
+                                                class="w-full h-52 sm:h-60 md:h-60 object-cover rounded">
                                         </div>
+                                </a>
                                 {{-- <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
                                     @if ($sidebarAd)
@@ -265,9 +264,9 @@
                                 class="">
 
                                    <div class="mt-2">
-                                            <img src="{{ asset('images/tihar.gif') }}"
+                                            <img src="{{ asset('images/ads.gif') }}"
                                                 alt="TIhar"
-                                                class="w-full h-44 sm:h-20 md:h-72  object-cover rounded">
+                                                class="w-full h-52 sm:h-60 md:h-60 object-cover rounded">
                                         </div>
                                 {{-- <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
@@ -309,7 +308,7 @@
 
 
             <!-- Most Read Stories Section -->
-            <section class="py-8 bg-gray-100">
+            <section class="py-8 mt-8 ">
                 <div class="max-w-screen-2xl mx-auto px-4">
                     <!-- Section Header -->
                     <!-- <div class="border-b-4 border-blue-600 mb-8">
@@ -445,15 +444,9 @@
             </section>
 
 
-            <section class="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 text-zinc-900 relative overflow-hidden">
+            <!-- <section class="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 text-zinc-900 relative overflow-hidden">
                 <div class="max-w-screen-2xl mx-auto px-4 ">
-                    <!-- Section Header -->
-                    <!-- <div class="text-center mb-8 sm:mb-12 lg:mb-16">
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Featured
-                                Articles</h2>
-                            <p class="text-gray-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">Discover our most
-                                engaging and informative content curated just for you</p>
-                        </div> -->
+
 
                     <div class="border-b-2 border-primary mb-8">
                         <div class="flex justify-between items-center gap-3 pb-2">
@@ -474,28 +467,23 @@
                     </div>
 
                     <div class="flex flex-col lg:flex-row gap-3">
-                        <!-- LEFT: Featured Posts (Mobile: Full width, Desktop: 2/3) -->
                         <div class="w-full lg:w-2/3 xl:w-3/5 space-y-3">
                             @foreach ($featuredPosts as $key => $post2)
-                                <!-- Article Card -->
                                 <article
                                     class="group bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
                                     <div class="flex flex-col sm:flex-row">
-                                        <!-- Image max-w-screen-2xl -->
                                         <div class="relative shrink-0 w-full sm:w-2/5 lg:w-1/3 xl:w-2/5">
                                             <div class="aspect-video sm:aspect-square lg:aspect-video">
                                                 <img src="{{ asset('uploads/' . $post2->featured_image) }}"
                                                     alt="{{ $post2->title }}"
                                                     class="w-full h-[100%] object-cover group-hover:scale-105 transition-transform duration-300" />
                                             </div>
-                                            <!-- Category Badge -->
                                             <span
                                                 class="absolute top-3 right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-lg">
                                                 {{ $post2->category->name }}
                                             </span>
                                         </div>
 
-                                        <!-- Content max-w-screen-2xl -->
                                         <div class="flex-1 p-4 sm:p-6 lg:p-8">
                                             <div class="flex flex-col h-full justify-between">
                                                 <div>
@@ -509,7 +497,6 @@
                                                     </p>
                                                 </div>
 
-                                                <!-- Meta Information -->
                                                 <div class="flex items-center justify-between text-sm text-gray-500">
                                                     <div class="flex items-center gap-2">
                                                         <div
@@ -530,9 +517,7 @@
                             @endforeach
                         </div>
 
-                        <!-- RIGHT: Sidebar (Mobile: Full width, Desktop: 1/3) -->
                         <div class="w-full lg:w-1/3 xl:w-2/5 space-y-3">
-                            <!-- Advertisement Cards -->
                             <div class="flex w-full gap-3">
                                 <div
                                     class="w-1/2 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-4 sm:p-6 border border-blue-200">
@@ -557,7 +542,6 @@
 
                             <div class="flex flex-col lg:flex-row gap-3">
 
-                                <!-- Newsletter Signup -->
                                 <div class="bg-primary w-1/2 max-sm:w-full rounded-lg p-6 text-white">
                                     <div class="text-center">
                                         <i class="fas fa-newspaper text-3xl mb-3"></i>
@@ -594,7 +578,6 @@
 
 
 
-                            <!-- Popular Tags -->
                             <div class="bg-white rounded-xl border border-gray-200 shadow-sm">
                                 <img src="{{ asset('images/adddds.jpg') }}" alt="Advertisement"
                                     class="w-full h-32 sm:h-52 object-cover rounded-lg" />
@@ -602,7 +585,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
 
 

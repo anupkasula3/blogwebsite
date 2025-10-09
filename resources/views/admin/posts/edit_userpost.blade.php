@@ -38,12 +38,11 @@
 
                     <!-- Excerpt -->
                     <div>
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short
-                            description for post previews and search results (150-160 characters recommended)</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short description for previews and search results. Any length is accepted.</p>
                         <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
                         <textarea name="excerpt" id="excerpt" rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
-                            placeholder="Brief description of the post">{{ old('excerpt', $post->excerpt) }}</textarea>
+                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
+                            placeholder="Brief description of the post (no character limit)">{{ old('excerpt', $post->excerpt) }}</textarea>
                         @error('excerpt')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -55,7 +54,7 @@
                             headings, bullet points, and images to make your content engaging and scannable</p>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
                         <textarea name="content" id="content" rows="15" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('content') border-red-500 @enderror"
+                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('content') border-red-500 @enderror"
                             placeholder="Write your post content here...">{{ old('content', $post->content) }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -136,7 +135,7 @@
                             <input type="checkbox" name="is_featured" value="1"
                                 {{ old('is_featured', $post->is_featured) ? 'checked' : '' }}
                                 class="text-blue-600 focus:ring-blue-500 rounded">
-                            <span class="ml-2 text-sm font-medium text-gray-700">Featured Post</span>
+                            <span class="ml-2 text-sm font-medium text-gray-700">Breaking News</span>
                         </label>
                         <p class="text-sm text-gray-500 mt-1">Featured posts appear on the homepage</p>
                         @error('is_featured')
@@ -165,7 +164,7 @@
                                 <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Description</label>
                                 <textarea name="meta_description" id="meta_description" rows="2"
-                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
+                                    class="w-full tinymce px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description">{{ old('meta_description', $post->meta_description) }}</textarea>
                                 @error('meta_description')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -207,29 +206,22 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         <script>
-            // Auto-generate slug from title
-            document.getElementById('title').addEventListener('input', function() {
-                const title = this.value;
-                const slug = title.toLowerCase()
-                    .replace(/[^a-z0-9 -]/g, '')
-                    .replace(/\s+/g, '-')
-                    .replace(/-+/g, '-')
-                    .trim('-');
-                document.getElementById('slug').value = slug;
-            });
+            // Auto-generate slug from title (guard if slug input exists)
+            const titleInput = document.getElementById('title');
+            const slugInput = document.getElementById('slug');
+            if (titleInput && slugInput) {
+                titleInput.addEventListener('input', function () {
+                    const title = this.value;
+                    const slug = title.toLowerCase()
+                        .replace(/[^a-z0-9 -]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-')
+                        .replace(/^-+|-+$/g, '');
+                    slugInput.value = slug;
+                });
+            }
 
-            // Character counter for excerpt
-            document.getElementById('excerpt').addEventListener('input', function() {
-                const maxLength = 160;
-                const currentLength = this.value.length;
-                const remaining = maxLength - currentLength;
-
-                if (remaining < 0) {
-                    this.style.borderColor = '#ef4444';
-                } else {
-                    this.style.borderColor = '#d1d5db';
-                }
-            });
+            // Excerpt: accept any length, no client-side limit or styling
         </script>
     @endpush
 @endsection
