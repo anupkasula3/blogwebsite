@@ -20,14 +20,14 @@
         <!-- Main Container -->
         <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 lg:px-5 py-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                
+
                 <!-- Left Sidebar - Social Share -->
                 <div class="hidden lg:block lg:col-span-1">
                     <div class="sticky top-24">
                         <div class="flex flex-col items-center gap-3">
                             <!-- Comments Count -->
                             <div class="text-center mb-4">
-                               
+
                                 <div class="text-2xl font-bold text-gray-900">{{ number_format($post->views_count) }} </div>
                                 <div class="text-xs text-gray-500 uppercase">views</div>
                             </div>
@@ -166,7 +166,7 @@ function copyToClipboard(url) {
                     <!-- Featured Image -->
                     @if ($post->featured_image)
                         <div class="mb-8">
-                            <img src="{{ asset('uploads/' . $post->featured_image) }}" 
+                            <img src="{{ asset('uploads/' . $post->featured_image) }}"
                                 alt="{{ $post->title }}"
                                 class="w-full h-auto rounded-lg">
                         </div>
@@ -174,7 +174,7 @@ function copyToClipboard(url) {
 
                     <!-- Excerpt/Lead Paragraph -->
                     <div class="text-lg text-gray-700 mb-6 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4">
-                        {{ $post->excerpt }}
+                        {!! $post->excerpt !!}
                     </div>
 
                     <!-- Article Content -->
@@ -283,7 +283,7 @@ function copyToClipboard(url) {
                                 </div>
                             @else
                                 <img src="{{ $post->user->avatar_url ?? asset('images/default-avatar.png') }}"
-                                    alt="{{ $post->user->name ?? 'User' }}" 
+                                    alt="{{ $post->user->name ?? 'User' }}"
                                     class="w-16 h-16 rounded-full object-cover flex-shrink-0">
                             @endif
                             <div class="flex-1">
@@ -308,7 +308,7 @@ function copyToClipboard(url) {
                         $wordCount = str_word_count(strip_tags($post->content));
                         $readingTime = max(1, (int) ceil($wordCount / 200));
                     @endphp
-                                    
+
                                     {{ $readingTime }} min read</span>
                                 </div>
                             </div>
@@ -391,7 +391,7 @@ function copyToClipboard(url) {
                             </div>
                         </div>
 
-                        
+
                         <!-- Category Widget -->
                         <div class="bg-white border border-gray-200 rounded-lg p-4">
                             <h3 class="font-bold text-gray-900 mb-3">Category</h3>
@@ -401,7 +401,7 @@ function copyToClipboard(url) {
                                 <span>{{ $post->category->name }}</span>
                             </a>
                         </div>
-                        
+
                         <!-- Upcoming Events Widget -->
 
                         <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
@@ -422,8 +422,8 @@ function copyToClipboard(url) {
                     </div>
                 </div>
 
-                        
-                      
+
+
 
                         <!-- Ad Space -->
                         <div class="bg-gray-100 rounded-lg p-6 text-center">
@@ -434,7 +434,7 @@ function copyToClipboard(url) {
                         </div>
 
 
-                     
+
                     </div>
                 </div>
             </div>
