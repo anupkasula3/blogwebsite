@@ -106,14 +106,14 @@ class HomeController extends Controller
 
         $banners = Banner::first();
 
-        // Stories: group latest posts marked as story into chunks of 3
+        // Stories: group latest posts into chunks of 3
         $storyPosts = Post::with(['category'])
-            ->published()
-            ->where('story', true)
-            ->latest('published_at')
-            ->take(24)
-            ->get();
-        $storyGroups = $storyPosts->chunk(3);
+        ->published()
+        ->where('story', true)
+        ->latest('published_at')
+        ->take(24)
+        ->get();
+    $storyGroups = $storyPosts->chunk(3);
 
         return view('frontend.homepage.home', compact(
             'featuredPosts',
@@ -170,8 +170,9 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.post.show', compact('post', 'relatedPosts'));
+        return view('frontend.post.show', compact('post', 'relatedPosts', 'sidebarAd'));
     }
 
     public function categories()

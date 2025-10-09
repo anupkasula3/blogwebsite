@@ -31,7 +31,7 @@
                     <button type="button"
                             class="snap-start group outline-none cursor-pointer flex-none w-[85%] sm:w-[60%] md:w-[40%] lg:w-[30%] xl:w-[23%] "
                             data-story-index="{{ $idx }}">
-                        <div class="relative h-[330px] sm:h-[370px] lg:h-[410px] rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-md group-hover:shadow-xl transition-all">
+                        <div class="relative h-[360px] sm:h-[380px] lg:h-[410px] rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-md group-hover:shadow-xl transition-all">
                             <div class="absolute inset-0">
                                 <img src="{{ asset('uploads/' . ($first->featured_image ?? '')) }}"
                                      alt="{{ $first->title ?? '' }}"
