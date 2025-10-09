@@ -11,6 +11,14 @@
     </script>
 @endif
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<style>
+    /* Prevent x-show content from flashing before Alpine initializes */
+    [x-cloak] { display: none !important; }
+    /* Optional: improve mobile sidebar performance */
+    @media (max-width: 1024px) {
+        aside[role="dialog"] { will-change: transform, opacity; }
+    }
+    </style>
 
 <header x-data="{ open: false, scrolled: false, showSearch: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
     :class="scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white/90 backdrop-blur-md shadow-md'"
@@ -171,18 +179,19 @@
     <!-- Mobile Sidebar Navigation -->
     <div class="lg:hidden">
         <!-- Overlay -->
-        <div x-show="open" @click="open = false"
+        <div x-cloak x-show="open" @click="open = false"
             class="fixed inset-0 w-screen h-screen bg-black/50 backdrop-blur-sm z-[9998] transition-all duration-300"
             x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
 
         <!-- Sidebar -->
-        <aside x-show="open" x-transition:enter="transition ease-out duration-300"
+        <aside x-cloak x-show="open" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0"
             x-transition:leave-end="-translate-x-full"
-            class="fixed top-0 left-0 h-[100vh] w-full max-w-sm bg-white z-[9999] shadow-2xl flex flex-col overflow-hidden">
+            class="fixed top-0 left-0 h-[100vh] w-full max-w-sm bg-white z-[9999] shadow-2xl flex flex-col overflow-hidden"
+            role="dialog" aria-modal="true">
 
             <!-- Header -->
             <div class="bg-white p-4 text-primary">

@@ -106,10 +106,10 @@ class HomeController extends Controller
 
         $banners = Banner::first();
 
-        // Stories: group latest posts into chunks of 3
+        // Stories: group latest posts marked as story into chunks of 3
         $storyPosts = Post::with(['category'])
             ->published()
-            ->featured()
+            ->where('story', true)
             ->latest('published_at')
             ->take(24)
             ->get();

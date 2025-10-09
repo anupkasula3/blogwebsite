@@ -97,10 +97,12 @@
                         @endif
                     </div>
 
+
+                    
                     <!-- Post Content -->
                     <div class="bg-white border border-gray-200 rounded-lg p-6">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Content</h3>
-                        <div class="prose max-w-none">
+                        <div class="prose prose-lg max-w-none">
                             {!! $post->content !!}
                         </div>
                     </div>
@@ -209,6 +211,26 @@
                                 </form>
                             @endif
 
+                            @if (!$post->story)
+                                <form method="POST" action="{{ route('admin.posts.story-toggle', $post) }}" class="inline w-full">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">
+                                        <i class="fas fa-plus mr-2"></i>
+                                        Add to Story
+                                    </button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('admin.posts.story-toggle', $post) }}" class="inline w-full">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                                        <i class="fas fa-minus mr-2"></i>
+                                        Remove from Story
+                                    </button>
+                                </form>
+                            @endif
+
                             <a href="{{ route('post.show', $post->slug) }}" target="_blank"
                                 class="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
                                 <i class="fas fa-external-link-alt mr-2"></i>
@@ -282,5 +304,19 @@
     </div>
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    @endpush
+    @push('styles')
+        <style>
+            .prose { color: #374151; line-height: 1.75; }
+            .prose h1, .prose h2, .prose h3, .prose h4 { color:#111827; font-weight:700; margin: 1.5rem 0 .75rem; }
+            .prose p { margin-bottom: 1rem; }
+            .prose ul, .prose ol { margin: 1rem 0 1rem 1.25rem; }
+            .prose li { margin-bottom: .25rem; }
+            .prose blockquote { border-left: 4px solid #ff2953; padding-left: 1rem; color:#6b7280; font-style: italic; }
+            .prose img { border-radius: .5rem; margin: 1rem 0; max-width:100%; height:auto; }
+            .prose a { color:#2563eb; text-decoration: underline; }
+            .prose pre { background:#1f2937; color:#f9fafb; padding:1rem; border-radius:.5rem; overflow:auto; }
+            .prose code { background:#f3f4f6; padding:.125rem .375rem; border-radius:.25rem; }
+        </style>
     @endpush
 @endsection

@@ -144,15 +144,15 @@
                 <div class="text-white text-sm">
                     © {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'NepBlog') }}. All rights reserved.
                 </div>
-                <div class="flex items-center space-x-6 text-sm">
-                    <a href="{{ route('privacy') }}" class="text-white hover:text-white transition-colors">
-                        Privacy Policy
-                    </a>
-                    <a href="{{ route('terms') }}" class="text-white hover:text-white transition-colors">
-                        Terms and Conditions
-                    </a>
+       
 
-                </div>
+<div class="max-sm:pt-5 flex items-center gap-x-2 sm:mr-16">
+In Collaboration With <a href="https://www.nepbyte.com" target="_blank"
+                                class="text-[#ff2953] hover:text-white hover:underline text-xl">NepByte</a> <img
+                                src="{{ asset('images/nepal_flag.gif') }}" alt="NepByte" class="w-5" />
+                        </div>
+
+
             </div>
         </div>
     </div>

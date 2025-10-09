@@ -88,7 +88,9 @@
                             <!-- Featured Story -->
                             @if ($latestPosts->isNotEmpty())
                                 @foreach ($latestPosts->take(2) as $key => $latestPost)
+                                
                                     <div class="mb-3">
+                                        <a href="{{ route('post.show', $latestPost->slug) }}" class="block group">
                                         <div
                                             class="relative bg-white rounded-lg shadow-lg overflow-hidden news-card transition-all duration-300">
                                             <div class="md:flex">
@@ -110,11 +112,8 @@
                                                         <span
                                                             class="text-xs text-gray-500">{{ $latestPost->published_at->diffForHumans() }}</span>
                                                     </div>
-                                                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                                                        <a href="{{ route('post.show', $latestPost->slug) }}"
-                                                            class="hover:text-primary transition-colors">
-                                                            {{ $latestPost->title }}
-                                                        </a>
+                                                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition-colors">
+                                                        {{ $latestPost->title }}
                                                     </h3>
                                                     <p class="text-gray-600 mb-4 leading-relaxed">
                                                         {{ Str::limit(strip_tags($latestPost->content), 150) }}
@@ -128,14 +127,12 @@
                                                             <span
                                                                 class="text-sm font-medium text-gray-700">{{ $latestPost->author_name }}</span>
                                                         </div>
-                                                        <a href="{{ route('post.show', $latestPost->slug) }}"
-                                                            class="text-primary font-semibold text-sm hover:underline">
-                                                            Read More →
-                                                        </a>
+                                                        <span class="text-primary font-semibold text-sm group-hover:underline">Read More →</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        </a>
                                     </div>
                                 @endforeach
                             @endif
@@ -209,11 +206,13 @@
                             <div
                                 class="">
 
+                                <a href="https://aryanmiyamansoor.com.np/" target="_blank" rel="noopener noreferrer">
                                 <div class="mt-2">
-                                            <img src="{{ asset('images/ads.gif') }}"
+                                            <img src="{{ asset('images/aryan.gif') }}"
                                                 alt="Ads Nepbyte"
-                                                class="w-full h-44 sm:h-20 md:h-60 object-cover rounded">
+                                                class="w-full h-52 sm:h-60 md:h-60 object-cover rounded">
                                         </div>
+                                </a>
                                 {{-- <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
                                     @if ($sidebarAd)
@@ -265,9 +264,9 @@
                                 class="">
 
                                    <div class="mt-2">
-                                            <img src="{{ asset('images/tihar.gif') }}"
+                                            <img src="{{ asset('images/ads.gif') }}"
                                                 alt="TIhar"
-                                                class="w-full h-44 sm:h-20 md:h-72  object-cover rounded">
+                                                class="w-full h-52 sm:h-60 md:h-60 object-cover rounded">
                                         </div>
                                 {{-- <div class="text-center">
                                     <span class="text-xs text-gray-500 uppercase tracking-wide">Advertisement</span>
@@ -447,7 +446,7 @@
 
             <!-- <section class="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 text-zinc-900 relative overflow-hidden">
                 <div class="max-w-screen-2xl mx-auto px-4 ">
-                   
+
 
                     <div class="border-b-2 border-primary mb-8">
                         <div class="flex justify-between items-center gap-3 pb-2">

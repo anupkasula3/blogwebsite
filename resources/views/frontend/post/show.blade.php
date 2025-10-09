@@ -10,7 +10,7 @@
 @endif
 
 @section('content')
-    <div class=" mx-auto max-w-screen-2xl mb-10">
+    <div class="  mb-10">
 
         <!-- Reading Progress Bar -->
         <div class="fixed top-0 left-0 w-full h-1 bg-gray-200">
@@ -21,7 +21,7 @@
 
         <!-- Post Header -->
         <section
-            class="relative  overflow-hidden bg-gradient-to-r from-[#ff2953] to-[#c51f42] py-5 sm:py-7 rounded-b-3xl   shadow-lg mb-3">
+            class="relative  overflow-hidden bg-gradient-to-r from-[#ff2953] to-[#c51f42] py-5 sm:py-7   shadow-lg mb-3">
 
             <div class="relative z-10 flex flex-col items-center justify-center px-3 sm:px-6 md:px-10">
                 <div class="flex items-center gap-2 text-xs text-white/80 mb-3">
@@ -30,14 +30,15 @@
                     <a href="{{ route('category.show', $post->category->slug) }}"
                         class="hover:text-white transition-colors">{{ $post->category->name }}</a>
                 </div>
-                <h1
-                    class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 text-white text-center leading-tight drop-shadow">
-                    {{ $post->title }}
-                </h1>
-                <p
-                    class="text-base sm:text-lg md:text-xl text-white/90 mb-6 leading-relaxed font-medium text-center max-w-3xl">
-                    {{ $post->excerpt }}
-                </p>
+                <h1 
+    class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-white text-center leading-tight drop-shadow">
+    {{ $post->title }}
+</h1>
+<p 
+    class="text-sm sm:text-base md:text-lg text-white mb-4 leading-relaxed font-medium text-center max-w-screen-2xl mx-auto">
+    {{ $post->excerpt }}
+</p>
+
                 <div class="flex flex-wrap justify-center gap-2 text-xs sm:text-sm font-medium w-full">
                     <div class="flex items-center gap-2 px-3 py-1 bg-white/90 rounded-full shadow meta-chip">
                         @if ($post->isAdminPost())
@@ -74,24 +75,10 @@
                 </div>
             </div>
         </section>
-        <!-- Ad Banner Below Top Section (728x90) -->
-        <div class="flex justify-center py-2 sm:py-4">
-            <div class="ad-box ad-728x90">
-                <div class="ad-label">ADVERTISEMENT</div>
-                @if (isset($belowTitleAd) && $belowTitleAd)
-                    <a href="{{ $belowTitleAd->link }}" target="_blank"
-                        onclick="trackAdClick({{ $belowTitleAd->id }}, 'belowTitle')" class="block">
-                        <img src="{{ asset('uploads/' . $belowTitleAd->image) }}" alt="{{ $belowTitleAd->title }}"
-                            class="ad-media">
-                    </a>
-                @else
-                    <img src="https://placehold.co/728x90?text=728x90+Leaderboard" alt="Advertisement" class="ad-media">
-                @endif
-            </div>
-        </div>
+
 
         <!-- Post Content -->
-        <section class=" bg-white">
+        <section class=" mx-auto max-w-screen-2xl">
             <div class=" px-4">
                 <div class="grid  grid-cols-1 lg:grid-cols-3 gap-12">
                     <!-- Main Content -->
@@ -115,44 +102,11 @@
                                     }
                                 @endphp
                                 {!! $firstParagraph !!}
-                                <!-- Inline Advertisement (468x60) -->
-                                <div class="my-8 flex justify-center">
-                                    <div class="ad-box ad-468x60">
-                                        <div class="ad-label">ADVERTISEMENT</div>
-                                        @if (isset($inlineAd) && $inlineAd)
-                                            <a href="{{ $inlineAd->link }}" target="_blank"
-                                                onclick="trackAdClick({{ $inlineAd->id }}, 'inline')" class="block">
-                                                @if ($inlineAd->image)
-                                                    <img src="{{ asset('uploads/' . $inlineAd->image) }}"
-                                                        alt="{{ $inlineAd->title }}" class="ad-media">
-                                                @endif
-                                            </a>
-                                        @else
-                                            <img src="https://placehold.co/468x60?text=468x60+Banner" alt="Advertisement"
-                                                class="ad-media">
-                                        @endif
-                                    </div>
-                                </div>
+
                                 {!! $restContent !!}
                             </article>
 
-                            <!-- Below Content Advertisement (728x90) -->
-                            <div class="mt-8 flex justify-center">
-                                <div class="ad-box ad-728x90">
-                                    <div class="ad-label">ADVERTISEMENT</div>
-                                    @if (isset($belowContentAd) && $belowContentAd)
-                                        <a href="{{ $belowContentAd->link }}" target="_blank"
-                                            onclick="trackAdClick({{ $belowContentAd->id }}, 'belowContent')"
-                                            class="block">
-                                            <img src="{{ asset('uploads/' . $belowContentAd->image) }}"
-                                                alt="{{ $belowContentAd->title }}" class="ad-media">
-                                        </a>
-                                    @else
-                                        <img src="https://placehold.co/728x90?text=728x90+Leaderboard" alt="Advertisement"
-                                            class="ad-media">
-                                    @endif
-                                </div>
-                            </div>
+
 
                             <!-- Tags -->
                             @if ($post->tags)
@@ -217,30 +171,19 @@
 
                             <!-- Related Posts Grid (Main Content) -->
                             @if ($relatedPosts->count() > 0)
-                                <!-- Ad Banner Above Related Posts -->
-                                <div class="mt-10 flex justify-center">
-                                    <div class="ad-box ad-728x90">
-                                        <div class="ad-label">ADVERTISEMENT</div>
-                                        @if (isset($aboveRelatedAd) && $aboveRelatedAd)
-                                            <a href="{{ $aboveRelatedAd->link }}" target="_blank"
-                                                onclick="trackAdClick({{ $aboveRelatedAd->id }}, 'aboveRelated')"
-                                                class="block">
-                                                <img src="{{ asset('uploads/' . $aboveRelatedAd->image) }}"
-                                                    alt="{{ $aboveRelatedAd->title }}" class="ad-media">
-                                            </a>
-                                        @else
-                                            <img src="https://placehold.co/728x90?text=728x90+Leaderboard"
-                                                alt="Advertisement" class="ad-media">
-                                        @endif
-                                    </div>
-                                </div>
 
-                                <div class="mt-6 l p-4 ">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-lg font-semibold text-gray-900">Related Posts</h3>
+
+                                <div class="mt-8">
+                                    <div class="flex items-center justify-between mb-4 border-t border-t-gray-200">
+                                        <h3 class="text-xl font-extrabold text-gray-900 flex items-center gap-2 pt-5">
+                                            <span class="inline-block w-1.5 h-5 rounded-full bg-gradient-to-b from-[#ff2953] to-[#c51f42]"></span>
+                                            Related Posts
+                                        </h3>
                                         <a href="{{ route('category.show', $post->category->slug) }}"
-                                            class="text-sm text-[#ff2953] hover:text-[#e02448]">More in
-                                            {{ $post->category->name }} →</a>
+                                            class="inline-flex mt-5 items-center gap-2 text-sm font-semibold text-white bg-[#ff2953] hover:bg-[#e02448] px-3 py-1.5 rounded-lg shadow-sm">
+                                            <span>More in {{ $post->category->name }}</span>
+                                            <i class="fas fa-arrow-right text-xs"></i>
+                                        </a>
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         @foreach ($relatedPosts as $relatedPost)
@@ -344,27 +287,6 @@
                                 @endif --}}
                             </div>
 
-                            <!-- Sidebar Advertisement (300x250) -->
-                            <div class="mt-6">
-                                <div class="ad-box ad-300x250">
-                                    <div class="ad-label">ADVERTISEMENT</div>
-
-                                    <img src="https://placehold.co/300x250?text=300x250+Sidebar+Ad" alt="Advertisement"
-                                        class="ad-media">
-
-                                </div>
-                            </div>
-
-                            <!-- Secondary Sidebar Advertisement (300x250) -->
-                            <div class="mt-6">
-                                <div class="ad-box ad-300x250">
-                                    <div class="ad-label">ADVERTISEMENT</div>
-
-                                    <img src="https://placehold.co/300x250?text=300x250+Sidebar+Ad" alt="Advertisement"
-                                        class="ad-media">
-
-                                </div>
-                            </div>
 
                             <!-- Related Posts moved to main content grid -->
                         </div>
@@ -400,115 +322,18 @@
                             console.error('Could not copy text: ', err);
                         });
                     }
-
-                    // Track ad impressions
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const adElements = document.querySelectorAll('[onclick*="trackAdClick"]');
-                        adElements.forEach(function(element) {
-                            const adId = element.getAttribute('onclick').match(/trackAdClick\((\d+)/)[1];
-                            const position = element.getAttribute('onclick').match(/,\s*'([^']+)'/)[1];
-
-                            // Track impression
-                            fetch('/api/ads/impression', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                        .getAttribute('content')
-                                },
-                                body: JSON.stringify({
-                                    ad_id: adId,
-                                    position: position
-                                })
-                            });
-                        });
-
-                    });
-
-                    // Track ad clicks
-                    function trackAdClick(adId, position) {
-                        try {
-                            fetch('/api/ads/click', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: JSON.stringify({
-                                    ad_id: adId,
-                                    position
-                                })
-                            });
-                        } catch (e) {
-                            console.error('Ad click track failed', e);
-                        }
-                    }
                 </script>
             @endpush
 
             @push('styles')
                 <style>
-                    /* Standard Ad Box */
-                    .ad-box {
-                        background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
-                        border: 2px dashed #ffb4c1;
-                        border-radius: 16px;
-                        padding: 12px;
-                        box-shadow: 0 8px 24px rgba(255, 41, 83, 0.08);
-                    }
-
-                    .ad-label {
-                        text-align: center;
-                        font-weight: 700;
-                        font-size: 12px;
-                        letter-spacing: .1em;
-                        color: #ff2953;
-                        margin-bottom: 8px;
-                    }
-
-                    .ad-media {
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain;
-                        background: #eef2f7;
-                        border-radius: 8px;
-                    }
-
+                    
                     /* Meta chips */
                     .meta-chip {
                         border: 1px solid rgba(255, 41, 83, 0.12);
                         box-shadow: 0 2px 10px rgba(255, 41, 83, 0.07);
                     }
-
-                    /* Ad sizes */
-                    .ad-728x90 {
-                        width: 100%;
-                        max-width: 728px;
-                        height: 90px;
-                        margin: 0 auto;
-                    }
-
-                    .ad-468x60 {
-                        width: 100%;
-                        max-width: 468px;
-                        height: 60px;
-                        margin: 0 auto;
-                    }
-
-                    .ad-300x250 {
-                        width: 100%;
-                        max-width: 300px;
-                        height: 250px;
-                        margin: 0 auto;
-                    }
-
-                    .ad-320x50 {
-                        width: 100%;
-                        max-width: 320px;
-                        height: 50px;
-                        margin: 0 auto;
-                    }
+                    
 
                     /* Share buttons */
                     .share-btn {

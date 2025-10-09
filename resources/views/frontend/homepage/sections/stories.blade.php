@@ -6,15 +6,15 @@
                 <div class="flex items-center gap-3">
                     <span class="inline-flex items-center text-xl gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold">
                         <i class="fas fa-newspaper"></i>
-                        Latest News Stories
+                       Highlighted Stories
                     </span>
                 </div>
                 <div class="flex gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                    <button type="button" id="storiesPrevBtn" 
+                    <button type="button" id="storiesPrevBtn"
                         class="h-10 w-10 grid place-items-center rounded-full bg-white border border-gray-200 shadow-md hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 cursor-pointer">
                         <i class="fas fa-chevron-left text-gray-600 text-sm"></i>
                     </button>
-                    <button type="button" id="storiesNextBtn" 
+                    <button type="button" id="storiesNextBtn"
                         class="h-10 w-10 grid place-items-center rounded-full bg-white border border-gray-200 shadow-md hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 cursor-pointer">
                         <i class="fas fa-chevron-right text-gray-600 text-sm"></i>
                     </button>
@@ -28,12 +28,12 @@
                  style="scrollbar-width: none; -ms-overflow-style: none;">
                 @foreach($storyGroups as $idx => $group)
                     @php $first = $group->first(); @endphp
-                    <button type="button" 
+                    <button type="button"
                             class="snap-start group outline-none cursor-pointer flex-none w-[85%] sm:w-[60%] md:w-[40%] lg:w-[30%] xl:w-[23%] "
                             data-story-index="{{ $idx }}">
                         <div class="relative h-[330px] sm:h-[370px] lg:h-[410px] rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-md group-hover:shadow-xl transition-all">
                             <div class="absolute inset-0">
-                                <img src="{{ asset('uploads/' . ($first->featured_image ?? '')) }}" 
+                                <img src="{{ asset('uploads/' . ($first->featured_image ?? '')) }}"
                                      alt="{{ $first->title ?? '' }}"
                                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
@@ -65,20 +65,20 @@
     <div id="storiesModal" class="fixed inset-0 z-[99999] hidden bg-black/90">
         <div class="relative h-full w-full flex items-center justify-center p-4">
             <!-- Close button -->
-            <button type="button" id="storiesClose" 
+            <button type="button" id="storiesClose"
                     class="absolute top-4 right-4 md:top-6 md:right-6 z-30 h-10 w-10 md:h-12 md:w-12 grid place-items-center rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300 cursor-pointer">
                 <i class="fas fa-times text-lg"></i>
             </button>
-            
+
             <!-- Main content container -->
             <div class="relative w-full max-w-md md:max-w-lg lg:max-w-2xl h-[80vh] bg-white rounded-2xl overflow-hidden shadow-2xl">
                 <!-- Progress bars -->
                 <div id="storiesProgress" class="absolute top-4 left-4 right-4 flex gap-1 z-30"></div>
-                
+
                 <!-- Slide content -->
                 <div class="h-full w-full relative">
                     <a id="storiesSlideLink" href="#" class="block w-full h-full" target="_self">
-                        <img id="storiesSlideImage" src="" alt="story" 
+                        <img id="storiesSlideImage" src="" alt="story"
                              class="w-full h-full object-cover" />
                         <!-- Bottom gradient overlay with title -->
                         <div class="absolute inset-x-0 bottom-0 p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/30 to-transparent">
@@ -86,15 +86,15 @@
                         </div>
                     </a>
                 </div>
-                
+
                 <!-- Navigation buttons -->
-                <div class="absolute inset-0 flex items-center justify-between p-2 z-20">
-                    <button type="button" id="storiesPrev" 
-                            class="h-10 w-10 md:h-12 md:w-12 ml-2 grid place-items-center rounded-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300 cursor-pointer">
+                <div class="absolute inset-0 flex items-center justify-between p-2 z-20 pointer-events-none">
+                    <button type="button" id="storiesPrev"
+                            class="h-10 w-10 md:h-12 md:w-12 ml-2 grid place-items-center rounded-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300 cursor-pointer pointer-events-auto">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button type="button" id="storiesNext" 
-                            class="h-10 w-10 md:h-12 md:w-12 mr-2 grid place-items-center rounded-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300 cursor-pointer">
+                    <button type="button" id="storiesNext"
+                            class="h-10 w-10 md:h-12 md:w-12 mr-2 grid place-items-center rounded-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300 cursor-pointer pointer-events-auto">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
@@ -104,20 +104,20 @@
 </section>
 
 <style>
-.scrollbar-hide::-webkit-scrollbar { 
-    display: none; 
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }
-.progress-track { 
-    height: 3px; 
-    background: rgba(255,255,255,0.2); 
-    border-radius: 9999px; 
-    overflow: hidden; 
+.progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 9999px;
+    overflow: hidden;
 }
-.progress-fill { 
-    height: 100%; 
-    background: white; 
-    width: 0%; 
-    transition: width 0.1s linear; 
+.progress-fill {
+    height: 100%;
+    background: white;
+    width: 0%;
+    transition: width 0.1s linear;
 }
 #storiesRail {
     scroll-behavior: smooth;
@@ -214,12 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
             close();
             return;
         }
-        
+
         const item = storyData[activeStory][activeIndex];
         if (slideImg) slideImg.src = item.image;
         if (slideTitle) slideTitle.textContent = item.title;
         if (slideLink) slideLink.href = item.url;
-        
+
         buildProgressBars(storyData[activeStory].length);
         startTimer();
     }
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function tick(now) {
             const p = Math.min(1, (now - start) / DURATION);
             current.style.width = (p * 100) + '%';
-            
+
             if (p < 1) {
                 timer = requestAnimationFrame(tick);
             } else {
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleSwipe() {
         const swipeThreshold = 50;
         const swipeDiff = touchStartX - touchEndX;
-        
+
         if (Math.abs(swipeDiff) > swipeThreshold) {
             if (swipeDiff > 0) {
                 next();

@@ -12,14 +12,14 @@
 @section('meta_keywords', $category->meta_keywords)
 
 @section('content')
-    <div class="mx-auto max-w-screen-2xl ">
+    <div class="">
 
 
         <!-- Hero Section (smaller height) -->
         <section
-            class="relative  overflow-hidden bg-gradient-to-r from-[#ff2953] to-[#c51f42] py-5 sm:py-7 rounded-b-3xl   shadow-lg mb-3">
+            class="relative  overflow-hidden bg-gradient-to-r from-[#ff2953] to-[#c51f42] py-5 sm:py-7   shadow-lg mb-3">
 
-            <div class="relative z-10 max-w-7xl mx-auto px-4  text-center flex flex-col items-center">
+            <div class="relative z-10 max-w-screen-2xl mx-auto px-4  text-center flex flex-col items-center">
                 <!-- Breadcrumbs -->
                 <nav class="w-full text-white/90 text-xs sm:text-sm mb-3" aria-label="Breadcrumb">
                     <ol class="flex items-center justify-center flex-wrap gap-1">
@@ -58,7 +58,7 @@
                         </span>
                     @endif
                 </h1>
-                <p class="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto mb-2">{{ $category->description }}</p>
+                <p class="text-base sm:text-lg text-white max-w-screen-2xl mx-auto mb-2">{{ $category->description }}</p>
                 <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-medium w-full">
                     <span class="flex items-center bg-white/90 px-3 py-1.5 rounded-full shadow text-gray-800">
                         <i class="fas fa-newspaper mr-2 text-primary-600"></i> {{ $category->posts_count }} posts
@@ -75,7 +75,7 @@
 
 
         <!-- Posts Grid & Sidebar -->
-        <section class="py-5 bg-white rounded-3xl shadow-xl">
+        <section class="py-5 mx-auto max-w-screen-2xl ">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-3 px-4 ">
                 <!-- Main Content -->
                 <div class="lg:col-span-2">

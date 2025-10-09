@@ -39,7 +39,8 @@ class Post extends Model
         'is_editors_pick',
         'is_approved',
         'reading_time',
-        'seo_score'
+        'seo_score',
+        'story'
     ];
 
     protected $casts = [
@@ -50,6 +51,7 @@ class Post extends Model
         'is_approved' => 'boolean',
         'reading_time' => 'integer',
         'seo_score' => 'integer',
+        'story' => 'boolean',
     ];
 
     public function category()

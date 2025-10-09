@@ -53,13 +53,15 @@ class UserPostController extends Controller
             // 'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
             'category_id' => 'required|exists:categories,id',
             'content' => 'required',
-            'excerpt' => 'nullable|string|max:255',
+            'excerpt' => 'nullable|string',
             // 'featured_image' => 'required',
             'is_published' => 'required|in:0,1',
             'is_featured' => 'boolean',
             'is_approved' => 'boolean',
         ]);
         $data['slug'] = Str::slug($request->title);
+        // Ensure checkbox reflects when unchecked (not sent)
+        $data['is_featured'] = $request->has('is_featured');
         // Handle featured image
         if ($request->hasFile('featured_image')) {
             $imagePath = $this->imageService->fileUpload($request->featured_image, "post");
@@ -196,5 +198,14 @@ class UserPostController extends Controller
         Notification::notifyPostUnfeatured($post, $admin);
 
         return redirect()->back()->with('success', 'User post unfeatured successfully!');
+    }
+
+    public function toggleStory(Post $post)
+    {
+        if ($post->author_type !== 'user') abort(404);
+
+        $post->update(['story' => !$post->story]);
+
+        return redirect()->back()->with('success', $post->story ? 'Added to Story' : 'Removed from Story');
     }
 }
