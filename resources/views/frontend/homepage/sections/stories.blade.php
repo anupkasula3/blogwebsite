@@ -79,7 +79,7 @@
                 <div class="h-full w-full relative">
                     <a id="storiesSlideLink" href="#" class="block w-full h-full" target="_self">
                         <img id="storiesSlideImage" src="" alt="story"
-                             class="w-full h-full object-cover" />
+                             class="w-full h-full object-contain" />
                         <!-- Bottom gradient overlay with title -->
                         <div class="absolute inset-x-0 bottom-0 p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/30 to-transparent">
                             <h4 id="storiesSlideTitle" class="text-white text-xl md:text-2xl font-bold leading-tight"></h4>

@@ -110,7 +110,7 @@ class HomeController extends Controller
         $storyPosts = Post::with(['category'])
         ->published()
         ->where('story', true)
-        ->latest('published_at')
+        ->latest('updated_at')
         ->take(24)
         ->get();
     $storyGroups = $storyPosts->chunk(3);

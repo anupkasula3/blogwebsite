@@ -17,7 +17,7 @@
 
                     <!-- Category Description -->
                     @if (!empty($category->description))
-                        <p class="text-gray-600 leading-relaxed max-w-3xl">
+                        <p class="text-gray-600 leading-relaxed ">
                             {{ $category->description }}
                         </p>
                     @endif
