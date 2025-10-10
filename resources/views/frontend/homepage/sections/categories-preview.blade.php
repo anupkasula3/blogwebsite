@@ -4,16 +4,19 @@
             @if ($category->latest_posts->count() > 0)
                 <div>
                     <!-- Category Header -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
-                        <h2 class="text-2xl font-bold text-gray-800 mt-5">{{ $category->name }} <span
-                                class="text-primary">Updates</span></h2>
-                        <a href="{{ route('category.show', $category->slug) }}"
-                            class="group inline-flex items-center gap-2 text-sm font-medium  hover:text-white bg-white hover:bg-primary border border-primary/20 hover:border-primary px-4 py-2.5 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-transparent hover:ring-primary/30">
-                            <span>View All {{ $category->name }}</span>
-                            <i
-                                class="fas fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
+                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
+    <h2 class="text-2xl font-bold text-gray-800 mt-5 flex items-center gap-3">
+        <i class="fas fa-bolt text-primary animate-pulse"></i> <!-- Icon for attention -->
+        {{ $category->name }}
+        <span class="text-primary">Updates</span>
+    </h2>
+    <a href="{{ route('category.show', $category->slug) }}"
+        class="group inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-white bg-white hover:bg-primary border border-primary/20 hover:border-primary px-4 py-2.5 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-transparent hover:ring-primary/30">
+        <span>View All {{ $category->name }}</span>
+        <i class="fas fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
+    </a>
+</div>
+
 
                     <!-- Category Description -->
                     @if (!empty($category->description))

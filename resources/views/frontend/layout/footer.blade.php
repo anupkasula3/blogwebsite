@@ -77,7 +77,7 @@
                             Terms of Service
                         </a>
                     </li>
-                   
+
                 </ul>
             </div>
 
@@ -144,7 +144,7 @@
                 <div class="text-white text-sm">
                     © {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'NepBlog') }}. All rights reserved.
                 </div>
-       
+
 
 <div class="max-sm:pt-5 flex items-center gap-x-2 sm:mr-16">
 In Collaboration With <a href="https://www.nepbyte.com" target="_blank"

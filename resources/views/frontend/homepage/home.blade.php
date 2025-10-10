@@ -2,7 +2,7 @@
 @section('content')
     <div class="bg-gray-50 min-h-screen">
         <!-- Breaking News Ticker -->
-        <div class="bg-black text-white py-2 overflow-hidden">
+        {{-- <div class="bg-black text-white py-2 overflow-hidden">
             <div class=" ">
                 <div class="flex items-center">
                     <span class="bg-white z-[999] text-primary  py-1 text-sm font-bold mr-4 p-2 rounded">BREAKING</span>
@@ -39,7 +39,7 @@
             .category-badge {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             }
-        </style>
+        </style> --}}
 
 
 
@@ -47,12 +47,98 @@
 
         <div class="bg-white">
 
+             {{-- <div class="bg-black text-white py-2 overflow-hidden">
+            <div class=" ">
+                <div class="flex items-center">
+                    <span class="bg-white z-[999] text-primary  py-1 text-sm font-bold mr-4 p-2 rounded">BREAKING</span>
+                    <div class="marquee">
+                        <span
+                            class="text-sm">{{ $featuredPosts->first()->title ?? 'Latest news and updates from our platform' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
+        <!-- Trending Now Ticker -->
+
+        <!-- Trending Now Section -->
 
 
-            @include('frontend.homepage.sections.banner')
-            @include('frontend.homepage.sections.stories')
 
 
+        <div class="text-sm py-6 w-full ">
+  <div class="max-w-screen-lg w-11/12 mx-auto flex items-center overflow-hidden border border-gray-200 bg-white rounded-xl shadow-lg">
+
+    <!-- Label -->
+    <span class="font-bold uppercase mr-5 px-3 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg shadow-sm">
+      Trending Now
+    </span>
+
+    <!-- Ticker -->
+    <div
+      x-data="{
+        index: 0,
+        posts: [
+          { title: 'Breaking: AI Revolutionizes Tech Industry', url: '#' },
+          { title: 'Stock Markets Hit Record Highs Today', url: '#' },
+          { title: 'New Study Reveals Health Benefits of Meditation', url: '#' },
+          { title: 'Top 10 Travel Destinations for 2025', url: '#' }
+        ],
+        next() { this.index = (this.index + 1) % this.posts.length; }
+      }"
+      x-init="setInterval(() => next(), 3500)"
+      class="relative flex-1 h-10 overflow-hidden"
+    >
+      <template x-for="(post, i) in posts" :key="i">
+        <a
+          :href="post.url"
+          x-show="index === i"
+          x-transition:enter="transition transform ease-out duration-700"
+          x-transition:enter-start="translate-y-full opacity-0"
+          x-transition:enter-end="translate-y-0 opacity-100"
+          x-transition:leave="transition transform ease-in duration-700"
+          x-transition:leave-start="translate-y-0 opacity-100"
+          x-transition:leave-end="-translate-y-full opacity-0"
+          class="absolute left-0 pt-2.5 top-0 w-full text-gray-900 font-semibold truncate hover:text-pink-500 hover:underline"
+          x-text="post.title"
+        ></a>
+      </template>
+    </div>
+
+    <!-- Optional Arrow -->
+    <div class="ml-4 text-pink-400">
+      <svg class="w-5 h-5 animate-bounce-slow" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.292l3.71-4.06a.75.75 0 111.08 1.04l-4.25 4.65a.75.75 0 01-1.08 0l-4.25-4.65a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .animate-bounce-slow {
+    animation: bounce-slow 1.2s infinite;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@include('frontend.homepage.sections.banner')
+@include('frontend.homepage.sections.stories')
             <!-- Latest News Section -->
                 <section class="py-8 sm:py-10 md:py-12 bg-white">
                     <div class="max-w-screen-2xl mx-auto px-4 ">
@@ -88,16 +174,16 @@
                                 <!-- Featured Story -->
                                 @if ($latestPosts->isNotEmpty())
                                     @foreach ($latestPosts->take(2) as $key => $latestPost)
-                                    
+
                                         <div class="mb-3">
                                             <a href="{{ route('post.show', $latestPost->slug) }}" class="block group">
                                             <div
                                                 class="relative bg-white rounded-lg shadow-lg overflow-hidden news-card transition-all duration-300">
                                                 <div class="md:flex">
-                                                    <div class="md:w-1/2">
+                                                    <div class="md:w-1/3">
                                                         <img src="{{ asset('uploads/' . $latestPost->featured_image) }}"
                                                             alt="{{ $latestPost->title }}"
-                                                            class="w-full h-56 sm:h-64 md:h-72  object-cover">
+         class="w-full h-40 sm:h-48 md:h-56 object-cover"> <!-- reduced height -->
                                                         <div class="absolute top-4 left-4">
                                                             <span
                                                                 class="category-badge text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
@@ -105,7 +191,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="md:w-1/2 p-6">
+                                                    <div class="md:w-2/3 p-6">
                                                         <div class="flex items-center gap-2 mb-3">
                                                             <span
                                                                 class="bg-primary text-white px-2 py-1 text-xs font-bold rounded">BREAKING</span>
@@ -299,6 +385,8 @@
                         </div>
                     </div>
                 </section>
+
+
 
 
 
