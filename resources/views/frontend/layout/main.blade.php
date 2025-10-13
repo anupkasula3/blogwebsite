@@ -20,7 +20,8 @@
         <meta name="keywords" content="{{ $meta->keywords ?? 'nepblog' }}">
         <meta property="twitter:description" content="{{ $meta->description }}" />
         <meta property="twitter:image" content="{{ 'https://nepblog.com/' . $meta->image }}">
-
+<meta name="google-adsense-account" content="ca-pub-8078440398789784">
+<meta name="google-site-verification" content="lwdukx3Z9yk_TQANm6huEk4bGOhtl2uCzgBCan_kOHo" />
         <meta name="og:title" content="{{ $meta->title }}" />
         <meta name="og:description" content="{{ $meta->description }}" />
         <meta property="og:image"

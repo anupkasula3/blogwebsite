@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Hero Banner Section (aligned with /categories) -->
-    <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-12">
+    {{-- <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-12">
         <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <div class="text-sm font-semibold tracking-wide text-white uppercase mb-2">Browse</div>
             <h1 class="text-4xl md:text-5xl font-bold mb-6">All Posts</h1>
@@ -13,7 +13,37 @@
                 Discover all articles from our community of writers.
             </p>
         </div>
-    </section>
+    </section> --}}
+
+    <section class="relative bg-white py-16 border-b border-gray-200">
+  <div class="max-w-screen-2xl mx-auto px-6 lg:px-8">
+    <div class="">
+      <!-- Breadcrumb -->
+      <nav class="text-sm mb-3" aria-label="Breadcrumb">
+        <ol class="list-reset flex text-gray-500">
+          <li>
+            <a href="/" class="hover:text-gray-900">Home</a>
+          </li>
+          <li>
+            <span class="mx-2">/</span>
+          </li>
+          <li class="text-gray-900 font-semibold">
+            All Posts
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title -->
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[#ff2953] mb-2 leading-[1.1]">
+        All Posts
+      </h1>
+
+      <p class="text-xl text-gray-600 leading-relaxed">
+                Discover all articles from our community of writers.
+      </p>
+    </div>
+  </div>
+</section>
 
     <!-- Toolbar: breadcrumb + search (consistent with /categories) -->
     <div class="bg-gradient-to-b from-white to-gray-50">
@@ -44,7 +74,7 @@
 
     <!-- Top Banner Advertisement -->
     @if (isset($headerAd) && $headerAd)
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
             <div
                 class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-4 sm:p-6 overflow-hidden relative">
                 <div class="absolute top-2 right-2">
@@ -74,7 +104,7 @@
     @endif
 
     <!-- Main Content with Sidebar -->
-    <div class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="px-4 sm:px-6 lg:px-8 py-8 max-w-screen-2xl mx-auto">
         <div class="flex flex-col lg:flex-row gap-4">
             <!-- Posts Grid -->
             <div class="flex-1">
