@@ -271,3 +271,20 @@ Route::get('/sitemap.xml', [HomeController::class, 'sitemap'])->name('sitemap.xm
 Route::fallback(function () {
     return view('frontend.pages.404');
 });
+
+Route::get('/migrate', function () {
+    Artisan::call('migrate ');
+    return redirect()->route("home")->with('success', 'Migrate Successfull');
+});
+
+Route::get('/clear', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return redirect()->route("home")->with('success', 'Application all kind of cache has been cleared');
+
+    // return 'Application all kind of cache has been cleared';
+});

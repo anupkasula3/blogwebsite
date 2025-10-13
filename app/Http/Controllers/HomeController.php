@@ -64,6 +64,7 @@ class HomeController extends Controller
             ->get();
 
         $popularPosts = Post::with(['category', 'user', 'admin'])
+                     ->where('is_featured', 0)
             ->published()
             ->orderBy('views_count', 'desc')
             ->take(5)
@@ -86,6 +87,7 @@ class HomeController extends Controller
         // Load the latest 3 posts for each category separately to avoid window function issues
         $categoriesWithPosts->each(function($category) {
             $category->latest_posts = Post::where('category_id', $category->id)
+             ->where('is_featured', 0)
                 ->published()
                 ->latest('published_at')
                 ->take(8)
@@ -110,7 +112,7 @@ class HomeController extends Controller
         $storyPosts = Post::with(['category'])
         ->published()
         ->where('story', true)
-        ->latest('published_at')
+        ->latest('updated_at')
         ->take(24)
         ->get();
     $storyGroups = $storyPosts->chunk(3);

@@ -5,20 +5,43 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">Popular Posts</h1>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+
+ <section class="relative bg-white py-16 border-b border-gray-200">
+  <div class="max-w-screen-2xl mx-auto px-6 lg:px-8">
+    <div class="">
+      <!-- Breadcrumb -->
+      <nav class="text-sm mb-3" aria-label="Breadcrumb">
+        <ol class="list-reset flex text-gray-500">
+          <li>
+            <a href="/" class="hover:text-gray-900">Home</a>
+          </li>
+          <li>
+            <span class="mx-2">/</span>
+          </li>
+          <li class="text-gray-900 font-semibold">
+            Popular Posts
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title -->
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[#ff2953] mb-2 leading-[1.1]">
+        Popular Posts
+      </h1>
+
+      <p class="text-xl text-gray-600 leading-relaxed">
             Discover the most read and shared articles from our community. These posts have captured readers' attention and sparked conversations.
-        </p>
+      </p>
     </div>
+  </div>
 </section>
+
 
 <!-- Posts Grid -->
 <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         @if($posts->count() > 0)
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             @foreach($posts as $post)
             <article class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
                 @if($post->featured_image)

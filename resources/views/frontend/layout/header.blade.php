@@ -13,12 +13,56 @@
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <style>
     /* Prevent x-show content from flashing before Alpine initializes */
-    [x-cloak] { display: none !important; }
+    [x-cloak] {
+        display: none !important;
+    }
+
     /* Optional: improve mobile sidebar performance */
     @media (max-width: 1024px) {
-        aside[role="dialog"] { will-change: transform, opacity; }
+        aside[role="dialog"] {
+            will-change: transform, opacity;
+        }
     }
-    </style>
+</style>
+@php
+    $fb = \App\Models\Setting::get('social_facebook') ?: \App\Models\Setting::get('facebook_url');
+    $tw = \App\Models\Setting::get('social_twitter') ?: \App\Models\Setting::get('twitter_url');
+    $ig = \App\Models\Setting::get('social_instagram') ?: \App\Models\Setting::get('instagram_url');
+    $li = \App\Models\Setting::get('social_linkedin') ?: \App\Models\Setting::get('linkedin_url');
+    $yt = \App\Models\Setting::get('social_youtube') ?: \App\Models\Setting::get('youtube_url');
+@endphp
+
+<div class="bg-black text-white py-3 max-md:hidden">
+    <div class="max-w-screen-2xl mx-auto px-4">
+        <div class="flex items-center justify-between">
+
+            <!-- Left Side: Location and Phone -->
+            <div class="flex items-center space-x-4 text-sm">
+                <div class="flex items-center space-x-1">
+                    <i class="fa-solid fa-location-dot text-primary"></i>
+                    <span>{{ \App\Models\Setting::get('contact_address', '123 Blog Street, Content City') }}</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <i class="fa-solid fa-phone text-primary"></i>
+                    <span>{{ \App\Models\Setting::get('contact_phone', '+1 (555) 123-4567') }}</span>
+                </div>
+            </div>
+
+            <!-- Right Side: Social Icons -->
+            <div class="flex items-center space-x-4">
+                <a href="{{ $fb }}" target="_blank" class="hover:text-primary transition"><i
+                        class="fa-brands fa-facebook-f"></i></a>
+                <a href="{{ $ig }}" target="_blank" class="hover:text-primary transition"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="{{ $tw }}" target="_blank" class="hover:text-primary transition"><i
+                        class="fa-brands fa-tiktok"></i></a>
+                <a href="{{ $li }}" target="_blank" class="hover:text-primary transition"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <header x-data="{ open: false, scrolled: false, showSearch: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
     :class="scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white/90 backdrop-blur-md shadow-md'"
@@ -31,7 +75,7 @@
             x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2">
 
-            <div class="col-span-12 order-1 lg:order-2 lg:col-span-8  overflow-hidden">
+            <div class="col-span-12 order-2 lg:order-2 lg:col-span-8  overflow-hidden">
                 <script src="https://adnebyte.nepbyte.com/ads/embed/6e189765-3196-4da1-a542-5bc5d4708658.js?count=1"></script>
             </div>
 

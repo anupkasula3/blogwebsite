@@ -16,61 +16,64 @@
 
 
         <!-- Hero Section (smaller height) -->
-        <section
-            class="relative  overflow-hidden bg-gradient-to-r from-[#ff2953] to-[#c51f42] py-5 sm:py-7   shadow-lg mb-3">
+        <section class="bg-white py-8 border-b border-gray-100">
+    <div class="max-w-screen-2xl mx-auto px-4">
+        <!-- Breadcrumbs -->
+        <nav class="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+            <ol class="flex items-center flex-wrap space-x-1">
+                <li>
+                    <a href="{{ url('/') }}" class="hover:text-gray-700">Home</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a href="{{ route('categories.index') }}" class="hover:text-gray-700">Categories</a>
+                </li>
+                <li>/</li>
+                <li class="text-gray-800 font-semibold">{{ $category->name }}</li>
+            </ol>
+        </nav>
 
-            <div class="relative z-10 max-w-screen-2xl mx-auto px-4  text-center flex flex-col items-center">
-                <!-- Breadcrumbs -->
-                <nav class="w-full text-white/90 text-xs sm:text-sm mb-3" aria-label="Breadcrumb">
-                    <ol class="flex items-center justify-center flex-wrap gap-1">
-                        <li>
-                            <a href="{{ url('/') }}" class="hover:underline hover:text-white">Home</a>
-                        </li>
-                        <li class="opacity-70">/
-                        </li>
-                        <li>
-                            <a href="{{ route('categories.index') }}" class="hover:underline hover:text-white">Categories</a>
-                        </li>
-                        <li class="opacity-70">/
-                        </li>
-                        <li aria-current="page" class="font-semibold">{{ $category->name }}</li>
-                    </ol>
-                </nav>
-                <div class="mb-4">
-                    @if ($category->image)
-                        <img src="{{ asset('uploads/' . $category->image) }}" alt="{{ $category->name }}" width="80"
-                            height="80"
-                            class="w-20 h-20 mx-auto rounded-lg object-cover mb-2 border-4 border-white shadow-lg">
-                    @else
-                        <div
-                            class="w-20 h-20 mx-auto rounded-lg flex items-center justify-center mb-2 bg-white/10 border border-white/20 shadow-inner">
-                            <i class="{{ $category->icon ?? 'fas fa-folder' }} text-white text-2xl" aria-hidden="true"></i>
-                        </div>
-                    @endif
+        <!-- Image + Info -->
+        <div class="flex items-center gap-5 mb-6">
+            @if ($category->image)
+                <img src="{{ asset('uploads/' . $category->image) }}" alt="{{ $category->name }}"
+                    class="w-20 h-20 rounded-xl object-cover border border-gray-200 shadow-sm">
+            @else
+                <div
+                    class="w-20 h-20 flex items-center justify-center rounded-xl bg-gray-50 border border-gray-200">
+                    <i class="{{ $category->icon ?? 'fas fa-folder' }} text-gray-400 text-2xl"></i>
                 </div>
-                <h1
-                    class="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2 text-white flex items-center justify-center gap-2 drop-shadow">
+            @endif
+
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-1 flex items-center gap-2">
                     {{ $category->name }}
                     @if ($category->is_featured)
                         <span
-                            class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 ml-2">
+                            class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">
                             <i class="fas fa-star mr-1"></i> Featured
                         </span>
                     @endif
                 </h1>
-                <p class="text-base sm:text-lg text-white max-w-screen-2xl mx-auto mb-2">{{ $category->description }}</p>
-                <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-medium w-full">
-                    <span class="flex items-center bg-white/90 px-3 py-1.5 rounded-full shadow text-gray-800">
-                        <i class="fas fa-newspaper mr-2 text-primary-600"></i> {{ $category->posts_count }} posts
-                    </span>
-                    <span class="flex items-center bg-white/90 px-3 py-1.5 rounded-full shadow text-gray-800">
-                        <i class="fas fa-eye mr-2 text-primary-600"></i>
-                        {{ number_format($category->posts->sum('views_count')) }}
-                        total views
-                    </span>
-                </div>
+                <p class="text-gray-600 text-base leading-relaxed ">
+                    {{ $category->description }}
+                </p>
             </div>
-        </section>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-3 text-sm text-gray-700">
+            <span class="flex items-center bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
+                <i class="fas fa-newspaper mr-2 text-gray-500"></i> {{ $category->posts_count }} posts
+            </span>
+            <span class="flex items-center bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
+                <i class="fas fa-eye mr-2 text-gray-500"></i>
+                {{ number_format($category->posts->sum('views_count')) }} total views
+            </span>
+        </div>
+    </div>
+</section>
+
 
 
 
@@ -80,10 +83,10 @@
                 <!-- Main Content -->
                 <div class="lg:col-span-2">
                     @if ($posts->count() > 0)
-                        <div class="mb-6">
+                        <!-- <div class="mb-6">
                             <h2 class="text-2xl font-bold text-gray-900 mb-1">Latest {{ $category->name }} Posts</h2>
                             <p class="text-gray-600">Discover the latest articles in this category</p>
-                        </div>
+                        </div> -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             @foreach ($posts as $post)
                                 @include('frontend.component.postcomponent')

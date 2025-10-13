@@ -5,17 +5,40 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">Latest Posts</h1>
-            <p class="text-xl text-white max-w-3xl mx-auto">
-                Stay up to date with the freshest content from our community of writers and thinkers.
-            </p>
-        </div>
-    </section>
+   <section class="relative bg-white py-16 border-b border-gray-200">
+  <div class="max-w-screen-2xl mx-auto px-6 lg:px-8">
+    <div class="">
+      <!-- Breadcrumb -->
+      <nav class="text-sm mb-3" aria-label="Breadcrumb">
+        <ol class="list-reset flex text-gray-500">
+          <li>
+            <a href="/" class="hover:text-gray-900">Home</a>
+          </li>
+          <li>
+            <span class="mx-2">/</span>
+          </li>
+          <li class="text-gray-900 font-semibold">
+            Latest News
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Title -->
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[#ff2953] mb-2 leading-[1.1]">
+        Latest News
+      </h1>
+
+      <p class="text-xl text-gray-600 leading-relaxed">
+        Stay updated with the latest happenings around the world. From business updates to global events, we bring you timely news to keep you informed and ahead.
+      </p>
+    </div>
+  </div>
+</section>
+
+
 
     <!-- Posts Grid -->
-    <section class="py-6 bg-white">
+    <section class="py-6 ">
         <div class="max-w-screen-2xl mx-auto px-4 ">
             @if ($posts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
