@@ -38,7 +38,8 @@
 
                     <!-- Excerpt -->
                     <div>
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short description for previews and search results. Any length is accepted.</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short
+                            description for previews and search results. Any length is accepted.</p>
                         <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
                         <textarea name="excerpt" id="excerpt" rows="3"
                             class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
@@ -210,7 +211,7 @@
             const titleInput = document.getElementById('title');
             const slugInput = document.getElementById('slug');
             if (titleInput && slugInput) {
-                titleInput.addEventListener('input', function () {
+                titleInput.addEventListener('input', function() {
                     const title = this.value;
                     const slug = title.toLowerCase()
                         .replace(/[^a-z0-9 -]/g, '')
