@@ -136,7 +136,17 @@
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                            <div>
+                                <label for="url_slug" class="block text-xs font-medium text-gray-600 mb-1">Url : Slug
+                                </label>
+                                <input type="text" name="url_slug" id="url_slug"
+                                    value="{{ old('url_slug') }}"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('url_slug') border-red-500 @enderror"
+                                    placeholder="url-slug">
+                            </div>
+                            @error('url_slug')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                             <div>
                                 <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Description</label>

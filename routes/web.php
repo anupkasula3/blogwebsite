@@ -37,7 +37,7 @@ require __DIR__ . '/auth.php';
 // Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/category/{category:slug}', [HomeController::class, 'category'])->name('category.show');
-Route::get('/post/{post:slug}', [HomeController::class, 'post'])->name('post.show');
+Route::get('/post/{post}', [HomeController::class, 'post'])->name('post.show');
 Route::get('/categories', [HomeController::class, 'categories'])->name('categories.index');
 Route::get('/latest', [HomeController::class, 'latest'])->name('latest');
 Route::get('/popular', [HomeController::class, 'popular'])->name('popular');

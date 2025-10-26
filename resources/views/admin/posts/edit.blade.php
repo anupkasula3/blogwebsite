@@ -15,7 +15,8 @@
             </div>
         </div>
 
-        <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" class="p-6" id="postForm">
+        <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" class="p-6"
+            id="postForm">
             @csrf
             @method('PUT')
 
@@ -24,7 +25,8 @@
                 <div class="lg:col-span-2 space-y-6">
                     <!-- Title -->
                     <div>
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-lightbulb mr-1"></i>Use a compelling title that includes your target keyword for better SEO</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-lightbulb mr-1"></i>Use a
+                            compelling title that includes your target keyword for better SEO</p>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                         <input type="text" name="title" id="title" value="{{ old('title', $post->title) }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('title') border-red-500 @enderror"
@@ -36,10 +38,11 @@
 
                     <!-- Excerpt -->
                     <div>
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short description for previews and search results. Any length is accepted.</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-align-left mr-1"></i>Short
+                            description for previews and search results. Any length is accepted.</p>
                         <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
                         <textarea name="excerpt" id="excerpt" rows="3"
-                            class="w-full tinymce px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
+                            class="w-full  px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('excerpt') border-red-500 @enderror"
                             placeholder="Brief description of the post (no character limit)">{{ old('excerpt', $post->excerpt) }}</textarea>
                         @error('excerpt')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -48,11 +51,12 @@
 
                     <!-- Content -->
                     <div>
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-edit mr-1"></i>Use clear headings, bullet points, and images to make your content engaging and scannable</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-edit mr-1"></i>Use clear
+                            headings, bullet points, and images to make your content engaging and scannable</p>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content *</label>
-                        <textarea name="content"  rows="15" required
+                        <textarea name="content" rows="15" required
                             class="w-full px-3 tinymce py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('content') border-red-500 @enderror"
-                            placeholder="Write your post content here...">{{ old('content', $post->content) }}</textarea>
+                            placeholde r="Write your post content here...">{{ old('content', $post->content) }}</textarea>
                         @error('content')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -63,8 +67,10 @@
                 <div class="space-y-6">
                     <!-- Featured Image -->
                     <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-image mr-1"></i>Recommended size: 1200x630px for optimal display across all devices</p>
-                        <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-image mr-1"></i>Recommended
+                            size: 1200x630px for optimal display across all devices</p>
+                        <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Featured
+                            Image</label>
                         @if ($post->featured_image)
                             <div class="mb-4">
                                 <img src="{{ asset('/uploads/' . $post->featured_image) }}" alt="Current featured image"
@@ -82,7 +88,8 @@
 
                     <!-- Category -->
                     <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-folder mr-1"></i>Choose the most relevant category for better organization</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-folder mr-1"></i>Choose the
+                            most relevant category for better organization</p>
                         <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
                         <select name="category_id" id="category_id" required
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('category_id') border-red-500 @enderror">
@@ -101,7 +108,8 @@
 
                     <!-- Status -->
                     <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-eye mr-1"></i>Draft: Only you can see it. Published: Visible to everyone</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-eye mr-1"></i>Draft: Only
+                            you can see it. Published: Visible to everyone</p>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                         <div class="space-y-2">
                             <label class="flex items-center">
@@ -128,7 +136,7 @@
                             <input type="checkbox" name="is_featured" value="1"
                                 {{ old('is_featured', $post->is_featured) ? 'checked' : '' }}
                                 class="text-blue-600 focus:ring-blue-500 rounded">
-                            <span class="ml-2 text-sm font-medium text-gray-700">Breaking  News</span>
+                            <span class="ml-2 text-sm font-medium text-gray-700">Breaking News</span>
                         </label>
                         <p class="text-sm text-gray-500 mt-1">Featured posts appear on the homepage</p>
                         @error('is_featured')
@@ -139,11 +147,14 @@
                     <!-- SEO Fields -->
                     <div class="bg-gray-50 rounded-lg p-4">
                         <h3 class="text-sm font-medium text-gray-700 mb-3">SEO Settings</h3>
-                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-search mr-1"></i>Fill these fields for better search engine visibility</p>
+                        <p class="mb-1 text-xs text-gray-500 flex items-center"><i class="fas fa-search mr-1"></i>Fill
+                            these fields for better search engine visibility</p>
                         <div class="space-y-3">
                             <div>
-                                <label for="meta_title" class="block text-xs font-medium text-gray-600 mb-1">Meta Title</label>
-                                <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $post->meta_title) }}"
+                                <label for="meta_title" class="block text-xs font-medium text-gray-600 mb-1">Meta
+                                    Title</label>
+                                <input type="text" name="meta_title" id="meta_title"
+                                    value="{{ old('meta_title', $post->meta_title) }}"
                                     class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_title') border-red-500 @enderror"
                                     placeholder="SEO title">
                                 @error('meta_title')
@@ -151,20 +162,35 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta Description</label>
+                                <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta
+                                    Description</label>
                                 <textarea name="meta_description" id="meta_description" rows="2"
-                                    class="w-full tinymce px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
+                                    class="w-full  px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description">{{ old('meta_description', $post->meta_description) }}</textarea>
                                 @error('meta_description')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
-                                <label for="meta_keywords" class="block text-xs font-medium text-gray-600 mb-1">Meta Keywords</label>
-                                <input type="text" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords', $post->meta_keywords) }}"
+                                <label for="meta_keywords" class="block text-xs font-medium text-gray-600 mb-1">Meta
+                                    Keywords</label>
+                                <input type="text" name="meta_keywords" id="meta_keywords"
+                                    value="{{ old('meta_keywords', $post->meta_keywords) }}"
                                     class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_keywords') border-red-500 @enderror"
                                     placeholder="keyword1, keyword2, keyword3">
                                 @error('meta_keywords')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="url_slug" class="block text-xs font-medium text-gray-600 mb-1">Url : Slug
+                                </label>
+                                <input type="text" name="url_slug" id="url_slug"
+                                    value="{{ old('url_slug', $post->url_slug) }}"
+                                    class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('url_slug') border-red-500 @enderror"
+                                    placeholder="url-slug">
+                                @error('url_slug')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -197,7 +223,7 @@
             const titleInput = document.getElementById('title');
             const slugInput = document.getElementById('slug');
             if (titleInput && slugInput) {
-                titleInput.addEventListener('input', function () {
+                titleInput.addEventListener('input', function() {
                     const title = this.value;
                     const slug = title.toLowerCase()
                         .replace(/[^a-z0-9 -]/g, '')

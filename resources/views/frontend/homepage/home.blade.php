@@ -170,7 +170,7 @@
                             @if ($latestPosts->isNotEmpty())
                                 @foreach ($latestPosts->take(2) as $key => $latestPost)
                                     <div class="mb-3">
-                                        <a href="{{ route('post.show', $latestPost->slug) }}" class="block group">
+                                        <a href="{{ route('post.show', $latestPost->url_slug ?? $latestPost->slug) }}" class="block group">
                                             <div
                                                 class="relative bg-white rounded-lg shadow-lg overflow-hidden news-card transition-all duration-300">
                                                 <div class="md:flex">
