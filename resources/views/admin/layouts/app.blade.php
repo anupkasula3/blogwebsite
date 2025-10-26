@@ -21,14 +21,19 @@
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Alpine.js Cloak Style -->
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
 
-<body class="font-sans antialiased bg-gray-100" x-data="{ sidebarOpen: false }">
+<body class="font-sans antialiased bg-gray-50" x-data="{ sidebarOpen: false }">
     @include('admin.layouts.navbar')
     <div class="flex pt-20">
         @include('admin.layouts.sidebar')
         <div class="flex-1 flex flex-col ml-0 lg:ml-64 transition-all duration-200">
-            <main class="flex-1 p-6 min-h-screen">
+            <main class="flex-1 p-6 lg:p-8 min-h-screen bg-gray-50">
                 <div class="max-w-7xl mx-auto">
                     @hasSection('header')
                         <div class="mb-6">

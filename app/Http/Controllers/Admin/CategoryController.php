@@ -13,17 +13,23 @@ class CategoryController extends Controller
     public function __construct(
         protected ImageService $imageService
 
-    ) {}
+    ) {
+    }
 
     public function index()
     {
-        $categories = Category::withCount('posts')->latest()->paginate(15);
-        return view('admin.categories.index', compact('categories'));
+        $parent_id = request()->get('parent_id') ?? 0;
+        $parentcategory = Category::where('id', $parent_id)->first();
+        $categories = Category::withCount('posts')->where('parent_id', $parent_id)->latest()->paginate(15);
+        $params = $_GET;
+        return view('admin.categories.index', compact('categories', 'parent_id', 'parentcategory', 'params'));
     }
 
     public function create()
     {
-        return view('admin.categories.create');
+        $parent_id = request()->get('parent_id') ?? 0;
+        $category = Category::where('id', $parent_id)->first();
+        return view('admin.categories.create', compact('category'));
     }
 
     public function store(Request $request)
@@ -54,10 +60,10 @@ class CategoryController extends Controller
             $data['image'] = $imagePath;
         }
 
-        Category::create($data);
+        $cat = Category::create($data);
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category created successfully!');
+        return redirect()->route('admin.categories.index', ['parent_id' => $cat->parent_id])
+            ->with('popsuccess', 'Category created successfully!');
     }
 
     public function edit(Category $category)
@@ -98,8 +104,8 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category updated successfully!');
+        return redirect()->route('admin.categories.index', ['parent_id' => $category->parent_id])
+            ->with('popsuccess', 'Category updated successfully!');
     }
 
     public function destroy(Category $category)
@@ -108,8 +114,8 @@ class CategoryController extends Controller
             $this->imageService->imageDelete($category->image);
         }
         $category->delete();
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category deleted successfully!');
+        return redirect()->route('admin.categories.index', ['parent_id' => $category->parent_id])
+            ->with('popsuccess', 'Category deleted successfully!');
     }
 
     public function show(Category $category)

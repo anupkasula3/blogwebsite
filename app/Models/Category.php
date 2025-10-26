@@ -21,7 +21,8 @@ class Category extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
-        'icon'
+        'icon',
+        'parent_id'
     ];
 
     protected $casts = [
@@ -33,6 +34,46 @@ class Category extends Model
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    // Parent-child relationships
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function subcategories()
+    {
+        return $this->children();
+    }
+
+    // Scope for parent categories only
+    public function scopeParents($query)
+    {
+        return $query->where('parent_id', 0);
+    }
+
+    // Scope for subcategories only
+    public function scopeSubcategories($query)
+    {
+        return $query->where('parent_id', '>', 0);
+    }
+
+    // Check if category is parent
+    public function isParent()
+    {
+        return $this->parent_id == 0;
+    }
+
+    // Check if category is subcategory
+    public function isSubcategory()
+    {
+        return $this->parent_id > 0;
     }
 
     public function getRouteKeyName()
