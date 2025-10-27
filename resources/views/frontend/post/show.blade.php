@@ -539,8 +539,8 @@
             .prose h6 {
                 color: #111827;
                 font-weight: 700;
-                margin-top: 2em;
-                margin-bottom: 0.75em;
+                margin-top: 0.58em;
+                margin-bottom: 0.55em;
             }
 
             .prose h2 {
@@ -551,9 +551,9 @@
                 font-size: 1.5em;
             }
 
-            .prose p {
-                margin-bottom: 1.25em;
-            }
+            /* .prose p {
+                margin-bottom: 0.25em;
+            } */
 
             .prose a {
                 /*color: #dc2626;*/
