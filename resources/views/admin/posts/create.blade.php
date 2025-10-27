@@ -169,7 +169,7 @@
                                 <label for="meta_description" class="block text-xs font-medium text-gray-600 mb-1">Meta
                                     Description</label>
                                 <textarea name="meta_description" id="meta_description" rows="2"
-                                    class="w-full tinymce px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
+                                    class="w-full  px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description">{{ old('meta_description') }}</textarea>
                                 @error('meta_description')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -193,7 +193,7 @@
                     <!-- Actions -->
                     <div class="bg-gray-50 rounded-lg p-4">
                         <div class="flex space-x-3">
-                            <button type="submit" 
+                            <button type="submit"
                                 class="flex-1 bg-[#ff3131] text-white px-4 py-2 rounded-lg hover:opacity-90 transition-colors">
                                 <i class="fas fa-save mr-2"></i>
                                 Create Post
