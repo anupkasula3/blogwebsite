@@ -39,13 +39,13 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_active' => 'boolean',
-            'color' => 'nullable|string|max:20',
+            // 'color' => 'nullable|string|max:20',
             'is_featured' => 'boolean',
             'show_in_menu' => 'boolean',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string|max:255',
-            'icon' => 'nullable|string|max:255',
+            // 'icon' => 'nullable|string|max:255',
         ]);
 
         $data = $request->all();
@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $data['is_active'] = $request->has('is_active');
         $data['is_featured'] = $request->has('is_featured');
         $data['show_in_menu'] = $request->has('show_in_menu');
-        $data['color'] = $request->input('color_hex', $request->input('color', null));
+        // $data['color'] = $request->input('color_hex', $request->input('color', null));
 
         if ($request->hasFile('image')) {
             $imagePath = $this->imageService->fileUpload($request->image, "category");
@@ -78,13 +78,13 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_active' => 'boolean',
-            'color' => 'nullable|string|max:20',
+            // 'color' => 'nullable|string|max:20',
             'is_featured' => 'boolean',
             'show_in_menu' => 'boolean',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string|max:255',
-            'icon' => 'nullable|string|max:255',
+            // 'icon' => 'nullable|string|max:255',
         ]);
 
         $data = $request->all();
@@ -92,7 +92,7 @@ class CategoryController extends Controller
         $data['is_active'] = $request->has('is_active');
         $data['is_featured'] = $request->has('is_featured');
         $data['show_in_menu'] = $request->has('show_in_menu');
-        $data['color'] = $request->input('color_hex', $request->input('color', null));
+        // $data['color'] = $request->input('color_hex', $request->input('color', null));
 
         if ($request->hasFile('image')) {
             if ($category->image) {

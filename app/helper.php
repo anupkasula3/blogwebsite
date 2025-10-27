@@ -4,6 +4,12 @@ use App\Models\Category;
 use App\Models\Metapage;
 use App\Models\Post;
 // use App\Models\category;
+
+function getchildren($parent_id)
+{
+    $children = Category::where('parent_id', $parent_id)->get();
+    return $children;
+}
 function getMetas($segment1, $segment2)
 {
 

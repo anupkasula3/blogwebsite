@@ -28,7 +28,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $categories = Category::where('is_active', true)->get();
+        $categories = Category::where('parent_id', 0)->where('is_active', true)->get();
         return view('admin.posts.create', compact('categories'));
     }
 
@@ -51,7 +51,7 @@ class PostController extends Controller
             $validated['url_slug'] = Str::slug($request->url_slug);
             $data = $request->all();
             $data['slug'] = Str::slug($request->title);
-            $data['url_slug'] = Str::slug($request->url_slug ?? $data['slug']);
+            $data['url_slug'] = Str::slug($request->url_slug) ?? null;
 
             // Set admin as author since this is admin panel
             $data['author_type'] = 'admin';
@@ -128,7 +128,7 @@ class PostController extends Controller
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
-        $data['url_slug'] = Str::slug($request->url_slug);
+        $data['url_slug'] = Str::slug($request->url_slug) ?? null;
         $data['is_featured'] = $request->has('is_featured');
         // $data['is_approved'] = $request->has('is_approved');
         $data['status'] = $request->is_published ? 'published' : 'draft';

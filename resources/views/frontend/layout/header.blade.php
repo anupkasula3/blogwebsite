@@ -250,18 +250,7 @@
                     </button>
                 </div>
 
-                @auth
-                    <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/20 backdrop-blur-sm">
-                        <div
-                            class="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center font-bold text-white text-base uppercase">
-                            {{ auth()->user()->name[0] ?? '?' }}
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-semibold text-white text-sm">{{ auth()->user()->name }}</div>
-                            <div class="text-xs text-blue-100 truncate">{{ auth()->user()->email }}</div>
-                        </div>
-                    </div>
-                @endauth
+                
             </div>
 
             <!-- Quick Actions (Top) -->

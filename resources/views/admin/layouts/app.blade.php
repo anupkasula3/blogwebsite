@@ -35,16 +35,16 @@
         <div class="flex-1 flex flex-col ml-0 lg:ml-64 transition-all duration-200">
             <main class="flex-1 p-6 lg:p-8 min-h-screen bg-gray-50">
                 <div class="max-w-7xl mx-auto">
-                    @hasSection('header')
+                    {{-- @hasSection('header')
                         <div class="mb-6">
                             <div class="flex items-center justify-between">
                                 <h2 class="text-xl md:text-2xl font-semibold text-gray-900">@yield('header')</h2>
                                 @stack('header-actions')
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
 
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
                             {{ session('success') }}
                         </div>
@@ -64,7 +64,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif --}}
 
                     @yield('content')
                 </div>

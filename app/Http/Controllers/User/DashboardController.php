@@ -79,6 +79,7 @@ class DashboardController extends Controller
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->except('action');
         $data['user_id'] = auth()->id();
+        $data['url_slug'] = Str::slug($request->url_slug) ?? null;
         $data['author_type'] = 'user';
         $data['admin_id'] = null;
 
@@ -156,7 +157,7 @@ class DashboardController extends Controller
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->except('action');
         $data['slug'] = \Str::slug($request->title);
-
+        $data['url_slug'] = Str::slug($request->url_slug) ?? null;
         // Reset approval status when post is updated
         $data['is_approved'] = false;
 
@@ -330,13 +331,13 @@ class DashboardController extends Controller
         $chartData = [
             'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
             'data' => [
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100)
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100)
             ],
         ];
 

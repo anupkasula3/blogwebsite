@@ -148,32 +148,7 @@
         </div>
     </section>
 
-    <!-- Sidebar Advertisement with Improved Design -->
-    @if (isset($sidebarAd) && $sidebarAd)
-        <section class="py-12 bg-gray-50">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="ad-sidebar rounded-2xl p-8 text-center overflow-hidden relative shadow-lg">
-                    <div class="absolute inset-0 opacity-20">
-                        <div class="absolute inset-0 bg-grid-white/[0.2] bg-[length:20px_20px]"></div>
-                    </div>
-                    <a href="{{ $sidebarAd->link }}" target="_blank"
-                        onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')"
-                        class="block hover:opacity-95 transition-opacity relative z-10">
-                        @if ($sidebarAd->image)
-                            <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}"
-                                class="mx-auto mb-6 max-h-40 rounded-lg shadow-md">
-                        @endif
-                        <h3 class="text-2xl font-bold mb-3 text-white">{{ $sidebarAd->title }}</h3>
-                        <p class="text-lg mb-6 text-white/90">{{ $sidebarAd->description }}</p>
-                        <span
-                            class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg font-semibold text-white hover:bg-white/30 transition duration-300">
-                            Learn More <i class="fas fa-arrow-right ml-2"></i>
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    @endif
+    
 
     <!-- Marketing block removed for a focused, professional categories page -->
 

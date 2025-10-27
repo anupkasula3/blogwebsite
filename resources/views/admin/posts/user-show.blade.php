@@ -5,17 +5,17 @@
 
 @section('content')
     <div class="bg-white rounded-lg shadow-sm">
-        <div class="p-6 border-b border-gray-200">
+        <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
             <div class="flex items-center justify-between">
                 <h2 class="text-xl font-semibold text-gray-900">User Post Details</h2>
                 <div class="flex items-center space-x-3">
                     <a href="{{ route('admin.userposts.edit', $post) }}"
-                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500">
                         <i class="fas fa-edit mr-2"></i>
                         Edit Post
                     </a>
                     <a href="{{ route('admin.userposts.index') }}"
-                        class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-500">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Back to User Posts
                     </a>
@@ -28,7 +28,7 @@
                 <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-6">
                     <!-- Post Header -->
-                    <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex-1">
                                 <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ $post->title }}</h1>
@@ -88,7 +88,7 @@
                         @if ($post->featured_image)
                             <div class="mb-4">
                                 <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="Featured image"
-                                    class="w-full h-96 object-contain rounded-lg">
+                                    class="w-full max-h-[28rem] object-cover rounded-xl border border-gray-200 shadow-sm">
                             </div>
                         @endif
 
@@ -102,12 +102,13 @@
 
                     <!-- Excerpt/Lead Paragraph -->
                     <div
-                        class="text-lg text-gray-700 mb-6 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4">
+                        class="text-lg text-gray-700 mb-6 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4 rounded-lg shadow-sm">
                         {!! $post->excerpt !!}
                     </div>
 
                     <!-- Article Content -->
-                    <article class="prose prose-lg max-w-none mb-8">
+                    <article
+                        class="prose prose-slate lg:prose-lg max-w-none mb-8 prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:underline">
                         @php
                             $content = $post->content;
                             $firstParagraph = '';
@@ -153,9 +154,9 @@
                 </div>
 
                 <!-- Sidebar -->
-                <div class="space-y-6">
+                <div class="space-y-6 lg:sticky lg:top-20 self-start">
                     <!-- Quick Stats -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Stats</h3>
                         <div class="space-y-3">
                             <div class="flex justify-between">
@@ -181,25 +182,28 @@
                     </div>
 
                     <!-- User Post Actions -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">User Post Actions</h3>
                         <div class="space-y-3">
                             @if (!$post->is_approved)
-                                <form method="POST" action="{{ route('admin.userposts.approve', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                                        <i class="fas fa-check mr-2"></i>
-                                        Approve Post
-                                    </button>
-                                </form>
+                                <div class="">
 
-                                <button type="button" onclick="openRejectModal()"
-                                    class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                    <i class="fas fa-times mr-2"></i>
-                                    Reject Post
-                                </button>
+                                    <form method="POST" action="{{ route('admin.userposts.approve', $post) }}"
+                                        class="inline w-full mb-2">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500">
+                                            <i class="fas fa-check mr-2"></i>
+                                            Approve Post
+                                        </button>
+                                    </form>
+
+                                    <button type="button" onclick="openRejectModal()"
+                                        class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">
+                                        <i class="fas fa-times mr-2"></i>
+                                        Reject Post
+                                    </button>
+                                </div>
                             @else
                                 <div class="bg-green-50 border border-green-200 rounded-lg p-3">
                                     <div class="flex items-center">
@@ -212,89 +216,111 @@
                             @endif
 
                             @if (!$post->story)
-                                <form method="POST" action="{{ route('admin.userposts.story-toggle', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">
-                                        <i class="fas fa-plus mr-2"></i>
-                                        Add to Story
-                                    </button>
-                                </form>
+                                <div class="mb-3">
+
+                                    <form method="POST" action="{{ route('admin.userposts.story-toggle', $post) }}"
+                                        class="inline  w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-pink-500">
+                                            <i class="fas fa-plus mr-2"></i>
+                                            Add to Story
+                                        </button>
+                                    </form>
+                                </div>
                             @else
-                                <form method="POST" action="{{ route('admin.userposts.story-toggle', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                                        <i class="fas fa-minus mr-2"></i>
-                                        Remove from Story
-                                    </button>
-                                </form>
+                                <div class="mb-3">
+                                    <form method="POST" action="{{ route('admin.userposts.story-toggle', $post) }}"
+                                        class="inline w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-500">
+                                            <i class="fas fa-minus mr-2"></i>
+                                            Remove from Story
+                                        </button>
+                                    </form>
+                                </div>
                             @endif
 
                             @if ($post->status === 'draft' || $post->status === 'pending')
-                                <form method="POST" action="{{ route('admin.userposts.publish', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                                        <i class="fas fa-upload mr-2"></i>
-                                        Publish Post
-                                    </button>
-                                </form>
+                                <div class="mb-3">
+
+                                    <form method="POST" action="{{ route('admin.userposts.publish', $post) }}"
+                                        class="inline w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500">
+                                            <i class="fas fa-upload mr-2"></i>
+                                            Publish Post
+                                        </button>
+                                    </form>
+                                </div>
                             @elseif($post->status === 'published')
-                                <form method="POST" action="{{ route('admin.userposts.unpublish', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors">
-                                        <i class="fas fa-pause mr-2"></i>
-                                        Unpublish Post
-                                    </button>
-                                </form>
+                                <div class="mb-3">
+
+                                    <form method="POST" action="{{ route('admin.userposts.unpublish', $post) }}"
+                                        class="inline w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-500">
+                                            <i class="fas fa-pause mr-2"></i>
+                                            Unpublish Post
+                                        </button>
+                                    </form>
+                                </div>
                             @endif
 
                             @if (!$post->is_featured)
-                                <form method="POST" action="{{ route('admin.userposts.feature', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
-                                        <i class="fas fa-star mr-2"></i>
-                                        Feature Post
-                                    </button>
-                                </form>
+                                <div class="mb-3">
+
+                                    <form method="POST" action="{{ route('admin.userposts.feature', $post) }}"
+                                        class="inline w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-purple-500">
+                                            <i class="fas fa-star mr-2"></i>
+                                            Feature Post
+                                        </button>
+                                    </form>
+                                </div>
                             @else
-                                <form method="POST" action="{{ route('admin.userposts.unfeature', $post) }}"
-                                    class="inline w-full">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                                        <i class="fas fa-star mr-2"></i>
-                                        Unfeature Post
-                                    </button>
-                                </form>
+                                <div class="mb-3">
+
+                                    <form method="POST" action="{{ route('admin.userposts.unfeature', $post) }}"
+                                        class="inline w-full">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-500">
+                                            <i class="fas fa-star mr-2"></i>
+                                            Unfeature Post
+                                        </button>
+                                    </form>
+                                </div>
                             @endif
 
                             @if ($post->status === 'published')
-                                <a href="{{ route('post.show', $post->slug) }}" target="_blank"
-                                    class="block w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center">
-                                    <i class="fas fa-external-link-alt mr-2"></i>
-                                    View on Site
-                                </a>
-                            @endif
+                                <div class="mb-3">
 
-                            <button type="button"
-                                class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors delete-userpost-btn">
-                                <i class="fas fa-trash mr-2"></i>
-                                Delete Post
-                            </button>
+                                    <a href="{{ route('post.show', $post->slug) }}" target="_blank"
+                                        class="block w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500">
+                                        <i class="fas fa-external-link-alt mr-2"></i>
+                                        View on Site
+                                    </a>
+                                </div>
+                            @endif
+                            <div class="mb-3">
+
+                                <button type="button"
+                                    class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors delete-userpost-btn focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">
+                                    <i class="fas fa-trash mr-2"></i>
+                                    Delete Post
+                                </button>
+                            </div>
                         </div>
                     </div>
 
                     <!-- User Information -->
-                    <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
                         <h3 class="text-lg font-medium text-blue-900 mb-4">User Information</h3>
                         <div class="space-y-3">
                             <div>
@@ -324,7 +350,7 @@
 
                     <!-- Verification Status -->
                     <div
-                        class="bg-{{ $post->is_approved ? 'green' : 'yellow' }}-50 p-4 rounded-lg border border-{{ $post->is_approved ? 'green' : 'yellow' }}-200">
+                        class="bg-{{ $post->is_approved ? 'green' : 'yellow' }}-50 p-4 rounded-lg border border-{{ $post->is_approved ? 'green' : 'yellow' }}-200 shadow-sm">
                         <h3 class="text-lg font-medium text-{{ $post->is_approved ? 'green' : 'yellow' }}-900 mb-4">
                             Verification Status</h3>
                         <div class="space-y-3">
@@ -353,7 +379,7 @@
                     </div>
 
                     <!-- Post Details -->
-                    <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Post Details</h3>
                         <div class="space-y-3">
                             <div>
@@ -394,7 +420,7 @@
 
     <!-- Rejection Modal -->
     <div id="rejectModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-lg bg-white">
             <div class="mt-3">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-medium text-gray-900">Reject Post</h3>
@@ -418,11 +444,11 @@
 
                     <div class="flex justify-end space-x-3">
                         <button type="button" onclick="closeRejectModal()"
-                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-400">
                             Cancel
                         </button>
                         <button type="submit"
-                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">
                             Reject Post
                         </button>
                     </div>
@@ -437,14 +463,14 @@
         $data.form = document.getElementById('delete-form');
     });" x-show="open" style="display: none;"
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-        <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full">
             <h2 class="text-xl font-bold mb-4 text-gray-900">Delete User Post</h2>
             <p class="mb-6 text-gray-700">Are you sure you want to delete this user post? This action cannot be undone.</p>
             <div class="flex justify-end gap-3">
                 <button @click="open = false"
-                    class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300">Cancel</button>
+                    class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-300">Cancel</button>
                 <button @click="form.submit(); open = false"
-                    class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700">Delete</button>
+                    class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">Delete</button>
             </div>
         </div>
     </div>

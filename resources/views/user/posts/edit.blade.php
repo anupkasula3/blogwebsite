@@ -71,20 +71,106 @@
                         </div>
                         <div class="bg-gray-50 rounded-xl p-4 shadow-sm ring-1 ring-gray-100">
                             <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                            {{-- Group by parents; allow selecting parent if it has no children --}}
                             <select name="category_id" id="category_id"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('category_id') border-red-500 @enderror"
                                 required>
                                 <option value="">Select a category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
+
+                                @php
+                                    $allCategories = collect($categories);
+                                    $parents = $allCategories->filter(function ($c) {
+                                        return $c->parent_id === 0 || $c->parent_id === null;
+                                    });
+                                @endphp
+
+                                @php
+                                    // Minimalist dropdown: no per-category colors
+                                @endphp
+
+                                @foreach ($parents as $parent)
+                                    @php
+                                        $children = $allCategories->where('parent_id', $parent->id);
+                                    @endphp
+                                    @if ($children->isNotEmpty())
+                                        <optgroup label="{{ $parent->name }}">
+                                            @foreach ($children as $child)
+                                                <option value="{{ $child->id }}" {{ old('category_id', $post->category_id) == $child->id ? 'selected' : '' }}>
+                                                    • {{ $child->name }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+                                    @else
+                                        <option value="{{ $parent->id }}" {{ old('category_id', $post->category_id) == $parent->id ? 'selected' : '' }}>
+                                            • {{ $parent->name }}
+                                        </option>
+                                    @endif
+                                @endforeach
+
+                                @php
+                                    $orphaned = $allCategories->filter(function ($c) use ($parents) {
+                                        return $c->parent_id && !$parents->pluck('id')->contains($c->parent_id);
+                                    });
+                                @endphp
+                                @foreach ($orphaned as $child)
+                                    <option value="{{ $child->id }}" {{ old('category_id', $post->category_id) == $child->id ? 'selected' : '' }}>
+                                        • {{ $child->name }}
                                     </option>
                                 @endforeach
                             </select>
                             @error('category_id')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
+
+                            <div class="mt-2">
+                                <style>
+                                    .cat-preview { font-size: 0.85rem; color: #374151; }
+                                    .cat-badge { display: inline-block; padding: 4px 8px; border-radius: 9999px; background:#f3f4f6; color:#374151; font-weight:600; }
+                                    .cat-parent { background:#eef2ff; color:#1f2937; margin-right:6px; }
+                                    .cat-dot { display:inline-block; width:8px; height:8px; border-radius:9999px; margin-right:6px; vertical-align:middle; background:#9ca3af; box-shadow:0 0 0 1px rgba(0,0,0,0.05); }
+                                </style>
+                                <div id="selectedCategoryPreview" class="cat-preview">
+                                    <span class="text-xs text-gray-500">Selected:</span>
+                                    <span id="catBadge" class="cat-badge">None</span>
+                                </div>
+                            </div>
+
+                            @php
+                                $jsCategories = $allCategories->mapWithKeys(function ($c) use ($allCategories) {
+                                    return [
+                                        $c->id => [
+                                            'id' => $c->id,
+                                            'name' => $c->name,
+                                            'parent_id' => $c->parent_id,
+                                            'parent_name' => $allCategories->firstWhere('id', $c->parent_id)->name ?? null,
+                                        ],
+                                    ];
+                                });
+                            @endphp
+
+                            <script>
+                                const categories = @json($jsCategories);
+                                function renderPreview(selectedId) {
+                                    const badge = document.getElementById('catBadge');
+                                    if (!selectedId || selectedId === '') { badge.textContent = 'None'; return; }
+                                    const cat = categories[selectedId];
+                                    if (!cat) { badge.textContent = 'Unknown'; return; }
+                                    if (cat.parent_name && cat.parent_id) {
+                                        badge.innerHTML = `
+                                            <span class="cat-badge cat-parent"><span class="cat-dot"></span>${cat.parent_name}</span>
+                                            <span class="cat-badge"><span class="cat-dot"></span>${cat.name}</span>
+                                        `;
+                                    } else {
+                                        badge.innerHTML = `<span class="cat-dot"></span>${cat.name}`;
+                                    }
+                                }
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const sel = document.getElementById('category_id');
+                                    if (!sel) return;
+                                    renderPreview(sel.value || '{{ old('category_id', $post->category_id) }}');
+                                    sel.addEventListener('change', function(e){ renderPreview(e.target.value); });
+                                });
+                            </script>
                         </div>
                         <div class="bg-gray-50 rounded-xl p-4 shadow-sm ring-1 ring-gray-100">
                             <h3 class="text-sm font-medium text-gray-700 mb-3">SEO Settings</h3>
