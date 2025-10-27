@@ -199,7 +199,7 @@
                                                             {{ $latestPost->title }}
                                                         </h3>
                                                         <p class="text-gray-600 mb-4 leading-relaxed">
-                                                            {{ Str::limit(strip_tags($latestPost->content), 150) }}
+                                                            {{ Str::limit(strip_tags($latestPost->excerpt), 150) }}
                                                         </p>
                                                         <div class="flex items-center justify-between">
                                                             <div class="flex items-center gap-2">

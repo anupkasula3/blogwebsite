@@ -38,7 +38,7 @@
 
             <!-- Excerpt -->
             <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
-                {{ Str::limit(strip_tags($post->content), 80) }}
+                {{ Str::limit(strip_tags($post->excerpt), 80) }}
             </p>
 
             <!-- Author and Stats -->
