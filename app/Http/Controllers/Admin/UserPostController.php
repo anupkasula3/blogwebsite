@@ -62,7 +62,11 @@ class UserPostController extends Controller
         ]);
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data['slug'] = Str::slug($request->title);
+        if($request->url_slug)
+        {
+
         $data['url_slug'] = Str::slug($request->url_slug) ?? null;
+        }
         // Ensure checkbox reflects when unchecked (not sent)
         $data['is_featured'] = $request->has('is_featured');
         // Handle featured image
@@ -71,7 +75,7 @@ class UserPostController extends Controller
             // $data['featured_image'] = $request->file('featured_image')->store('posts', 'public');
             $data['featured_image'] = $imagePath;
         }
-        $data['published_at'] = $request->is_published ? now() : null;
+        // $data['published_at'] = $request->is_published ? now() : null;
         $data['status'] = $request->is_published ? 'published' : 'draft';
         $oldStatus = $post->status;
         $oldApproved = $post->is_approved;
