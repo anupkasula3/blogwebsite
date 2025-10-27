@@ -121,9 +121,12 @@ class DashboardController extends Controller
 
     public function editPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+
+
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
+
 
         $categories = Category::where('is_active', true)->get();
         return view('user.posts.edit', compact('post', 'categories'));
@@ -131,7 +134,7 @@ class DashboardController extends Controller
 
     public function updatePost(Request $request, Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -204,7 +207,7 @@ class DashboardController extends Controller
 
     public function deletePost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -227,7 +230,7 @@ class DashboardController extends Controller
 
     public function publishPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -244,7 +247,7 @@ class DashboardController extends Controller
 
     public function draftPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -256,7 +259,7 @@ class DashboardController extends Controller
 
     public function showPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 

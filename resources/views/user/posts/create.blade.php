@@ -108,17 +108,12 @@
                             <option value="">Select a category</option>
 
                             @php
-                                $allCategories = collect($categories);
-                                $parents = $allCategories->filter(function ($c) {
-                                    return $c->parent_id === 0 || $c->parent_id === null;
-                                });
+                                $parentcat = getParent();
                             @endphp
 
-                            
-
-                            @foreach ($parents as $parent)
+                            @foreach ($parentcat as $parent)
                                 @php
-                                    $children = $allCategories->where('parent_id', $parent->id);
+                                    $children = getchildren($parent->id);
                                 @endphp
                                 @if ($children->isNotEmpty())
                                     <optgroup label="{{ $parent->name }}">
@@ -133,17 +128,6 @@
                                         • {{ $parent->name }}
                                     </option>
                                 @endif
-                            @endforeach
-
-                            @php
-                                $orphaned = $allCategories->filter(function ($c) use ($parents) {
-                                    return $c->parent_id && !$parents->pluck('id')->contains($c->parent_id);
-                                });
-                            @endphp
-                            @foreach ($orphaned as $child)
-                                <option value="{{ $child->id }}" {{ old('category_id') == $child->id ? 'selected' : '' }}>
-                                    • {{ $child->name }}
-                                </option>
                             @endforeach
                         </select>
                         @error('category_id')
@@ -163,41 +147,38 @@
                             </div>
                         </div>
 
-                        @php
-                            $jsCategories = $allCategories->mapWithKeys(function ($c) use ($allCategories) {
-                                return [
-                                    $c->id => [
-                                        'id' => $c->id,
-                                        'name' => $c->name,
-                                        'parent_id' => $c->parent_id,
-                                        'parent_name' => $allCategories->firstWhere('id', $c->parent_id)->name ?? null,
-                                    ],
-                                ];
-                            });
-                        @endphp
-
                         <script>
-                            const categories = @json($jsCategories);
-                            function renderPreview(selectedId) {
-                                const badge = document.getElementById('catBadge');
-                                if (!selectedId || selectedId === '') { badge.textContent = 'None'; return; }
-                                const cat = categories[selectedId];
-                                if (!cat) { badge.textContent = 'Unknown'; return; }
-                                if (cat.parent_name && cat.parent_id) {
-                                    badge.innerHTML = `
-                                        <span class="cat-badge cat-parent"><span class="cat-dot"></span>${cat.parent_name}</span>
-                                        <span class="cat-badge"><span class="cat-dot"></span>${cat.name}</span>
-                                    `;
-                                } else {
-                                    badge.innerHTML = `<span class="cat-dot"></span>${cat.name}`;
+                            (function () {
+                                var select = document.getElementById('category_id');
+                                var badge = document.getElementById('catBadge');
+                                if (!select || !badge) return;
+                                function updateCategoryPreview() {
+                                    var opt = select.options[select.selectedIndex];
+                                    if (!opt || !opt.value) {
+                                        badge.textContent = 'None';
+                                        return;
+                                    }
+                                    var parentLabel = '';
+                                    var labelEl = opt.parentElement;
+                                    if (labelEl && labelEl.tagName === 'OPTGROUP') {
+                                        parentLabel = labelEl.getAttribute('label') || '';
+                                    }
+                                    var childText = (opt.textContent || '').trim().replace(/^•\s*/, '');
+                                    if (parentLabel) {
+                                        badge.innerHTML = '<span class="cat-badge cat-parent">' + parentLabel + '</span>' +
+                                            '<span class="cat-dot"></span>' +
+                                            '<span class="cat-badge">' + childText + '</span>';
+                                    } else {
+                                        badge.textContent = childText || 'None';
+                                    }
                                 }
-                            }
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const sel = document.getElementById('category_id');
-                                if (!sel) return;
-                                renderPreview(sel.value || '{{ old('category_id') }}');
-                                sel.addEventListener('change', function(e){ renderPreview(e.target.value); });
-                            });
+                                select.addEventListener('change', updateCategoryPreview);
+                                if (document.readyState === 'loading') {
+                                    document.addEventListener('DOMContentLoaded', updateCategoryPreview);
+                                } else {
+                                    updateCategoryPreview();
+                                }
+                            })();
                         </script>
                     </div>
 

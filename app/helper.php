@@ -10,6 +10,11 @@ function getchildren($parent_id)
     $children = Category::where('parent_id', $parent_id)->get();
     return $children;
 }
+function getParent()
+{
+    $parent = Category::where('parent_id', 0)->get();
+    return $parent;
+}
 function getMetas($segment1, $segment2)
 {
 
@@ -53,8 +58,7 @@ function getMetas($segment1, $segment2)
             'keywords' => $category->meta_keywords,
         ];
         return $meta;
-    }
-    else if (Request::segment(1) == 'post') {
+    } else if (Request::segment(1) == 'post') {
         $blog = Post::where('url_slug', $segment2)->first();
         if (!$blog) {
             $blog = Post::where('slug', $segment2)->first();
@@ -67,8 +71,7 @@ function getMetas($segment1, $segment2)
             'keywords' => $blog->meta_keywords,
         ];
         return $meta;
-    }
-    else if (Request::segment(1) == 'search') {
+    } else if (Request::segment(1) == 'search') {
         $search = Request::query('q');
 
         $blog = "Search for $search";
@@ -80,8 +83,7 @@ function getMetas($segment1, $segment2)
             'keywords' => "search",
         ];
         return $meta;
-    }
-     else {
+    } else {
         $links = MetaPage::where("page_name", "home")->first();
         if ($links) {
             $meta = (object) [

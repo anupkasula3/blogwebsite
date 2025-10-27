@@ -92,6 +92,9 @@
                             @enderror
                         </div>
 
+                        @php
+                            $parentcat = getParent();
+                        @endphp
                         <!-- Category -->
                         <div>
                             <label class="w-full text-sm font-semibold" htmlFor="category_id">Category *</label>
@@ -100,11 +103,11 @@
                                 <select name="category_id" id="category_id"
                                     class="w-full p-3 mt-3 text-xs border border-gray-300 rounded focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
                                     required>
-                                    <option value="">Select a category</option>
+                                    <option value="" disabled selected>Select a category</option>
 
 
 
-                                    @foreach ($categories as $parent)
+                                    @foreach ($parentcat as $parent)
                                         @php
                                             $children = getchildren($parent->id);
 
