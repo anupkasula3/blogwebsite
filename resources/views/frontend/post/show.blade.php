@@ -34,9 +34,9 @@
 
                             <!-- Shares Count -->
                             @php
-                        $wordCount = str_word_count(strip_tags($post->content));
-                        $readingTime = max(1, (int) ceil($wordCount / 200));
-                    @endphp
+                                $wordCount = str_word_count(strip_tags($post->content));
+                                $readingTime = max(1, (int) ceil($wordCount / 200));
+                            @endphp
                             <div class="text-center mb-4">
                                 <div class="text-2xl font-bold text-gray-900"><span>{{ $readingTime }} </span>
                                 </div>
@@ -45,104 +45,96 @@
 
                             <!-- Social Share Buttons -->
                             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
-            target="_blank" rel="noopener"
-            class="w-12 h-12 bg-[#1877F2] hover:bg-blue-700 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share on Facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
+                                target="_blank" rel="noopener"
+                                class="w-12 h-12 bg-[#1877F2] hover:bg-blue-700 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
 
-        <!-- Twitter/X -->
-        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
-            target="_blank" rel="noopener"
-            class="w-12 h-12 bg-[#1DA1F2] hover:bg-blue-400 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share on Twitter/X">
+                            <!-- Twitter/X -->
+                            {{-- <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                                target="_blank" rel="noopener"
+                                class="w-12 h-12 bg-[#1DA1F2] hover:bg-blue-400 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share on Twitter/X">
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="#ffffff"
-  stroke-width="1.25"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-</svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="#ffffff" stroke-width="1.25" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                                </svg>
 
-        </a>
+                            </a> --}}
 
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
-            target="_blank" rel="noopener"
-            class="w-12 h-12 bg-[#0A66C2] hover:bg-blue-800 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share on LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-        </a>
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
+                                target="_blank" rel="noopener"
+                                class="w-12 h-12 bg-[#0A66C2] hover:bg-blue-800 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share on LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
 
-        <!-- WhatsApp -->
-        <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' ' . request()->url()) }}"
-            target="_blank" rel="noopener"
-            class="w-12 h-12 bg-[#25D366] hover:bg-green-600 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share on WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+                            <!-- WhatsApp -->
+                            <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' ' . request()->url()) }}"
+                                target="_blank" rel="noopener"
+                                class="w-12 h-12 bg-[#25D366] hover:bg-green-600 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share on WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
 
-        <!-- Telegram -->
-        <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
-            target="_blank" rel="noopener"
-            class="w-12 h-12 bg-[#229ED9] hover:bg-blue-500 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share on Telegram">
-            <i class="fab fa-telegram-plane"></i>
-        </a>
+                            <!-- Telegram -->
+                            {{-- <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                                target="_blank" rel="noopener"
+                                class="w-12 h-12 bg-[#229ED9] hover:bg-blue-500 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share on Telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                            </a> --}}
 
-        <!-- Reddit -->
-        <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
-            target="_blank" rel="noopener"
-            class="w-12 h-12 bg-[#FF4500] hover:bg-orange-600 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share on Reddit">
-            <i class="fab fa-reddit-alien"></i>
-        </a>
+                            <!-- Reddit -->
+                            {{-- <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
+                                target="_blank" rel="noopener"
+                                class="w-12 h-12 bg-[#FF4500] hover:bg-orange-600 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share on Reddit">
+                                <i class="fab fa-reddit-alien"></i>
+                            </a> --}}
 
-        <!-- Email -->
-        <a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}"
-            class="w-12 h-12 bg-gray-700 hover:bg-gray-800 rounded-lg flex items-center justify-center text-white transition-colors"
-            aria-label="Share via Email">
-            <i class="fas fa-envelope"></i>
-        </a>
+                            <!-- Email -->
+                            <a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}"
+                                class="w-12 h-12 bg-gray-700 hover:bg-gray-800 rounded-lg flex items-center justify-center text-white transition-colors"
+                                aria-label="Share via Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
 
-        <!-- Copy Link -->
-        <button type="button" onclick="copyToClipboard('{{ request()->url() }}')"
-            class="w-12 h-12 bg-[#ff2953] hover:bg-pink-600 rounded-lg flex items-center justify-center text-white transition-colors cursor-pointer "
-            aria-label="Copy Link">
-            <i class="fas fa-link"></i>
-        </button>
-        <div id="copy-toast"
-    class="hidden fixed bottom-5 left-5 bg-[#ff2953] text-white px-4 py-2 w-64 rounded-lg shadow-lg transition-opacity duration-300">
-    Link copied to clipboard
-</div>
+                            <!-- Copy Link -->
+                            <button type="button" onclick="copyToClipboard('{{ request()->url() }}')"
+                                class="w-12 h-12 bg-[#ff2953] hover:bg-pink-600 rounded-lg flex items-center justify-center text-white transition-colors cursor-pointer "
+                                aria-label="Copy Link">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <div id="copy-toast"
+                                class="hidden fixed bottom-5 left-5 bg-[#ff2953] text-white px-4 py-2 w-64 rounded-lg shadow-lg transition-opacity duration-300">
+                                Link copied to clipboard
+                            </div>
 
-<script>
-function copyToClipboard(url) {
-    navigator.clipboard.writeText(url).then(function() {
-        const toast = document.getElementById('copy-toast');
-        toast.classList.remove('hidden');      // Show toast
-        toast.classList.add('opacity-100');    // Fade in
-        toast.style.opacity = '1';             // Ensure visible
+                            <script>
+                                function copyToClipboard(url) {
+                                    navigator.clipboard.writeText(url).then(function() {
+                                        const toast = document.getElementById('copy-toast');
+                                        toast.classList.remove('hidden'); // Show toast
+                                        toast.classList.add('opacity-100'); // Fade in
+                                        toast.style.opacity = '1'; // Ensure visible
 
-        setTimeout(() => {
-            toast.style.opacity = '0';         // Fade out
-            setTimeout(() => {
-                toast.classList.add('hidden'); // Hide completely
-            }, 300); // Match fade duration
-        }, 2000); // Show for 2 seconds
-    }).catch(function(err) {
-        console.error('Failed to copy: ', err);
-    });
-}
-</script>
+                                        setTimeout(() => {
+                                            toast.style.opacity = '0'; // Fade out
+                                            setTimeout(() => {
+                                                toast.classList.add('hidden'); // Hide completely
+                                            }, 300); // Match fade duration
+                                        }, 2000); // Show for 2 seconds
+                                    }).catch(function(err) {
+                                        console.error('Failed to copy: ', err);
+                                    });
+                                }
+                            </script>
 
                         </div>
                     </div>
@@ -158,115 +150,116 @@ function copyToClipboard(url) {
                             class="hover:text-red-600 transition-colors">{{ $post->category->name }}</a>
                     </nav>
 
-                    <!-- Title -->
-                    <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 leading-tight">
-                        {{ $post->title }}
-                    </h1>
+                    <div class="bg-white rounded-2xl shadow-sm px-6 py-2 mb-3 hover:shadow-md transition-shadow duration-300">
+                         <!-- Title -->
+                         <h1 class="text-3xl  font-extrabold text-gray-900 leading-normal pb-6">
+                            {{ $post->title }}
+                        </h1>
 
-                    <!-- Featured Image -->
-                    @if ($post->featured_image)
-                        <div class="mb-8">
-                            <img src="{{ asset('uploads/' . $post->featured_image) }}"
-                                alt="{{ $post->title }}"
-                                class="w-full h-auto rounded-lg">
-                        </div>
-                    @endif
+                        <div class="flex flex-col items-center lg:flex-row  gap-8 ">
 
-                    <!-- Excerpt/Lead Paragraph -->
-                    <div class="text-lg text-gray-700 mb-6 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4">
-                        {!! $post->excerpt !!}
-                    </div>
+                            <!-- Text Section -->
+                            <div class="flex flex-col gap-6 flex-1 order-1 max-sm:order-2">
 
-                    <!-- Article Content -->
-                    <article class="prose prose-lg max-w-none mb-8">
-                        @php
-                            $content = $post->content;
-                            $firstParagraph = '';
-                            $restContent = $content;
-                            if (preg_match('/<p>(.*?)<\/p>/is', $content, $matches)) {
-                                $firstParagraph = $matches[0];
-                                $restContent = str_replace($firstParagraph, '', $content);
-                            }
-                        @endphp
-                        {!! $firstParagraph !!}
-                        {!! $restContent !!}
-                    </article>
 
-                    <!-- Tags -->
-                    @if ($post->tags)
-                        <div class="mb-8 pb-8 border-b border-gray-200">
-                            <div class="flex flex-wrap gap-2">
-                                @foreach (explode(',', $post->tags) as $tag)
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer">
-                                        {{ trim($tag) }}
-                                    </span>
-                                @endforeach
+                                <!-- Excerpt / Lead Paragraph -->
+                                <div
+                                    class="text-md  text-gray-700 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4 text-justify pr-2 rounded-md">
+                                    {!! $post->excerpt !!}
+                                </div>
                             </div>
+
+                            <!-- Featured Image -->
+                            @if ($post->featured_image)
+                                <div class="flex-1 max-sm:pt-4 flex justify-center items-center order-2 max-sm:order-1">
+                                    <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                        class="w-full max-w-md rounded-xl object-cover shadow-sm ">
+                                </div>
+                            @endif
                         </div>
-                    @endif
+
+                        <div class="prose prose-lg prose-slate  mt-6 mx-auto mb-8 ">
+                            {!! $post->content !!}
+                        </div>
+
+
+                        <!-- Tags -->
+                        @if ($post->tags)
+                            <div class="mb-8 pb-8 border-b border-gray-200">
+                                <div class="flex flex-wrap gap-2">
+                                    @foreach (explode(',', $post->tags) as $tag)
+                                        <span
+                                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer">
+                                            {{ trim($tag) }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
 
                     <!-- Social Sharing (Mobile) -->
                     <div class="lg:hidden mb-8 pb-8 border-b border-gray-200">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this article</h3>
-                        <div class="flex flex-wrap gap-3">
+                        <div class="flex flex-wrap w-full gap-3">
 
-<!-- Facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
-    target="_blank" rel="noopener" class="share-btn-mobile bg-blue-600">
-    <i class="fab fa-facebook-f"></i>
-    <span>Facebook</span>
-</a>
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                                target="_blank" rel="noopener" class="share-btn-mobile bg-blue-600">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </a>
 
-<!-- Twitter/X -->
-<a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
-    target="_blank" rel="noopener" class="share-btn-mobile bg-gray-900">
-    <i class="fab fa-x-twitter"></i>
-    <span>Twitter</span>
-</a>
+                            <!-- Twitter/X -->
+                            {{-- <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                                target="_blank" rel="noopener" class="share-btn-mobile bg-gray-900">
+                                <i class="fab fa-x-twitter"></i>
+                                <span>Twitter</span>
+                            </a> --}}
 
-<!-- LinkedIn -->
-<a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
-    target="_blank" rel="noopener" class="share-btn-mobile bg-blue-700">
-    <i class="fab fa-linkedin-in"></i>
-    <span>LinkedIn</span>
-</a>
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
+                                target="_blank" rel="noopener" class="share-btn-mobile bg-blue-700">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span>LinkedIn</span>
+                            </a>
 
-<!-- WhatsApp -->
-<a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' ' . request()->url()) }}"
-    target="_blank" rel="noopener" class="share-btn-mobile bg-green-500">
-    <i class="fab fa-whatsapp"></i>
-    <span>WhatsApp</span>
-</a>
+                            <!-- WhatsApp -->
+                            <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' ' . request()->url()) }}"
+                                target="_blank" rel="noopener" class="share-btn-mobile bg-green-500">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
 
-<!-- Telegram -->
-<a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
-    target="_blank" rel="noopener" class="share-btn-mobile bg-blue-400">
-    <i class="fab fa-telegram-plane"></i>
-    <span>Telegram</span>
-</a>
+                            <!-- Telegram -->
+                            {{-- <a href="https://t.me/share/url?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}"
+                                target="_blank" rel="noopener" class="share-btn-mobile bg-blue-400">
+                                <i class="fab fa-telegram-plane"></i>
+                                <span>Telegram</span>
+                            </a> --}}
 
-<!-- Reddit -->
-<a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
-    target="_blank" rel="noopener" class="share-btn-mobile bg-orange-500">
-    <i class="fab fa-reddit-alien"></i>
-    <span>Reddit</span>
-</a>
+                            <!-- Reddit -->
+                            {{-- <a href="https://reddit.com/submit?url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}"
+                                target="_blank" rel="noopener" class="share-btn-mobile bg-orange-500">
+                                <i class="fab fa-reddit-alien"></i>
+                                <span>Reddit</span>
+                            </a> --}}
 
-<!-- Email -->
-<a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}"
-    class="share-btn-mobile bg-gray-700">
-    <i class="fas fa-envelope"></i>
-    <span>Email</span>
-</a>
+                            <!-- Email -->
+                            <a href="mailto:?subject={{ rawurlencode($post->title) }}&body={{ rawurlencode(request()->url()) }}"
+                                class="share-btn-mobile bg-gray-700">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email</span>
+                            </a>
 
-<!-- Copy Link -->
-<button type="button" onclick="copyToClipboard('{{ request()->url() }}')"
-    class="share-btn-mobile bg-pink-600">
-    <i class="fas fa-link"></i>
-    <span>Copy Link</span>
-</button>
+                            <!-- Copy Link -->
+                            <button type="button" onclick="copyToClipboard('{{ request()->url() }}')"
+                                class="share-btn-mobile bg-pink-600">
+                                <i class="fas fa-link"></i>
+                                <span>Copy Link</span>
+                            </button>
 
-</div>
+                        </div>
 
                         <div id="copy-toast" class="copy-toast hidden">
                             <i class="fas fa-check-circle mr-2"></i>
@@ -278,7 +271,8 @@ function copyToClipboard(url) {
                     <div class="bg-gray-50 rounded-lg p-6 mb-8">
                         <div class="flex items-center gap-4">
                             @if ($post->isAdminPost())
-                                <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                                     <i class="fas fa-user-shield text-red-600 text-2xl"></i>
                                 </div>
                             @else
@@ -302,14 +296,15 @@ function copyToClipboard(url) {
                                         {{ $post->user->bio ?: 'Contributing Writer' }}
                                     @endif
                                 </p>
-                                <div class="flex items-center gap-4 text-sm text-gray-500">
-                                    <span><i class="far fa-calendar mr-1"></i>{{ $post->published_at->format('M j, Y') }}</span>
-                                    <span><i class="far fa-clock mr-1"></i>  @php
-                        $wordCount = str_word_count(strip_tags($post->content));
-                        $readingTime = max(1, (int) ceil($wordCount / 200));
-                    @endphp
+                                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                                    <span><i
+                                            class="far fa-calendar mr-1"></i>{{ $post->published_at->format('M j, Y') }}</span>
+                                    <span><i class="far fa-clock mr-1"></i> @php
+                                        $wordCount = str_word_count(strip_tags($post->content));
+                                        $readingTime = max(1, (int) ceil($wordCount / 200));
+                                    @endphp
 
-                                    {{ $readingTime }} min read</span>
+                                        {{ $readingTime }} min read</span>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +320,8 @@ function copyToClipboard(url) {
                                         <i class="fas fa-arrow-left text-gray-400 group-hover:text-red-600 mt-1"></i>
                                         <div>
                                             <p class="text-xs text-gray-500 uppercase mb-1">Previous</p>
-                                            <p class="text-sm font-medium text-gray-900 group-hover:text-red-600 line-clamp-2">
+                                            <p
+                                                class="text-sm font-medium text-gray-900 group-hover:text-red-600 line-clamp-2">
                                                 {{ $prevPost->title }}
                                             </p>
                                         </div>
@@ -339,7 +335,8 @@ function copyToClipboard(url) {
                                     <div class="flex items-start gap-3 justify-end">
                                         <div>
                                             <p class="text-xs text-gray-500 uppercase mb-1">Next</p>
-                                            <p class="text-sm font-medium text-gray-900 group-hover:text-red-600 line-clamp-2">
+                                            <p
+                                                class="text-sm font-medium text-gray-900 group-hover:text-red-600 line-clamp-2">
                                                 {{ $nextPost->title }}
                                             </p>
                                         </div>
@@ -356,7 +353,7 @@ function copyToClipboard(url) {
                             <h3 class="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 @foreach ($relatedPosts as $relatedPost)
-                                    @include('frontend.component.postcomponent',['post'=>$relatedPost])
+                                    @include('frontend.component.postcomponent', ['post' => $relatedPost])
                                 @endforeach
                             </div>
                         </div>
@@ -365,13 +362,13 @@ function copyToClipboard(url) {
 
                 <!-- Right Sidebar -->
                 <div class="lg:col-span-3">
-                    <div class="sticky top-24 space-y-6">
+                    <div class="sticky top-20 space-y-3">
 
 
 
 
-                       <!-- Meta Info Widget -->
-                       <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <!-- Meta Info Widget -->
+                        {{-- <div class="bg-white border border-gray-200 rounded-lg p-4">
                             <h3 class="font-bold text-gray-900 mb-3">Post Information</h3>
                             <div class="space-y-3 text-sm">
                                 <div class="flex items-center justify-between">
@@ -383,44 +380,45 @@ function copyToClipboard(url) {
                                     <span class="font-semibold">{{ $post->published_at->format('M j, Y') }}</span>
                                 </div>
                                 @if ($post->is_featured)
-                                    <div class="flex items-center gap-2 px-3 py-2 bg-yellow-50 text-yellow-700 rounded-lg border border-yellow-200">
+                                    <div
+                                        class="flex items-center gap-2 px-3 py-2 bg-yellow-50 text-yellow-700 rounded-lg border border-yellow-200">
                                         <i class="fas fa-star"></i>
                                         <span class="font-medium">Featured Post</span>
                                     </div>
                                 @endif
                             </div>
+                        </div> --}}
+
+
+
+                        <div class="bg-white border border-gray-200 rounded-2xl p-3 mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-tags mr-2 text-blue-500"></i>
+                                Categories
+                            </h3>
+                            <div class="space-y-1">
+                                @foreach ($categories as $category)
+                                    <a href="{{ route('category.show', $category->slug) }}"
+                                        class="group flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200
+                                            {{ $category->slug == $post->category->slug
+                                                ? 'bg-[#ff2953] text-white shadow-sm'
+                                                : 'text-gray-700 hover:bg-gray-100 hover:text-[#ff2953]' }}">
+                                        <span class="truncate">{{ $category->name }}</span>
+                                        @if ($category->slug == $post->category->slug)
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 text-white opacity-90 group-hover:opacity-100"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293A1 1 0 006.293 10.707l2 2a1 1 0 001.414 0l4-4z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        @endif
+                                    </a>
+                                @endforeach
+                            </div>
+
+
                         </div>
-
-
-                        <!-- Category Widget -->
-                        <div class="bg-white border border-gray-200 rounded-lg p-4">
-                            <h3 class="font-bold text-gray-900 mb-3">Category</h3>
-                            <a href="{{ route('category.show', $post->category->slug) }}"
-                                class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-red-50 hover:text-red-600 rounded-lg text-gray-900 font-medium transition-colors">
-                                <i class="fas fa-folder"></i>
-                                <span>{{ $post->category->name }}</span>
-                            </a>
-                        </div>
-
-                        <!-- Upcoming Events Widget -->
-
-                        <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                        <i class="fas fa-tags mr-2 text-blue-500"></i>
-                        Categories
-                    </h3>
-                    <div class="space-y-2">
-                        @foreach ($categories as $category)
-                            <a href="{{ route('category.show', $category->slug) }}"
-                                class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                                <span class="text-gray-700 font-medium">{{ $category->name }}</span>
-                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
-                                    {{ $category->posts_count }}
-                                </span>
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
 
 
 
@@ -558,13 +556,23 @@ function copyToClipboard(url) {
             }
 
             .prose a {
-                color: #dc2626;
+                /*color: #dc2626;*/
                 text-decoration: none;
             }
 
             .prose a:hover {
                 text-decoration: underline;
             }
+
+            .prose ul {
+  list-style-type: disc;      /* shows • bullets */
+  list-style-position: outside;
+}
+
+.prose ol {
+  list-style-type: decimal;   /* shows 1, 2, 3... */
+  list-style-position: outside;
+}
 
             .prose ul,
             .prose ol {

@@ -7,8 +7,14 @@
 <div class="bg-white rounded-lg shadow-sm">
     <div class="p-6 border-b border-gray-200">
         <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold text-gray-900">Create New Category</h2>
-            <a href="{{ route('admin.categories.index') }}"
+            <h2 class="text-xl font-semibold text-gray-900">
+                @if ($category)
+                    Create New Sub Category for <span class="text-[#ff3131]">{{ $category->name }}</span>
+                @else
+                    Create New Category
+                @endif
+            </h2>
+            <a href="{{ route('admin.categories.index', ['parent_id' => $category->id]) }}"
                class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i>
                 Back to Categories
@@ -74,6 +80,7 @@
                         </div>
                     @enderror
                 </div>
+                <input type="hidden" name="parent_id" value="{{ $category->id ?? 0 }}">
 
                 <!-- Color -->
                 <div>
@@ -259,14 +266,10 @@
                     <i class="fas fa-plus mr-2"></i>
                     Create Category
                 </button>
-                <button type="submit" name="action" value="create_and_add_another"
-                        class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                    <i class="fas fa-plus-circle mr-2"></i>
-                    Create & Add Another
-                </button>
+
             </div>
 
-            <a href="{{ route('admin.categories.index') }}"
+            <a href="{{ route('admin.categories.index', ['parent_id' => $category->id]) }}"
                class="text-gray-600 hover:text-gray-700 font-medium">
                 <i class="fas fa-times mr-1"></i>
                 Cancel

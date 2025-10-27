@@ -4,6 +4,8 @@
 @section('page-title', 'View Category')
 
 @section('content')
+@include('admin.toastmessage.toastmessage')
+
 <div class="bg-white rounded-lg shadow-lg p-10 max-w-3xl mx-auto mt-8">
     <div class="flex items-center gap-4 mb-8">
         <div class="w-20 h-20 flex items-center justify-center rounded-lg shadow" style="background: {{ $category->color ?? '#f3f4f6' }};">

@@ -15,7 +15,8 @@ class PostController extends Controller
     public function __construct(
         protected ImageService $imageService
 
-    ) {}
+    ) {
+    }
     public function index()
     {
         $posts = Post::with(['category', 'user', 'admin'])
@@ -37,18 +38,20 @@ class PostController extends Controller
             $request->validate([
                 'title' => 'required|string|max:255|unique:posts,title',
                 'content' => 'required|string',
+                'url_slug' => 'nullable|unique:posts,url_slug',
                 'excerpt' => 'nullable|string',
                 'category_id' => 'required|exists:categories,id',
-                'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'featured_image' => 'nullable|image|max:2048',
                 'is_published' => 'required|in:0,1',
                 'meta_title' => 'nullable|string|max:255',
                 'meta_description' => 'nullable|string',
                 'meta_keywords' => 'nullable|string|max:255',
                 'is_featured' => 'boolean',
             ]);
-
+            $validated['url_slug'] = Str::slug($request->url_slug);
             $data = $request->all();
             $data['slug'] = Str::slug($request->title);
+            $data['url_slug'] = Str::slug($request->url_slug ?? $data['slug']);
 
             // Set admin as author since this is admin panel
             $data['author_type'] = 'admin';
@@ -73,36 +76,41 @@ class PostController extends Controller
                 ->with('success', 'Post created successfully!');
         } catch (\Exception $e) {
             \Log::error('Post creation error: ' . $e->getMessage());
-            return back()->withInput()->withErrors(['error' => 'Failed to create post. Please try again.',$e->getMessage()  ]);
+            return back()->withInput()->withErrors(['error' => 'Failed to create post. Please try again.', $e->getMessage()]);
         }
     }
 
     public function show(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
         $post->load(['category', 'user', 'admin']);
         return view('admin.posts.show', compact('post'));
     }
 
     public function edit(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
         $categories = Category::where('is_active', true)->get();
         return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+
+            'url_slug' => 'nullable|unique:posts,url_slug,' . $post->id,
             'excerpt' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'featured_image' => 'nullable|image|max:2048',
             // 'status' => 'required|in:draft,published',
-          'is_published' => 'required|in:0,1',
+            'is_published' => 'required|in:0,1',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string|max:255',
@@ -117,11 +125,12 @@ class PostController extends Controller
             'is_featured' => 'boolean',
             'is_approved' => 'boolean'
         ]);
-
+        $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
+        $data['url_slug'] = Str::slug($request->url_slug);
         $data['is_featured'] = $request->has('is_featured');
-        $data['is_approved'] = $request->has('is_approved');
+        // $data['is_approved'] = $request->has('is_approved');
         $data['status'] = $request->is_published ? 'published' : 'draft';
         $data['published_at'] = $request->is_published ? now() : null;
 
@@ -160,7 +169,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         // Delete associated images
         if ($post->featured_image) {
@@ -181,7 +191,8 @@ class PostController extends Controller
     public function publish(Post $post)
     {
 
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update([
             'status' => 'published',
@@ -195,7 +206,8 @@ class PostController extends Controller
 
     public function unpublish(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update([
             'status' => 'draft',
@@ -208,7 +220,8 @@ class PostController extends Controller
 
     public function feature(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update(['is_featured' => true]);
 
@@ -218,7 +231,8 @@ class PostController extends Controller
 
     public function unfeature(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update(['is_featured' => false]);
 
@@ -228,16 +242,18 @@ class PostController extends Controller
 
     public function toggleStory(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update(['story' => !$post->story]);
 
-        return redirect()->back()->with('success', $post->story ? 'Added to Story' : 'Removed from Story');
+        return redirect()->back()->with('s  uccess', $post->story ? 'Added to Story' : 'Removed from Story');
     }
 
     public function approve(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update(['is_approved' => true]);
 
@@ -247,7 +263,8 @@ class PostController extends Controller
 
     public function reject(Post $post)
     {
-        if ($post->author_type !== 'admin') abort(404);
+        if ($post->author_type !== 'admin')
+            abort(404);
 
         $post->update(['is_approved' => false]);
 

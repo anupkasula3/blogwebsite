@@ -75,12 +75,12 @@
                             </div>
                         @endif
 
-                        @if ($post->excerpt)
+                        {{-- @if ($post->excerpt)
                             <div class="mb-4">
                                 <h3 class="text-sm font-medium text-gray-700 mb-2">Excerpt</h3>
                                 <p class="text-gray-600">{{ $post->excerpt }}</p>
                             </div>
-                        @endif
+                        @endif --}}
 
                         @if ($post->tags)
                             <div class="mb-4">
@@ -98,14 +98,36 @@
                     </div>
 
 
-                    
+
+
                     <!-- Post Content -->
-                    <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    {{-- <div class="bg-white border border-gray-200 rounded-lg p-6">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Content</h3>
                         <div class="prose prose-lg max-w-none">
                             {!! $post->content !!}
                         </div>
+                    </div> --}}
+
+                    <!-- Excerpt/Lead Paragraph -->
+                    <div
+                        class="text-lg text-gray-700 mb-6 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4">
+                        {!! $post->excerpt !!}
                     </div>
+
+                    <!-- Article Content -->
+                    <article class="prose prose-lg max-w-none mb-8">
+                        @php
+                            $content = $post->content;
+                            $firstParagraph = '';
+                            $restContent = $content;
+                            if (preg_match('/<p>(.*?)<\/p>/is', $content, $matches)) {
+                                $firstParagraph = $matches[0];
+                                $restContent = str_replace($firstParagraph, '', $content);
+                            }
+                        @endphp
+                        {!! $firstParagraph !!}
+                        {!! $restContent !!}
+                    </article>
 
                     <!-- SEO Information -->
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
@@ -212,7 +234,8 @@
                             @endif
 
                             @if (!$post->story)
-                                <form method="POST" action="{{ route('admin.posts.story-toggle', $post) }}" class="inline w-full">
+                                <form method="POST" action="{{ route('admin.posts.story-toggle', $post) }}"
+                                    class="inline w-full">
                                     @csrf
                                     <button type="submit"
                                         class="w-full bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">
@@ -221,7 +244,8 @@
                                     </button>
                                 </form>
                             @else
-                                <form method="POST" action="{{ route('admin.posts.story-toggle', $post) }}" class="inline w-full">
+                                <form method="POST" action="{{ route('admin.posts.story-toggle', $post) }}"
+                                    class="inline w-full">
                                     @csrf
                                     <button type="submit"
                                         class="w-full bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
@@ -307,16 +331,65 @@
     @endpush
     @push('styles')
         <style>
-            .prose { color: #374151; line-height: 1.75; }
-            .prose h1, .prose h2, .prose h3, .prose h4 { color:#111827; font-weight:700; margin: 1.5rem 0 .75rem; }
-            .prose p { margin-bottom: 1rem; }
-            .prose ul, .prose ol { margin: 1rem 0 1rem 1.25rem; }
-            .prose li { margin-bottom: .25rem; }
-            .prose blockquote { border-left: 4px solid #ff2953; padding-left: 1rem; color:#6b7280; font-style: italic; }
-            .prose img { border-radius: .5rem; margin: 1rem 0; max-width:100%; height:auto; }
-            .prose a { color:#2563eb; text-decoration: underline; }
-            .prose pre { background:#1f2937; color:#f9fafb; padding:1rem; border-radius:.5rem; overflow:auto; }
-            .prose code { background:#f3f4f6; padding:.125rem .375rem; border-radius:.25rem; }
+            .prose {
+                color: #374151;
+                line-height: 1.75;
+            }
+
+            .prose h1,
+            .prose h2,
+            .prose h3,
+            .prose h4 {
+                color: #111827;
+                font-weight: 700;
+                margin: 1.5rem 0 .75rem;
+            }
+
+            .prose p {
+                margin-bottom: 1rem;
+            }
+
+            .prose ul,
+            .prose ol {
+                margin: 1rem 0 1rem 1.25rem;
+            }
+
+            .prose li {
+                margin-bottom: .25rem;
+            }
+
+            .prose blockquote {
+                border-left: 4px solid #ff2953;
+                padding-left: 1rem;
+                color: #6b7280;
+                font-style: italic;
+            }
+
+            .prose img {
+                border-radius: .5rem;
+                margin: 1rem 0;
+                max-width: 100%;
+                height: auto;
+            }
+
+            .prose a {
+                color: #2563eb;
+                text-decoration: underline;
+            }
+
+            .prose pre {
+                background: #1f2937;
+                color: #f9fafb;
+                padding: 1rem;
+                border-radius: .5rem;
+                overflow: auto;
+            }
+
+            .prose code {
+                background: #f3f4f6;
+                padding: .125rem .375rem;
+                border-radius: .25rem;
+            }
         </style>
     @endpush
 @endsection

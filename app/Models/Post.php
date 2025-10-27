@@ -40,7 +40,8 @@ class Post extends Model
         'is_approved',
         'reading_time',
         'seo_score',
-        'story'
+        'story',
+        'url_slug'
     ];
 
     protected $casts = [

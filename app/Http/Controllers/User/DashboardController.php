@@ -9,6 +9,7 @@ use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\FileService\ImageService;
 
@@ -60,6 +61,7 @@ class DashboardController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string|min:100',
             'excerpt' => 'nullable|string|max:300',
+            'url_slug' => 'nullable|unique:posts,url_slug',
             'category_id' => 'required|exists:categories,id',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'meta_title' => 'nullable|string|max:255',
@@ -74,7 +76,7 @@ class DashboardController extends Controller
             'canonical_url' => 'nullable|url',
             'schema_markup' => 'nullable|string',
         ]);
-
+        $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->except('action');
         $data['user_id'] = auth()->id();
         $data['author_type'] = 'user';
@@ -136,6 +138,7 @@ class DashboardController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string|min:100',
             'excerpt' => 'nullable|string|max:300',
+            'url_slug' => 'nullable|unique:posts,url_slug,' . $post->id,
             'category_id' => 'required|exists:categories,id',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'meta_title' => 'nullable|string|max:255',
@@ -150,7 +153,7 @@ class DashboardController extends Controller
             'canonical_url' => 'nullable|url',
             'schema_markup' => 'nullable|string',
         ]);
-
+        $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->except('action');
         $data['slug'] = \Str::slug($request->title);
 

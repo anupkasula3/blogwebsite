@@ -1,4 +1,3 @@
-
 <!-- Main Footer -->
 <footer class="bg-black text-white">
     <div class="max-w-screen-2xl mx-auto px-4  py-12">
@@ -6,7 +5,8 @@
             <!-- Brand Section -->
             <div class="lg:col-span-1">
                 <a href="{{ route('home') }}" class="logo  d-flex align-items-center me-auto me-xl-0">
-                    <img src="{{ \App\Models\Setting::get('site_logo') ? asset('storage/' . \App\Models\Setting::get('site_logo')) : asset('images/NepBlog_white.png') }}" style="width: 200px; height: auto; max-height: 80px;padding-bottom: 2rem;"
+                    <img src="{{ \App\Models\Setting::get('site_logo') ? asset('storage/' . \App\Models\Setting::get('site_logo')) : asset('images/NepBlog_white.png') }}"
+                        style="width: 200px; height: auto; max-height: 80px;padding-bottom: 2rem;"
                         alt="{{ \App\Models\Setting::get('site_name', 'NepBlog') }} Logo">
                 </a>
                 <p class="text-white mb-6 leading-relaxed">
@@ -20,28 +20,33 @@
                         $li = \App\Models\Setting::get('social_linkedin') ?: \App\Models\Setting::get('linkedin_url');
                         $yt = \App\Models\Setting::get('social_youtube') ?: \App\Models\Setting::get('youtube_url');
                     @endphp
-                    @if($fb)
-                        <a href="{{ $fb }}" target="_blank" rel="noopener" class="text-white hover:text-white transition-colors" aria-label="Facebook">
+                    @if ($fb)
+                        <a href="{{ $fb }}" target="_blank" rel="noopener"
+                            class="text-white hover:text-white transition-colors" aria-label="Facebook">
                             <i class="fab fa-facebook-f text-xl"></i>
                         </a>
                     @endif
-                    @if($tw)
-                        <a href="{{ $tw }}" target="_blank" rel="noopener" class="text-white hover:text-white transition-colors" aria-label="Twitter">
+                    @if ($tw)
+                        <a href="{{ $tw }}" target="_blank" rel="noopener"
+                            class="text-white hover:text-white transition-colors" aria-label="Twitter">
                             <i class="fab fa-tiktok text-xl"></i>
                         </a>
                     @endif
-                    @if($ig)
-                        <a href="{{ $ig }}" target="_blank" rel="noopener" class="text-white hover:text-white transition-colors" aria-label="Instagram">
+                    @if ($ig)
+                        <a href="{{ $ig }}" target="_blank" rel="noopener"
+                            class="text-white hover:text-white transition-colors" aria-label="Instagram">
                             <i class="fab fa-instagram text-xl"></i>
                         </a>
                     @endif
-                    @if($li)
-                        <a href="{{ $li }}" target="_blank" rel="noopener" class="text-white hover:text-white transition-colors" aria-label="LinkedIn">
+                    @if ($li)
+                        <a href="{{ $li }}" target="_blank" rel="noopener"
+                            class="text-white hover:text-white transition-colors" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in text-xl"></i>
                         </a>
                     @endif
-                    @if($yt)
-                        <a href="{{ $yt }}" target="_blank" rel="noopener" class="text-white hover:text-white transition-colors" aria-label="YouTube">
+                    @if ($yt)
+                        <a href="{{ $yt }}" target="_blank" rel="noopener"
+                            class="text-white hover:text-white transition-colors" aria-label="YouTube">
                             <i class="fab fa-youtube text-xl"></i>
                         </a>
                     @endif
@@ -146,11 +151,11 @@
                 </div>
 
 
-<div class="max-sm:pt-5 flex items-center gap-x-2 sm:mr-16">
-In Collaboration With <a href="https://www.nepbyte.com" target="_blank"
-                                class="text-[#ff2953] hover:text-white hover:underline text-xl">NepByte</a> <img
-                                src="{{ asset('images/nepal_flag.gif') }}" alt="NepByte" class="w-5" />
-                        </div>
+                <div class="max-sm:pt-5 flex items-center gap-x-2 sm:mr-16">
+                    Design And Developed By <a href="https://www.nepbyte.com" target="_blank"
+                        class="text-[#ff2953] hover:text-white hover:underline text-xl">NepByte</a> <img
+                        src="{{ asset('images/nepal_flag.gif') }}" alt="NepByte" class="w-5" />
+                </div>
 
 
             </div>

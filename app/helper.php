@@ -49,7 +49,10 @@ function getMetas($segment1, $segment2)
         return $meta;
     }
     else if (Request::segment(1) == 'post') {
-        $blog = Post::where('slug', $segment2)->first();
+        $blog = Post::where('url_slug', $segment2)->first();
+        if (!$blog) {
+            $blog = Post::where('slug', $segment2)->first();
+        }
 
         $meta = (object) [
             'title' => $blog->meta_title,

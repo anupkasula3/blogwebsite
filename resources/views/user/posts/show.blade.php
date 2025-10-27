@@ -38,10 +38,9 @@
                                 class="w-full h-auto object-cover rounded-t-2xl">
                         </div>
                     @endif
-                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
-                        <div class="prose prose-lg max-w-none text-gray-700">
-                            {!! $post->content_html !!}
-                        </div>
+                     <div
+                        class="prose prose-lg prose-slate mx-auto mb-8 p-3 bg-white shadow-sm rounded-xl border border-gray-100">
+                        {!! $post->content !!}
                     </div>
                     <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
                         <h3 class="text-xl font-bold text-gray-800 mb-4">SEO Details</h3>

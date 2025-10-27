@@ -50,6 +50,7 @@ class UserPostController extends Controller
         // dd($request->status);
         $data = $request->validate([
             'title' => 'required|string|max:255',
+            'url_slug' => 'nullable|unique:posts,url_slug,' . $post->id,
             // 'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
             'category_id' => 'required|exists:categories,id',
             'content' => 'required',
@@ -59,7 +60,9 @@ class UserPostController extends Controller
             'is_featured' => 'boolean',
             'is_approved' => 'boolean',
         ]);
+        $validated['url_slug'] = Str::slug($request->url_slug);
         $data['slug'] = Str::slug($request->title);
+        $data['url_slug'] = Str::slug($request->url_slug);
         // Ensure checkbox reflects when unchecked (not sent)
         $data['is_featured'] = $request->has('is_featured');
         // Handle featured image
@@ -202,7 +205,8 @@ class UserPostController extends Controller
 
     public function toggleStory(Post $post)
     {
-        if ($post->author_type !== 'user') abort(404);
+        if ($post->author_type !== 'user')
+            abort(404);
 
         $post->update(['story' => !$post->story]);
 

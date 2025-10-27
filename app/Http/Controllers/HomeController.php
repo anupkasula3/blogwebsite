@@ -151,28 +151,37 @@ class HomeController extends Controller
         return view('frontend.category.show', compact('category', 'posts', 'sidebarAds', 'contentAd'));
     }
 
-    public function post(Post $post)
+    public function post($post)
     {
+        $posts = Post::where('url_slug', $post)->first();
+        if (!$posts) {
+            $posts = Post::where('slug', $post)->first();
+        }
+        if (!$posts) {
+            abort(404);
+        }
         // Check if the post is published and approved
-        if ($post->status !== 'published' || !$post->is_approved || $post->published_at > now()) {
+        if ($posts->status !== 'published' || !$posts->is_approved || $posts->published_at > now()) {
             abort(404);
         }
 
         // Load the post with relationships
-        $post->load(['category', 'user', 'admin']);
+        $posts->load(['category', 'user', 'admin']);
 
         // Increment view count
-        $post->increment('views_count');
+        $posts->increment('views_count');
 
         $relatedPosts = Post::with(['category', 'user', 'admin'])
-            ->where('category_id', $post->category_id)
-            ->where('id', '!=', $post->id)
+            ->where('category_id', $posts->category_id)
+            ->where('id', '!=', $posts->id)
             ->published()
             ->latest('published_at')
             ->take(4)
             ->get();
 
         $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
+        $post = $posts;
+        // dd($posts);
 
         return view('frontend.post.show', compact('post', 'relatedPosts', 'sidebarAd'));
     }

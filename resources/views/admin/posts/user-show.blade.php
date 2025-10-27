@@ -92,21 +92,35 @@
                             </div>
                         @endif
 
-                        @if ($post->excerpt)
+                        {{-- @if ($post->excerpt)
                             <div class="mb-4">
                                 <h3 class="text-sm font-medium text-gray-700 mb-2">Excerpt</h3>
-                                <p class="text-gray-600">{{ $post->excerpt }}</p>
+                                <p class="text-gray-600">{!! $post->excerpt !!}</p>
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
 
-                    <!-- Post Content -->
-                    <div class="bg-white border border-gray-200 rounded-lg p-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Content</h3>
-                        <div class="prose max-w-none">
-                            {!! $post->content !!}
-                        </div>
+                    <!-- Excerpt/Lead Paragraph -->
+                    <div
+                        class="text-lg text-gray-700 mb-6 leading-relaxed font-medium border-l-4 border-red-600 pl-4 bg-gray-50 py-4">
+                        {!! $post->excerpt !!}
                     </div>
+
+                    <!-- Article Content -->
+                    <article class="prose prose-lg max-w-none mb-8">
+                        @php
+                            $content = $post->content;
+                            $firstParagraph = '';
+                            $restContent = $content;
+                            if (preg_match('/<p>(.*?)<\/p>/is', $content, $matches)) {
+                                $firstParagraph = $matches[0];
+                                $restContent = str_replace($firstParagraph, '', $content);
+                            }
+                        @endphp
+                        {!! $firstParagraph !!}
+                        {!! $restContent !!}
+                    </article>
+
 
                     <!-- SEO Information -->
                     @if ($post->meta_title || $post->meta_description || $post->meta_keywords)
