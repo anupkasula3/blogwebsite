@@ -68,14 +68,14 @@
     :class="scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white/90 backdrop-blur-md shadow-md'"
     class="sticky top-0 z-[9999] transition-all duration-300 border-b border-gray-100">
 
-    <div class=" max-w-screen-2xl mx-auto px-4 ">
+    <div class=" max-w-screen-2xl mx-auto px-6 lg:px-8 ">
         <!-- Top Row: Logo + Banner Ad (ad on top for mobile) -->
-        <div class="grid grid-cols-12 gap-4 items-center py-2" x-show="!scrolled"
+        <div class="grid grid-cols-12 gap-6 items-center py-3" x-show="!scrolled"
             x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2"
             x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2">
 
-            <div class="col-span-12 order-2 lg:order-2 lg:col-span-8  overflow-hidden">
+            <div class="col-span-12 order-2 lg:order-2 lg:col-span-8 overflow-hidden">
                 <script src="https://adnebyte.nepbyte.com/ads/embed/6e189765-3196-4da1-a542-5bc5d4708658.js?count=1"></script>
             </div>
 
@@ -96,7 +96,7 @@
         </div>
 
         <!-- Bottom Row: Navigation + Search/Auth -->
-        <div class="flex items-center justify-between py-3 border-t border-gray-100">
+        <div class="flex items-center justify-between py-2 lg:py-0 border-t border-gray-100">
             <a href="/" class="logo block lg:hidden d-flex align-items-center me-auto me-xl-0">
 
                 <img src="{{ asset('images/logos.png') }}" style="width: 150px; height: auto; max-height: 80px;"
@@ -105,9 +105,9 @@
 
             @php
                 $navLink =
-                    'relative pb-3 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary';
+                    'relative inline-flex items-center h-12 text-[15px] font-semibold tracking-wide text-gray-700 hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary';
             @endphp
-            <nav class="hidden lg:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-6">
                 <a href="{{ url('/') }}"
                     class="{{ request()->is('/') ? 'text-primary border-primary' : '' }} {{ $navLink }}"
                     aria-current="{{ request()->is('/') ? 'page' : false }}">NepTalk</a>
@@ -132,11 +132,27 @@
                 </div> -->
 
                 @foreach ($categories as $category)
-                    <a href="{{ route('category.show', $category->slug) }}"
-                        class="{{ request()->is('category/' . $category->slug) ? 'text-primary border-primary' : '' }} {{ $navLink }}"
-                        aria-current="{{ request()->is('category/' . $category->slug) ? 'page' : false }}">
-                        {{ $category->name }}
-                    </a>
+                    @if ($category->isParent())
+                        <div class="relative group">
+                            <a href="{{ route('category.show', $category->slug) }}"
+                                class="{{ request()->is('category/' . $category->slug) ? 'text-primary border-primary' : '' }} {{ $navLink }} flex items-center gap-1.5">
+                                {{ $category->name }}
+                                @if ($category->children && $category->children->count())
+                                    <i class="fas fa-chevron-down text-[10px] mt-0.5 transition-transform duration-200 group-hover:rotate-180"></i>
+                                @endif
+                            </a>
+                            @if ($category->children && $category->children->count())
+                                <div class="absolute left-0 top-full mt-0 min-w-[320px] w-[480px] bg-white shadow-xl border border-gray-100 rounded-xl p-3 z-[10000] grid grid-cols-2 gap-1.5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transform -translate-y-1 group-hover:translate-y-0 transition duration-150 before:content-[''] before:absolute before:-top-2 before:left-0 before:w-full before:h-2">
+                                    @foreach ($category->children as $sub)
+                                        <a href="{{ route('category.show', $sub->slug) }}"
+                                            class="w-full px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition">
+                                            {{ $sub->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 @endforeach
 
                 <!-- <a href="{{ url('/latest') }}"
@@ -250,18 +266,7 @@
                     </button>
                 </div>
 
-                @auth
-                    <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/20 backdrop-blur-sm">
-                        <div
-                            class="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center font-bold text-white text-base uppercase">
-                            {{ auth()->user()->name[0] ?? '?' }}
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-semibold text-white text-sm">{{ auth()->user()->name }}</div>
-                            <div class="text-xs text-blue-100 truncate">{{ auth()->user()->email }}</div>
-                        </div>
-                    </div>
-                @endauth
+
             </div>
 
             <!-- Quick Actions (Top) -->
@@ -305,13 +310,42 @@
                 <div class="space-y-1.5">
                     <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Categories</h3>
                     @foreach ($categories as $category)
-                        <a href="{{ route('category.show', $category->slug) }}"
-                            class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium text-gray-700 hover:text-primary transition-all duration-300 group">
-                            <div
-                                class="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover:bg-primary transition-colors duration-300">
+                        @if ($category->isParent())
+                            <div class="rounded-xl">
+                                <div x-data="{ open: false }" class="">
+                                    <div class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-gray-50">
+                                        <a href="{{ route('category.show', $category->slug) }}"
+                                           class="text-[13px] font-medium text-gray-700 hover:text-[#ff2953] transition">
+                                            {{ $category->name }}
+                                        </a>
+                                        @if ($category->children && $category->children->count())
+                                            <button type="button" @click.stop="open = !open" aria-label="Toggle subcategories"
+                                                class="shrink-0 p-1.5 text-gray-500 hover:text-[#ff2953] transition">
+                                                <i class="fas fa-chevron-down text-[11px]" :class="open ? 'rotate-180' : ''"></i>
+                                            </button>
+                                        @endif
+                                    </div>
+
+                                    @if ($category->children && $category->children->count())
+                                        <div x-show="open"
+                                             x-transition:enter="transition ease-out duration-150"
+                                             x-transition:enter-start="opacity-0 -translate-y-1"
+                                             x-transition:enter-end="opacity-100 translate-y-0"
+                                             x-transition:leave="transition ease-in duration-100"
+                                             x-transition:leave-start="opacity-100 translate-y-0"
+                                             x-transition:leave-end="opacity-0 -translate-y-1"
+                                             class="mt-1 pl-4 ml-3 border-l-2 border-[#ff2953]/30 space-y-1.5">
+                                            @foreach ($category->children as $sub)
+                                                <a href="{{ route('category.show', $sub->slug) }}"
+                                                   class="block px-3 py-2 rounded-lg text-[13px] font-medium text-gray-700 hover:text-[#ff2953] hover:bg-gray-50 transition">
+                                                    {{ $sub->name }}
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                            {{ $category->name }}
-                        </a>
+                        @endif
                     @endforeach
                     {{-- <a href="{{ route('categories.index') }}"
                         class="flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-primary transition-all duration-300 mt-2">

@@ -79,6 +79,7 @@ class DashboardController extends Controller
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->except('action');
         $data['user_id'] = auth()->id();
+        $data['url_slug'] = Str::slug($request->url_slug) ?? null;
         $data['author_type'] = 'user';
         $data['admin_id'] = null;
 
@@ -120,9 +121,12 @@ class DashboardController extends Controller
 
     public function editPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+
+
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
+
 
         $categories = Category::where('is_active', true)->get();
         return view('user.posts.edit', compact('post', 'categories'));
@@ -130,7 +134,7 @@ class DashboardController extends Controller
 
     public function updatePost(Request $request, Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -156,7 +160,7 @@ class DashboardController extends Controller
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data = $request->except('action');
         $data['slug'] = \Str::slug($request->title);
-
+        $data['url_slug'] = Str::slug($request->url_slug) ?? null;
         // Reset approval status when post is updated
         $data['is_approved'] = false;
 
@@ -203,7 +207,7 @@ class DashboardController extends Controller
 
     public function deletePost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -226,7 +230,7 @@ class DashboardController extends Controller
 
     public function publishPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -243,7 +247,7 @@ class DashboardController extends Controller
 
     public function draftPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -255,7 +259,7 @@ class DashboardController extends Controller
 
     public function showPost(Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id != auth()->id()) {
             abort(403);
         }
 
@@ -330,13 +334,13 @@ class DashboardController extends Controller
         $chartData = [
             'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
             'data' => [
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100),
-                rand(10,100)
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100),
+                rand(10, 100)
             ],
         ];
 

@@ -106,16 +106,80 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500 @error('category_id') border-red-500 @enderror"
                             required>
                             <option value="">Select a category</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
+
+                            @php
+                                $parentcat = getParent();
+                            @endphp
+
+                            @foreach ($parentcat as $parent)
+                                @php
+                                    $children = getchildren($parent->id);
+                                @endphp
+                                @if ($children->isNotEmpty())
+                                    <optgroup label="{{ $parent->name }}">
+                                        @foreach ($children as $child)
+                                            <option value="{{ $child->id }}" {{ old('category_id') == $child->id ? 'selected' : '' }}>
+                                                • {{ $child->name }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                @else
+                                    <option value="{{ $parent->id }}" {{ old('category_id') == $parent->id ? 'selected' : '' }}>
+                                        • {{ $parent->name }}
+                                    </option>
+                                @endif
                             @endforeach
                         </select>
                         @error('category_id')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
+
+                        <div class="mt-2">
+                            <style>
+                                .cat-preview { font-size: 0.85rem; color: #374151; }
+                                .cat-badge { display: inline-block; padding: 4px 8px; border-radius: 9999px; background:#f3f4f6; color:#374151; font-weight:600; }
+                                .cat-parent { background:#eef2ff; color:#1f2937; margin-right:6px; }
+                                .cat-dot { display:inline-block; width:8px; height:8px; border-radius:9999px; margin-right:6px; vertical-align:middle; background:#9ca3af; box-shadow:0 0 0 1px rgba(0,0,0,0.05); }
+                            </style>
+                            <div id="selectedCategoryPreview" class="cat-preview">
+                                <span class="text-xs text-gray-500">Selected:</span>
+                                <span id="catBadge" class="cat-badge">None</span>
+                            </div>
+                        </div>
+
+                        <script>
+                            (function () {
+                                var select = document.getElementById('category_id');
+                                var badge = document.getElementById('catBadge');
+                                if (!select || !badge) return;
+                                function updateCategoryPreview() {
+                                    var opt = select.options[select.selectedIndex];
+                                    if (!opt || !opt.value) {
+                                        badge.textContent = 'None';
+                                        return;
+                                    }
+                                    var parentLabel = '';
+                                    var labelEl = opt.parentElement;
+                                    if (labelEl && labelEl.tagName === 'OPTGROUP') {
+                                        parentLabel = labelEl.getAttribute('label') || '';
+                                    }
+                                    var childText = (opt.textContent || '').trim().replace(/^•\s*/, '');
+                                    if (parentLabel) {
+                                        badge.innerHTML = '<span class="cat-badge cat-parent">' + parentLabel + '</span>' +
+                                            '<span class="cat-dot"></span>' +
+                                            '<span class="cat-badge">' + childText + '</span>';
+                                    } else {
+                                        badge.textContent = childText || 'None';
+                                    }
+                                }
+                                select.addEventListener('change', updateCategoryPreview);
+                                if (document.readyState === 'loading') {
+                                    document.addEventListener('DOMContentLoaded', updateCategoryPreview);
+                                } else {
+                                    updateCategoryPreview();
+                                }
+                            })();
+                        </script>
                     </div>
 
                     <div class="bg-gray-50 rounded-lg p-4">

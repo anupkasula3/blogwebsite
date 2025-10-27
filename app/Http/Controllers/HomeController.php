@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\Advertisement;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -94,12 +94,7 @@ class HomeController extends Controller
                 ->get();
         });
 
-        // Advertisements for different positions
-        $headerAd = Advertisement::active()->byPosition('header')->first();
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
-        $footerAd = Advertisement::active()->byPosition('footer')->first();
-        $contentAd = Advertisement::active()->byPosition('content')->first();
 
         // Fetch two random quotes from the database
         $quotes = Quote::inRandomOrder()->take(2)->pluck('quote');
@@ -126,10 +121,6 @@ class HomeController extends Controller
             'popularPosts',
             'categories',
             'categoriesWithPosts',
-            'headerAd',
-            'sidebarAd',
-            'footerAd',
-            'contentAd',
             'randomQuote',
             'randomQuote2',
             'banners',
@@ -145,10 +136,8 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        $sidebarAds = Advertisement::active()->byPosition('sidebar')->get();
-        $contentAd = Advertisement::active()->byPosition('content')->first();
 
-        return view('frontend.category.show', compact('category', 'posts', 'sidebarAds', 'contentAd'));
+        return view('frontend.category.show', compact('category', 'posts'));
     }
 
     public function post($post)
@@ -179,11 +168,11 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
+
         $post = $posts;
         // dd($posts);
 
-        return view('frontend.post.show', compact('post', 'relatedPosts', 'sidebarAd'));
+        return view('frontend.post.show', compact('post', 'relatedPosts'));
     }
 
     public function categories()
@@ -193,9 +182,9 @@ class HomeController extends Controller
             ->orderBy('posts_count', 'desc')
             ->paginate(20);
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.categories.index', compact('categories', 'sidebarAd'));
+
+        return view('frontend.categories.index', compact('categories'));
     }
 
     public function latest()
@@ -206,9 +195,9 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.latest', compact('posts', 'sidebarAd'));
+
+        return view('frontend.latest', compact('posts'));
     }
 
     public function popular()
@@ -218,9 +207,9 @@ class HomeController extends Controller
             ->orderBy('views_count', 'desc')
             ->paginate(12);
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.popular', compact('posts', 'sidebarAd'));
+
+        return view('frontend.popular', compact('posts'));
     }
 
     public function search(Request $request)
@@ -239,9 +228,9 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.search', compact('posts', 'query', 'sidebarAd'));
+
+        return view('frontend.search', compact('posts', 'query'));
     }
 
     public function author(User $user)
@@ -252,9 +241,9 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(12);
 
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
 
-        return view('frontend.author.show', compact('user', 'posts', 'sidebarAd'));
+
+        return view('frontend.author.show', compact('user', 'posts'));
     }
 
     public function newsletterSubscribe(Request $request)
@@ -269,32 +258,6 @@ class HomeController extends Controller
             'success' => true,
             'message' => 'Thank you for subscribing to our newsletter!'
         ]);
-    }
-
-    public function trackAdClick(Request $request)
-    {
-        $request->validate([
-            'ad_id' => 'required|exists:advertisements,id',
-            'position' => 'required|string'
-        ]);
-
-        $ad = Advertisement::find($request->ad_id);
-        $ad->increment('clicks_count');
-
-        return response()->json(['success' => true]);
-    }
-
-    public function trackAdImpression(Request $request)
-    {
-        $request->validate([
-            'ad_id' => 'required|exists:advertisements,id',
-            'position' => 'required|string'
-        ]);
-
-        $ad = Advertisement::find($request->ad_id);
-        $ad->increment('impressions_count');
-
-        return response()->json(['success' => true]);
     }
 
     public function feed()
@@ -331,12 +294,8 @@ class HomeController extends Controller
             ->latest('published_at')
             ->paginate(25);
 
-        // Advertisements for different positions
-        $headerAd = Advertisement::active()->byPosition('header')->first();
-        $sidebarAd = Advertisement::active()->byPosition('sidebar')->first();
-        $footerAd = Advertisement::active()->byPosition('footer')->first();
-        $contentAd = Advertisement::active()->byPosition('content')->first();
 
-        return view('frontend.all-posts', compact('posts', 'headerAd', 'sidebarAd', 'footerAd', 'contentAd'));
+
+        return view('frontend.all-posts', compact('posts'));
     }
 }

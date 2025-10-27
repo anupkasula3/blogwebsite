@@ -65,19 +65,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-lg rounded-xl border border-gray-100 hover:shadow-xl transition-shadow group">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 mb-2">Active Ads</p>
-                                <p class="text-3xl font-bold text-gray-900">{{ $stats['active_advertisements'] ?? 0 }}</p>
-                            </div>
-                            <div class="w-14 h-14 bg-gradient-to-br from-[#ff2953] to-[#ff2953]/80 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fas fa-ad text-white text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <!-- Additional Stats -->
@@ -142,7 +130,7 @@
             <!-- Quick Actions -->
             <div class="mb-8">
                 <h2 class="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <a href="{{ route('admin.posts.create') }}"
                        class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all group">
                         <div class="flex items-center">
@@ -182,20 +170,9 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('admin.advertisements.create') }}"
-                       class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200 hover:shadow-lg transition-all group">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fas fa-ad text-purple-600 text-2xl group-hover:scale-110 transition-transform"></i>
-                            </div>
-                            <div class="ml-4">
-                                <h3 class="text-base font-bold text-gray-900">Add Advertisement</h3>
-                                <p class="text-sm text-gray-600 mt-1">Create a new ad</p>
-                            </div>
-                        </div>
-                    </a>
 
-                    <a href="{{ route('admin.users.pending-posts') }}"
+
+                    {{-- <a href="{{ route('admin.users.pending-posts') }}"
                        class="bg-gradient-to-br from-[#ff2953]/5 to-[#ff2953]/10 p-6 rounded-xl border border-[#ff2953]/20 hover:shadow-lg transition-all group">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
@@ -206,7 +183,7 @@
                                 <p class="text-sm text-gray-600 mt-1">Approve pending posts</p>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
 

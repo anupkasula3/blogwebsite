@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -151,11 +150,6 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::post('/posts/{post}/approve', [PostController::class, 'approve'])->name('posts.approve');
     Route::post('/posts/{post}/reject', [PostController::class, 'reject'])->name('posts.reject');
     Route::post('/posts/{post}/story-toggle', [PostController::class, 'toggleStory'])->name('posts.story-toggle');
-
-    // Advertisements
-    Route::resource('advertisements', AdvertisementController::class);
-    Route::post('/advertisements/{advertisement}/activate', [AdvertisementController::class, 'activate'])->name('advertisements.activate');
-    Route::post('/advertisements/{advertisement}/deactivate', [AdvertisementController::class, 'deactivate'])->name('advertisements.deactivate');
 
     // Settings
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

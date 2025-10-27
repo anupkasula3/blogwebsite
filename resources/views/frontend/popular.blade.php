@@ -125,28 +125,7 @@
         </div>
     </section>
 
-    <!-- Sidebar Advertisement -->
-    @if (isset($sidebarAd) && $sidebarAd)
-        <section class="py-8 bg-gray-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="ad-sidebar rounded-xl p-8 text-center">
-                    <a href="{{ $sidebarAd->link }}" target="_blank"
-                        onclick="trackAdClick({{ $sidebarAd->id }}, 'sidebar')"
-                        class="block hover:opacity-90 transition-opacity">
-                        @if ($sidebarAd->image)
-                            <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}"
-                                class="mx-auto mb-4 max-h-32">
-                        @endif
-                        <h3 class="text-2xl font-bold mb-3">{{ $sidebarAd->title }}</h3>
-                        <p class="text-lg mb-4">{{ $sidebarAd->description }}</p>
-                        <span class="inline-block bg-white/20 px-6 py-3 rounded-lg font-semibold">
-                            Learn More →
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    @endif
+   
 
     @push('styles')
         <style>

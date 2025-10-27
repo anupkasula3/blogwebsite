@@ -16,34 +16,34 @@
     </section> --}}
 
     <section class="relative bg-white py-16 border-b border-gray-200">
-  <div class="max-w-screen-2xl mx-auto px-6 lg:px-8">
-    <div class="">
-      <!-- Breadcrumb -->
-      <nav class="text-sm mb-3" aria-label="Breadcrumb">
-        <ol class="list-reset flex text-gray-500">
-          <li>
-            <a href="/" class="hover:text-gray-900">Home</a>
-          </li>
-          <li>
-            <span class="mx-2">/</span>
-          </li>
-          <li class="text-gray-900 font-semibold">
-            All Posts
-          </li>
-        </ol>
-      </nav>
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-8">
+            <div class="">
+                <!-- Breadcrumb -->
+                <nav class="text-sm mb-3" aria-label="Breadcrumb">
+                    <ol class="list-reset flex text-gray-500">
+                        <li>
+                            <a href="/" class="hover:text-gray-900">Home</a>
+                        </li>
+                        <li>
+                            <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-gray-900 font-semibold">
+                            All Posts
+                        </li>
+                    </ol>
+                </nav>
 
-      <!-- Title -->
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[#ff2953] mb-2 leading-[1.1]">
-        All Posts
-      </h1>
+                <!-- Title -->
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-[#ff2953] mb-2 leading-[1.1]">
+                    All Posts
+                </h1>
 
-      <p class="text-xl text-gray-600 leading-relaxed">
-                Discover all articles from our community of writers.
-      </p>
-    </div>
-  </div>
-</section>
+                <p class="text-xl text-gray-600 leading-relaxed">
+                    Discover all articles from our community of writers.
+                </p>
+            </div>
+        </div>
+    </section>
 
     <!-- Toolbar: breadcrumb + search (consistent with /categories) -->
     <div class="bg-gradient-to-b from-white to-gray-50">
@@ -61,7 +61,8 @@
                         <div class="relative w-full md:w-80">
                             <input type="text" name="q" value="{{ request('q') }}" placeholder="Search posts..."
                                 class="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-300 bg-white text-sm outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition-colors" />
-                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i class="fas fa-search"></i></span>
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i
+                                    class="fas fa-search"></i></span>
                         </div>
                         <button
                             class="px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:brightness-110 btn-professional"
@@ -114,7 +115,7 @@
                             @include('frontend.component.postcomponent')
 
                             <!-- Content Advertisement after every 8 posts -->
-                            @if (($index + 1) % 8 == 0 && isset($contentAd) && $contentAd)
+                            @if (($index + 1) % 8 == 0)
                                 <div class="col-span-full my-8">
                                     <div
                                         class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-4 sm:p-6 overflow-hidden relative">
@@ -123,25 +124,18 @@
                                                 class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">Sponsored</span>
                                         </div>
                                         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                            @if ($contentAd->image)
-                                                <div class="flex-shrink-0">
-                                                    <img src="{{ asset('uploads/' . $contentAd->image) }}"
-                                                        alt="{{ $contentAd->title }}"
-                                                        class="h-20 w-auto rounded-lg object-contain">
-                                                </div>
-                                            @endif
+
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ asset('images/adddds.jpg') }}" alt="ads"
+                                                    class="h-20 w-auto rounded-lg object-contain">
+                                            </div>
+
                                             <div class="text-center sm:text-left flex-1">
-                                                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $contentAd->title }}
+                                                <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                                                   Test
                                                 </h3>
-                                                <p class="text-gray-600 text-sm mb-3">{{ $contentAd->description }}</p>
-                                                @if ($contentAd->link)
-                                                    <a href="{{ $contentAd->link }}" target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors duration-200">
-                                                        Learn More
-                                                        <i class="fas fa-external-link-alt ml-2"></i>
-                                                    </a>
-                                                @endif
+                                                <p class="text-gray-600 text-sm mb-3">Test</p>
+
                                             </div>
                                         </div>
                                     </div>
@@ -201,33 +195,7 @@
 
             <!-- Sidebar -->
             <div class="lg:w-80 flex-shrink-0">
-                <!-- Sidebar Advertisement -->
-                @if (isset($sidebarAd) && $sidebarAd)
-                    <div
-                        class="bg-gradient-to-b from-orange-50 to-red-50 border border-orange-200 rounded-2xl p-4 mb-6 overflow-hidden relative">
-                        <div class="absolute top-2 right-2">
-                            <span
-                                class="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded-full">Sponsored</span>
-                        </div>
-                        <div class="text-center">
-                            @if ($sidebarAd->image)
-                                <div class="mb-4">
-                                    <img src="{{ asset('uploads/' . $sidebarAd->image) }}" alt="{{ $sidebarAd->title }}"
-                                        class="h-32 w-full rounded-lg object-cover mx-auto">
-                                </div>
-                            @endif
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $sidebarAd->title }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ $sidebarAd->description }}</p>
-                            @if ($sidebarAd->link)
-                                <a href="{{ $sidebarAd->link }}" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center px-4 py-2 bg-orange-600 text-white text-sm font-medium rounded-lg hover:bg-orange-700 transition-colors duration-200 w-full justify-center">
-                                    Learn More
-                                    <i class="fas fa-external-link-alt ml-2"></i>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                @endif
+               
 
                 <!-- Categories Widget -->
                 <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
@@ -248,33 +216,7 @@
                     </div>
                 </div>
 
-                <!-- Second Sidebar Advertisement -->
-                @if (isset($contentAd) && $contentAd)
-                    <div
-                        class="bg-gradient-to-b from-teal-50 to-cyan-50 border border-teal-200 rounded-2xl p-4 overflow-hidden relative">
-                        <div class="absolute top-2 right-2">
-                            <span
-                                class="bg-teal-100 text-teal-800 text-xs font-medium px-2 py-1 rounded-full">Sponsored</span>
-                        </div>
-                        <div class="text-center">
-                            @if ($contentAd->image)
-                                <div class="mb-4">
-                                    <img src="{{ asset('uploads/' . $contentAd->image) }}" alt="{{ $contentAd->title }}"
-                                        class="h-32 w-full rounded-lg object-cover mx-auto">
-                                </div>
-                            @endif
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $contentAd->title }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ $contentAd->description }}</p>
-                            @if ($contentAd->link)
-                                <a href="{{ $contentAd->link }}" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors duration-200 w-full justify-center">
-                                    Learn More
-                                    <i class="fas fa-external-link-alt ml-2"></i>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                @endif
+
             </div>
         </div>
     </div>

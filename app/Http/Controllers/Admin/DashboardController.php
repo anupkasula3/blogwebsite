@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
-use App\Models\Advertisement;
-use App\Models\Notification;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -65,8 +64,6 @@ class DashboardController extends Controller
         $pendingPosts = Post::where('status', 'pending')->count();
         $totalUsers = User::count();
         $totalCategories = Category::count();
-        $totalAdvertisements = Advertisement::count();
-        $activeAdvertisements = Advertisement::where('is_active', true)->count();
 
         // Posts by author type
         $adminPosts = Post::where('author_type', 'admin')->count();
@@ -84,8 +81,6 @@ class DashboardController extends Controller
             'pending_posts' => $pendingPosts,
             'total_users' => $totalUsers,
             'total_categories' => $totalCategories,
-            'total_advertisements' => $totalAdvertisements,
-            'active_advertisements' => $activeAdvertisements,
             'admin_posts' => $adminPosts,
             'user_posts' => $userPosts,
             'recent_posts' => $recentPosts,

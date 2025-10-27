@@ -62,7 +62,7 @@ class UserPostController extends Controller
         ]);
         $validated['url_slug'] = Str::slug($request->url_slug);
         $data['slug'] = Str::slug($request->title);
-        $data['url_slug'] = Str::slug($request->url_slug);
+        $data['url_slug'] = Str::slug($request->url_slug) ?? null;
         // Ensure checkbox reflects when unchecked (not sent)
         $data['is_featured'] = $request->has('is_featured');
         // Handle featured image
