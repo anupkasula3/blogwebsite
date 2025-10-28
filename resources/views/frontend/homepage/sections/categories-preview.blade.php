@@ -1,71 +1,86 @@
-<div class=" max-w-screen-2xl mx-auto px-4 pb-4 bg-white border-gray-100 ">
-    <div class="space-y-4">
+<div class="max-w-screen-2xl mx-auto px-4 pb-8 bg-white">
+    <div class="space-y-12">
         @foreach ($categoriesWithPosts as $category)
             @if ($category->latest_posts->count() > 0)
                 <div>
                     <!-- Category Header -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
-                        <h2 class="text-2xl font-bold text-gray-800 mt-5 flex items-center gap-3">
-                            <i class="fas fa-bolt text-primary animate-pulse"></i> <!-- Icon for attention -->
-                            {{ $category->name }}
-                            <span class="text-primary">Updates</span>
-                        </h2>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                                <i class="fas fa-bolt text-primary"></i>
+                                {{ $category->name }}
+                                <span class="text-primary">Updates</span>
+                            </h2>
+                            @if (!empty($category->description))
+                                <p class="text-gray-600 mt-2 text-sm leading-relaxed max-w-2xl">
+                                    {{ $category->description }}
+                                </p>
+                            @endif
+                        </div>
                         <a href="{{ route('category.show', $category->slug) }}"
-                            class="group inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-white bg-white hover:bg-primary border border-primary/20 hover:border-primary px-4 py-2.5 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md ring-1 ring-transparent hover:ring-primary/30">
-                            <span>View All {{ $category->name }}</span>
-                            <i
-                                class="fas fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
+                           class="group inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-white bg-white hover:bg-primary border-2 border-primary px-6 py-3 rounded-lg transition-all duration-300 shadow-sm hover:shadow-lg whitespace-nowrap">
+                            <span>View All</span>
+                            <i class="fas fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
 
-
-                    <!-- Category Description -->
-                    @if (!empty($category->description))
-                        <p class="text-gray-600 leading-relaxed ">
-                            {{ $category->description }}
-                        </p>
-                    @endif
-
                     <!-- Posts Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 mt-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         @forelse($category->latest_posts as $post)
                             <a href="{{ route('post.show', $post->slug) }}"
-                                class="group block bg-white p-5 rounded-lg border border-gray-200 shadow-sm ring-1 ring-transparent hover:ring-primary/20 hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                                <div class="flex items-start gap-4">
-                                   <div
-    class="relative flex-shrink-0 w-28 h-32 flex items-center justify-center overflow-hidden rounded-lg border border-gray-100 shadow-sm bg-gray-50">
-    <img src="{{ $post->featured_image ? asset('uploads/' . $post->featured_image) : asset('images/default.jpg') }}"
-        alt="{{ $post->title }}"
-        class="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105">
-    <div
-        class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-    </div>
-</div>
+                               class="group block bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
 
-                                    <div class="flex-1 min-w-0">
-                                        <h4
-                                            class="text-sm font-semibold text-gray-800 leading-snug line-clamp-2 group-hover:text-primary transition-colors">
-                                            {{ $post->title }}
-                                        </h4>
-                                        <div class="mt-2 text-xs text-gray-500 flex items-center gap-2">
-                                            <i class="far fa-clock text-gray-400"></i>
-                                            <span
-                                                class="text-gray-500">{{ optional($post->published_at)->format('M d, Y') }}</span>
-                                        </div>
-                                          <p class="mt-3 text-sm text-gray-600 leading-relaxed line-clamp-3">
-                                        {{ \Illuminate\Support\Str::words(strip_tags($post->excerpt), 60, '...') }}
+                                <!-- Image Container -->
+                                <div class="relative w-full h-48 overflow-hidden bg-gray-100">
+                                    <img src="{{ $post->featured_image ? asset('uploads/' . $post->featured_image) : asset('images/default.jpg') }}"
+                                         alt="{{ $post->title }}"
+                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+
+                                    <!-- Overlay -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    </div>
+
+                                    <!-- Category Badge -->
+                                    <div class="absolute top-3 left-3">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full shadow-lg">
+                                            <i class="fas fa-tag"></i>
+                                            {{ $category->name }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Content Container -->
+                                <div class="p-5">
+                                    <!-- Title -->
+                                    <h4 class="text-lg font-bold text-gray-900 leading-tight line-clamp-2 mb-3 group-hover:text-primary transition-colors duration-300 min-h-[3.5rem]">
+                                        {{ $post->title }}
+                                    </h4>
+
+                                    <!-- Excerpt -->
+                                    <p class="text-sm text-gray-600 leading-relaxed line-clamp-3 mb-4">
+                                        {{ \Illuminate\Support\Str::words(strip_tags($post->excerpt), 20, '...') }}
                                     </p>
+
+                                    <!-- Footer Meta -->
+                                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                                        <div class="flex items-center gap-2 text-xs text-gray-500">
+                                            <i class="far fa-calendar-alt text-primary"></i>
+                                            <span>{{ optional($post->published_at)->format('M d, Y') }}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <span>Read More</span>
+                                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </a>
                         @empty
-                            <div
-                                class="col-span-full py-10 text-center border border-gray-100 rounded-lg bg-gray-50/50">
-                                <div
-                                    class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white text-gray-400 mb-3 border border-gray-100 shadow-sm">
-                                    <i class="fas fa-newspaper text-2xl"></i>
+                            <div class="col-span-full py-16 text-center border-2 border-dashed border-gray-200 rounded-xl bg-gray-50">
+                                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white text-gray-400 mb-4 shadow-sm">
+                                    <i class="fas fa-newspaper text-3xl"></i>
                                 </div>
-                                <p class="text-gray-500">No posts yet in this category.</p>
+                                <p class="text-gray-600 font-medium text-lg">No posts available yet</p>
+                                <p class="text-gray-500 text-sm mt-1">Check back later for updates in this category</p>
                             </div>
                         @endforelse
                     </div>

@@ -66,17 +66,17 @@
 
 
 
-            <div class="text-sm py-6 w-full ">
+            {{-- <div class="text-sm py-6 w-full ">
                 <div
                     class="max-w-screen-lg w-11/12 mx-auto flex items-center overflow-hidden border border-gray-200 bg-white rounded-xl shadow-lg">
 
-                    <!-- Label -->
+
                     <span
                         class="font-bold uppercase mr-5 px-3 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg shadow-sm">
                         Trending Now
                     </span>
 
-                    <!-- Ticker -->
+
                     <div x-data="{
                         index: 0,
                         posts: [
@@ -128,226 +128,176 @@
                 .animate-bounce-slow {
                     animation: bounce-slow 1.2s infinite;
                 }
-            </style>
+            </style> --}}
 
             @include('frontend.homepage.sections.banner')
             @include('frontend.homepage.sections.stories')
             <!-- Latest News Section -->
-            <section class="py-8 sm:py-10 md:py-12 bg-white">
-                <div class="max-w-screen-2xl mx-auto px-4 ">
-                    <!-- Section Header with News Portal Style -->
-                    <div class="border-b-2 border-primary mb-8">
-                        <div class="flex justify-between items-center gap-3 pb-2">
-                            <div class="flex items-center gap-3">
-                                <span
-                                    class="inline-flex items-center text-xl gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
-                                    <i class="fas fa-newspaper"></i>
-                                    Latest News
-                                </span>
 
-                            </div>
+
+
+            <section class="bg-white py-14">
+                <div class="max-w-screen-2xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+                    <!-- Left Column -->
+                    <div class="lg:col-span-2 space-y-10">
+
+                        <!-- Header -->
+                        <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+                            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Latest News</h2>
                             <a href="{{ route('latest') }}"
-                                class="inline-flex items-center gap-2 bg-primary text-white px-4 sm:px-5 py-2 rounded-md hover:bg-primary/90 transition-colors text-sm font-semibold">
-                                <span>View All</span>
-                                <i class="fas fa-arrow-right text-xs"></i>
+                                class="text-sm font-medium text-[#ff2953] hover:underline hover:text-[#e02548] transition">
+                                View All
                             </a>
                         </div>
-                    </div>
 
 
 
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-3">
-                        <!-- Main News Content (3/4) -->
-                        <div class="lg:col-span-3">
+                        <!-- Featured & Secondary Posts -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Featured -->
+                            @foreach ($latestPosts->take(1) as $post)
+                                <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}"
+                                    class="text-[#ff2953] text-sm font-medium">
 
+                                    <div
+                                        class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
+                                        <img src="{{ asset('uploads/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                            class="w-full h-56 object-cover">
+                                        <div class="p-6 flex flex-col flex-1">
+                                            <h3 class="text-lg font-semibold text-gray-900 hover:text-[#ff2953] transition">
+                                                {{ $post->title }}</h3>
+                                            <p class="text-gray-400 text-xs mt-2 mb-3">
+                                                By {{ $post->author_name }} · {{ $post->published_at->format('M j, Y') }}
+                                            </p>
+                                            <p class="text-gray-600 text-sm leading-relaxed flex-1">
+                                                {{ Str::limit(strip_tags($post->content), 90) }}
+                                            </p>
 
-                            <div class="mb-5">
-
-                                <script src="https://adnebyte.nepbyte.com/ads/embed/dc780e7a-2551-4c5a-8268-1c69982382ec.js?count=1"></script>
-                            </div>
-
-                            <!-- Featured Story -->
-                            @if ($latestPosts->isNotEmpty())
-                                @foreach ($latestPosts->take(2) as $key => $latestPost)
-                                    <div class="mb-3">
-                                        <a href="{{ route('post.show', $latestPost->url_slug ?? $latestPost->slug) }}"
-                                            class="block group">
-                                            <div
-                                                class="relative bg-white rounded-lg shadow-lg overflow-hidden news-card transition-all duration-300">
-                                                <div class="md:flex">
-                                                    <div class="md:w-1/3">
-                                                        <img src="{{ asset('uploads/' . $latestPost->featured_image) }}"
-                                                            alt="{{ $latestPost->title }}"
-                                                            class="w-full h-full object-cover">
-                                                        <!-- reduced height -->
-                                                        <div class="absolute top-4 left-4">
-                                                            <span
-                                                                class="category-badge text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
-                                                                {{ $latestPost->category->name }}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="md:w-2/3 p-6">
-                                                        <div class="flex items-center gap-2 mb-3">
-                                                            <span
-                                                                class="bg-primary text-white px-2 py-1 text-xs font-bold rounded">BREAKING</span>
-                                                            <span
-                                                                class="text-xs text-gray-500">{{ $latestPost->published_at->diffForHumans() }}</span>
-                                                        </div>
-                                                        <h3
-                                                            class="text-2xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition-colors">
-                                                            {{ $latestPost->title }}
-                                                        </h3>
-                                                        <p class="text-gray-600 mb-4 leading-relaxed">
-                                                            {{ Str::limit(strip_tags($latestPost->content), 150) }}
-                                                        </p>
-                                                        <div class="flex items-center justify-between">
-                                                            <div class="flex items-center gap-2">
-                                                                <div
-                                                                    class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                                                                    <i class="fas fa-user text-xs text-gray-600"></i>
-                                                                </div>
-                                                                <span
-                                                                    class="text-sm font-medium text-gray-700">{{ $latestPost->author_name }}</span>
-                                                            </div>
-                                                            <span
-                                                                class="text-primary font-semibold text-sm group-hover:underline">Read
-                                                                More →</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
+                                        </div>
                                     </div>
-                                @endforeach
-                            @endif
+                                </a>
+                            @endforeach
 
-                            <!-- News Grid -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                @foreach ($latestPosts->skip(2)->take(6) as $key => $post)
-                                    @include('frontend.component.postcomponent')
+                            <!-- Secondary -->
+                            <div class="flex flex-col gap-4">
+                                @foreach ($latestPosts->skip(1)->take(3) as $post)
+                                    <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}"
+                                        class="text-[#ff2953] text-xs font-medium">
 
+                                        <div
+                                            class="flex gap-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100 p-3">
+                                            <img src="{{ asset('uploads/' . $post->featured_image) }}"
+                                                alt="{{ $post->title }}" class="w-28 h-24 object-cover rounded-lg">
+                                            <div class="flex flex-col justify-between">
+                                                <h4
+                                                    class="text-sm font-semibold text-gray-800 hover:text-[#ff2953] transition-colors">
+                                                    {{ Str::limit($post->title, 60) }}
+                                                </h4>
+                                                <p class="text-gray-400 text-xs mt-1">
+                                                    {{ $post->published_at->format('M j, Y') }}</p>
+                                                <p class="text-gray-600 text-sm leading-relaxed flex-1">
+                                                    {{ Str::limit(strip_tags($post->content), 90) }}
+                                                </p>
 
-                                    <!-- Inline Ad after every 3rd article -->
-                                    @if (($key + 2) % 3 == 0)
-                                        <div class="lg:col-span-3 md:col-span-2">
-                                            <div class="text-center">
-
-                                                <div class="mt-2">
-
-                                                    <script src="https://adnebyte.nepbyte.com/ads/embed/34be3c90-b979-48a9-ac96-3debea832472.js?count=1"></script>
-
-                                                </div>
 
                                             </div>
                                         </div>
-                                    @endif
+                                    </a>
                                 @endforeach
                             </div>
                         </div>
 
-                        <!-- Sidebar (1/4) -->
-                        <div class="lg:col-span-1 space-y-6">
-                            <!-- Trending News -->
-                            <div class="bg-white rounded-lg shadow-md border border-gray-200">
-                                <div class="bg-primary text-white p-4 rounded-t-lg">
-                                    <h3 class="font-bold uppercase tracking-wide flex items-center gap-2">
-                                        <i class="fas fa-fire"></i>
-                                        Trending Now
-                                    </h3>
-                                </div>
-                                <div class="p-4 space-y-4">
-                                    @foreach ($popularPosts->take(5) as $index => $trendingPost)
-                                        <div class="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-b-0">
-                                            <span c
-                                                lass="bg-primary text-white text-xs font-bold px-2 py-1 rounded">{{ $index + 1 }}</span>
-                                            <div class="flex-1">
-                                                <h5 class="font-semibold text-sm text-gray-900 leading-tight mb-1">
-                                                    <a href="{{ route('post.show', $trendingPost->slug) }}"
-                                                        class="hover:text-primary transition-colors">
-                                                        {{ Str::limit($trendingPost->title, 60) }}
-                                                    </a>
-                                                </h5>
-                                                <div class="flex items-center gap-2 text-xs text-gray-500">
-                                                    <span>{{ $trendingPost->published_at->format('M j') }}</span>
-                                                    <span>•</span>
-                                                    <span>{{ $trendingPost->views_count ?? 0 }} views</span>
-                                                </div>
-                                            </div>
+                           <!-- Advertisement -->
+                        <div class="w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm ">
+                            <script src="https://adnebyte.nepbyte.com/ads/embed/dc780e7a-2551-4c5a-8268-1c69982382ec.js?count=1"></script>
+                        </div>
+
+                        <!-- List Posts -->
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            @foreach ($latestPosts->skip(4)->take(2) as $post)
+                                <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}">
+
+                                    <div
+                                        class="flex gap-4 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 transition-all duration-300 p-4">
+                                        <img src="{{ asset('uploads/' . $post->featured_image) }}"
+                                            alt="{{ $post->title }}" class="w-28 h-24 object-cover rounded-lg">
+                                        <div>
+                                            <span class="text-[#ff2953] text-xs font-semibold uppercase tracking-wide">
+                                                {{ $post->category->name ?? 'General' }}
+                                            </span>
+                                            <h4
+                                                class="text-sm font-semibold text-gray-800 mt-1 hover:text-[#ff2953] transition-colors">
+                                                {{ Str::limit($post->title, 60) }}
+                                            </h4>
+                                            <p class="text-gray-400 text-xs mt-1">
+                                                {{ $post->published_at->diffForHumans() }}
+                                            </p>
+                                            <p class="text-gray-600 text-sm leading-relaxed flex-1">
+                                                {{ Str::limit(html_entity_decode(strip_tags($post->content)), 90) }}
+                                            </p>
+
                                         </div>
-                                    @endforeach
-                                </div>
-                            </div>
-
-                            <!-- Sidebar Ad -->
-                            <div class="">
-
-                                <a href="https://aryanmiyamansoor.com.np/" target="_blank" rel="noopener noreferrer">
-                                    <div class="mt-2">
-                                        <img src="{{ asset('images/aryan.gif') }}" alt="Ads Nepbyte"
-                                            class="w-full h-60 sm:h-60 md:h-60 object-cover rounded">
                                     </div>
                                 </a>
-
-                            </div>
-
-                            <!-- Calender -->
-                            <!-- Newsletter Signup -->
-                            <div class="bg-primary  rounded-lg p-6 text-white">
-                                <div class="text-center">
-                                    <i class="fas fa-newspaper text-3xl mb-3"></i>
-                                    <h4 class="font-bold text-lg mb-2">Daily Newsletter</h4>
-                                    <p class="text-red-100 text-sm mb-4">Get breaking news delivered to your inbox</p>
-                                    <div class="space-y-2">
-                                        <input type="email" placeholder="Your email address"
-                                            class="w-full border border-white px-3 py-2 rounded text-white text-sm">
-                                        <button
-                                            class="w-full bg-white text-primary py-2 rounded font-semibold text-sm hover:bg-gray-100 transition-colors">
-                                            Subscribe Now
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Quote of the Day -->
-                            <div class="bg-white rounded-lg shadow-md border border-gray-200 p-4">
-                                <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                    <i class="fas fa-quote-left text-blue-500"></i>
-                                    Quote of the Day
-                                </h4>
-                                <blockquote
-                                    class="italic text-gray-700 text-sm leading-relaxed border-l-4 border-blue-500 pl-3">
-                                    "{{ $randomQuote }}"
-                                </blockquote>
-                            </div>
-                            <!-- Sidebar Ad -->
-                            <div class="">
-
-                                <a href="https://nepbyte.com/contact" target="_blank" rel="noopener noreferrer">
-                                    <div class="mt-2">
-                                        <img src="{{ asset('images/ads.gif') }}" alt="TIhar"
-                                            class="w-full h-60 sm:h-60 md:h-60 object-cover rounded">
-                                    </div>
-                                </a>
-
-                            </div>
-                            <!-- Quote of the Day -->
-                            <div class="bg-white rounded-lg shadow-md border border-gray-200 p-4">
-                                <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                    <i class="fas fa-quote-left text-blue-500"></i>
-                                    Quote of the Day
-                                </h4>
-                                <blockquote
-                                    class="italic text-gray-700 text-sm leading-relaxed border-l-4 border-blue-500 pl-3">
-                                    "{{ $randomQuote2 }}"
-                                </blockquote>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
+
+                    <!-- Right Sidebar -->
+                    <aside class="space-y-8">
+
+                        <div
+                            class="overflow-hidden rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
+                            <a href="https://nepbyte.com/contact" target="_blank" rel="noopener noreferrer">
+                                <img src="{{ asset('images/ads.gif') }}" alt="Tihar"
+                                    class="w-full h-64 object-cover rounded">
+                            </a>
+                        </div>
+                        <!-- Trending -->
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                            <div class="bg-[#ff2953] text-white px-5 py-3 flex items-center justify-between">
+                                <h3 class="text-sm font-semibold flex items-center gap-2 uppercase tracking-wide">
+                                    <i class="fas fa-fire"></i> Trending
+                                </h3>
+                            </div>
+                            <div class="p-5 space-y-4">
+                                @foreach ($popularPosts->take(5) as $index => $post)
+                                    <div class="flex gap-3 items-start border-b border-gray-100 last:border-0 pb-3">
+                                        <span
+                                            class="bg-[#ff2953] text-white text-xs font-bold px-2 py-1 rounded">{{ $index + 1 }}</span>
+                                        <div class="flex-1">
+                                            <a href="{{ route('post.show', $post->slug) }}"
+                                                class="text-sm font-medium text-gray-800 hover:text-[#ff2953] transition-colors">
+                                                {{ Str::limit($post->title, 100) }}
+                                            </a>
+                                            <p class="text-xs text-gray-400 mt-1">{{ $post->published_at->format('M j') }}
+                                                • {{ $post->views_count ?? 0 }} views</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Advertisement -->
+                        <div class="overflow-hidden ">
+                            <a href="https://aryanmiyamansoor.com.np/" target="_blank" rel="noopener noreferrer">
+                                <div class="mt-2">
+                                    <img src="{{ asset('images/aryan.gif') }}" alt="Ads Nepbyte"
+                                        class="w-full h-72 sm:h-72 md:h-72 object-cover rounded-2xl">
+                                </div>
+                            </a>
+                        </div>
+                    </aside>
                 </div>
             </section>
+
+
+
+
+
+
+
 
 
 
@@ -363,19 +313,19 @@
                 <div class="max-w-screen-2xl mx-auto px-4">
                     <!-- Section Header -->
                     <!-- <div class="border-b-4 border-blue-600 mb-8">
-                                                    <div class="flex justify-between items-center pb-4">
-                                                        <div class="flex items-center gap-4">
-                                                            <h2 class="text-3xl max-sm:text-sm font-bold text-gray-900 uppercase tracking-wide">Most
-                                                                Read Stories</h2>
-                                                            <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
-                                                            <span class="text-sm text-gray-500 font-medium max-sm:hidden">This Week</span>
-                                                        </div>
-                                                        <div class="flex items-center gap-2 text-sm text-gray-600">
-                                                            <i class="fas fa-chart-line text-blue-600"></i>
-                                                            <span>Trending</span>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                                                        <div class="flex justify-between items-center pb-4">
+                                                                            <div class="flex items-center gap-4">
+                                                                                <h2 class="text-3xl max-sm:text-sm font-bold text-gray-900 uppercase tracking-wide">Most
+                                                                                    Read Stories</h2>
+                                                                                <div class="h-8 w-1 max-sm:hidden bg-blue-600"></div>
+                                                                                <span class="text-sm text-gray-500 font-medium max-sm:hidden">This Week</span>
+                                                                            </div>
+                                                                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                                                                <i class="fas fa-chart-line text-blue-600"></i>
+                                                                                <span>Trending</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> -->
 
                     <div class="border-b-2 border-primary mb-8">
                         <div class="flex justify-between items-center gap-3 pb-2">
@@ -429,13 +379,13 @@
 
                     <!-- View More Button -->
                     <!-- <div class="text-center mt-8">
-                                                    <a href="{{ route('popular') }}"
-                                                        class="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                                                        <i class="fas fa-chart-line mr-2"></i>
-                                                        View All Popular Stories
-                                                        <i class="fas fa-arrow-right ml-2"></i>
-                                                    </a>
-                                                </div> -->
+                                                                        <a href="{{ route('popular') }}"
+                                                                            class="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                                                            <i class="fas fa-chart-line mr-2"></i>
+                                                                            View All Popular Stories
+                                                                            <i class="fas fa-arrow-right ml-2"></i>
+                                                                        </a>
+                                                                    </div> -->
                 </div>
             </section>
 
@@ -522,27 +472,27 @@
 
             <!-- Banner Advertisement Section -->
             <!-- <section class="py-8">
-                                        <div class="max-w-screen-2xl mx-auto px-4">
-                                            <div
-                                                class="max-w-4xl mx-auto bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-6 p-6 md:p-10 border border-primary relative overflow-hidden">
-                                                <div class="flex-shrink-0 w-full md:w-1/3 flex justify-center">
-                                                    <img src="{{ asset('images/adddds.jpg') }}" alt="Special Offer Banner"
-                                                        class="h-40 md:h-48 w-full object-cover shadow-lg">
-                                                </div>
-                                                <div class="flex-1 text-center md:text-left">
-                                                    <h3 class="text-2xl md:text-3xl font-extrabold text-primary mb-2">Unlock Exclusive Content!
-                                                    </h3>
-                                                    <p class="text-gray-700 mb-4">Subscribe now and get access to premium articles, expert
-                                                        insights, and special offers. Don’t miss out on the latest trends and stories!</p>
-                                                    <a href="{{ route('register') }}"
-                                                        class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-base font-semibold rounded-full shadow-md hover:bg-primary/90 transition-colors duration-200 ring-1 ring-primary/20">
-                                                        Get Started
-                                                        <i class="fas fa-arrow-right ml-2"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section> -->
+                                                            <div class="max-w-screen-2xl mx-auto px-4">
+                                                                <div
+                                                                    class="max-w-4xl mx-auto bg-gradient-to-r from-primary/10 to-primary/5 rounded-3xl shadow-xl flex flex-col md:flex-row items-center gap-6 p-6 md:p-10 border border-primary relative overflow-hidden">
+                                                                    <div class="flex-shrink-0 w-full md:w-1/3 flex justify-center">
+                                                                        <img src="{{ asset('images/adddds.jpg') }}" alt="Special Offer Banner"
+                                                                            class="h-40 md:h-48 w-full object-cover shadow-lg">
+                                                                    </div>
+                                                                    <div class="flex-1 text-center md:text-left">
+                                                                        <h3 class="text-2xl md:text-3xl font-extrabold text-primary mb-2">Unlock Exclusive Content!
+                                                                        </h3>
+                                                                        <p class="text-gray-700 mb-4">Subscribe now and get access to premium articles, expert
+                                                                            insights, and special offers. Don’t miss out on the latest trends and stories!</p>
+                                                                        <a href="{{ route('register') }}"
+                                                                            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-base font-semibold rounded-full shadow-md hover:bg-primary/90 transition-colors duration-200 ring-1 ring-primary/20">
+                                                                            Get Started
+                                                                            <i class="fas fa-arrow-right ml-2"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section> -->
 
         </div>
 
@@ -551,9 +501,6 @@
 
 
     </div>
-
-
-
 @endsection
 
 @push('styles')
