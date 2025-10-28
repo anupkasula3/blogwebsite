@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import colors from 'tailwindcss/colors';
+import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -13,7 +14,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Mulish', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 // Set brand primary color while preserving numeric shades used elsewhere
@@ -24,5 +25,5 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [typography],
 };
