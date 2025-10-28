@@ -52,7 +52,7 @@
                                 <!-- Content Container -->
                                 <div class="p-5">
                                     <!-- Title -->
-                                    <h4 class="text-lg font-bold text-gray-900 leading-tight line-clamp-2 mb-3 group-hover:text-primary transition-colors duration-300 min-h-[3.5rem]">
+                                    <h4 class="text-lg font-bold text-gray-900 leading-tight line-clamp-2  group-hover:text-primary transition-colors duration-300 mb-2">
                                         {{ $post->title }}
                                     </h4>
 
@@ -67,10 +67,7 @@
                                             <i class="far fa-calendar-alt text-primary"></i>
                                             <span>{{ optional($post->published_at)->format('M d, Y') }}</span>
                                         </div>
-                                        <div class="flex items-center gap-1.5 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <span>Read More</span>
-                                            <i class="fas fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                                        </div>
+
                                     </div>
                                 </div>
                             </a>
