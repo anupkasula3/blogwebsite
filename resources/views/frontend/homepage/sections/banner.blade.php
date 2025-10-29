@@ -22,7 +22,7 @@
         <a href="{{ route('post.show', $featuredMain->slug) }}"
             class="relative md:col-span-2 aspect-video overflow-hidden group">
             <img src="{{ asset('uploads/' . $featuredMain->featured_image) }}" alt="{{ $featuredMain->title }}"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                class="w-full h-full object-cover z-[9] transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
             <div class="absolute bottom-6 left-6 text-white">
                 <span class="bg-blue-600 text-[11px] uppercase tracking-wide px-2 py-1 rounded-md">

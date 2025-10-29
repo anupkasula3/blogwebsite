@@ -13,6 +13,14 @@ use App\Models\Quote;
 
 class HomeController extends Controller
 {
+    private function getSubcategoryIds(Category $category, &$categoryIds)
+    {
+        foreach ($category->children as $child) {
+            $categoryIds->push($child->id);
+            $this->getSubcategoryIds($child, $categoryIds);
+        }
+    }
+
     public function __construct()
     {
         // Share categories with all views
@@ -27,12 +35,12 @@ class HomeController extends Controller
 
     public function index()
     {
-        $featuredPosts = Post::with(['category', 'user', 'admin'])
+        $mainblog = Post::with(['category', 'user', 'admin'])
             ->published()
             ->featured()
-            ->latest('published_at')
-            ->take(3)
-            ->get();
+            ->latest('published_at');
+
+        $featuredPosts = $mainblog->take(3)->get();
 
         $editorsPick = Post::with(['category', 'user', 'admin'])
             ->published()
@@ -43,7 +51,7 @@ class HomeController extends Controller
 
         $techReviews = Post::with(['category', 'user', 'admin'])
             ->published()
-            ->whereHas('category', function($q) {
+            ->whereHas('category', function ($q) {
                 $q->where('name', 'like', '%review%');
             })
             ->latest('published_at')
@@ -64,7 +72,7 @@ class HomeController extends Controller
             ->get();
 
         $popularPosts = Post::with(['category', 'user', 'admin'])
-                     ->where('is_featured', 0)
+            ->where('is_featured', 0)
             ->published()
             ->orderBy('views_count', 'desc')
             ->take(5)
@@ -78,16 +86,25 @@ class HomeController extends Controller
 
         // Get categories ordered by post count
         $categoriesWithPosts = Category::where('is_active', true)
-            ->withCount(['posts' => function($q) {
-                $q->published();
-            }])
+            ->withCount([
+                'posts' => function ($q) {
+                    $q->published();
+                }
+            ])
+            // ->load(['parent', 'children'])
             ->orderBy('posts_count', 'desc')
             ->get();
 
-        // Load the latest 3 posts for each category separately to avoid window function issues
-        $categoriesWithPosts->each(function($category) {
-            $category->latest_posts = Post::where('category_id', $category->id)
-             ->where('is_featured', 0)
+        // Load the latest posts for each category and its subcategories
+        $categoriesWithPosts->each(function ($category) {
+            // Get all subcategory IDs
+            $categoryIds = collect([$category->id]);
+            $subcategories = Category::where('parent_id', $category->id)->get();
+            $categoryIds = $categoryIds->merge($subcategories->pluck('id'));
+
+            // Get posts from both main category and subcategories
+            $category->latest_posts = Post::whereIn('category_id', $categoryIds)
+                ->where('is_featured', 0)
                 ->published()
                 ->latest('published_at')
                 ->take(8)
@@ -105,12 +122,12 @@ class HomeController extends Controller
 
         // Stories: group latest posts into chunks of 3
         $storyPosts = Post::with(['category'])
-        ->published()
-        ->where('story', true)
-        ->latest('updated_at')
-        ->take(24)
-        ->get();
-    $storyGroups = $storyPosts->chunk(3);
+            ->published()
+            ->where('story', true)
+            ->latest('updated_at')
+            ->take(24)
+            ->get();
+        $storyGroups = $storyPosts->chunk(3);
 
         return view('frontend.homepage.home', compact(
             'featuredPosts',
@@ -130,14 +147,52 @@ class HomeController extends Controller
 
     public function category(Category $category)
     {
-        $posts = Post::with(['category', 'user', 'admin'])
-            ->where('category_id', $category->id)
+        // Eager-load parent for breadcrumb and children for subcategory handling
+        $category->load(['parent', 'children']);
+        // Load published posts count for stats
+        $category->loadCount([
+            'posts' => function ($q) {
+                $q->published();
+            }
+        ]);
+
+        // Get all category IDs based on whether this is a parent or child category
+        if (!$category->parent_id) {
+            // For main category, get all subcategory IDs recursively
+            $categoryIds = collect([$category->id]);
+            $this->getSubcategoryIds($category, $categoryIds);
+
+            $posts = Post::with(['category', 'user', 'admin'])
+                ->whereIn('category_id', $categoryIds)
+                ->published()
+                ->latest('published_at')
+                ->paginate(12);
+        } else {
+            // For subcategory, only show its own posts
+            $posts = Post::with(['category', 'user', 'admin'])
+                ->where('category_id', $category->id)
+                ->published()
+                ->latest('published_at')
+                ->paginate(12);
+        }
+
+        // Load active child categories with published posts count for the UI
+        $childCategories = $category->children()
+            ->where('is_active', true)
+            ->withCount([
+                'posts' => function ($q) {
+                    $q->published();
+                }
+            ])
+            ->orderBy('posts_count', 'desc')
+            ->get();
+
+        // Aggregate total views for all published posts in this category
+        $totalViews = Post::where('category_id', $category->id)
             ->published()
-            ->latest('published_at')
-            ->paginate(12);
+            ->sum('views_count');
 
-
-        return view('frontend.category.show', compact('category', 'posts'));
+        return view('frontend.category.show', compact('category', 'posts', 'childCategories', 'totalViews'));
     }
 
     public function post($post)

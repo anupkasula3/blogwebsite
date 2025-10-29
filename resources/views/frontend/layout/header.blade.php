@@ -200,10 +200,10 @@
                             </a>
 
                             @if ($category->children && $category->children->count())
-                                <div class="absolute left-0 top-full mt-2 min-w-[340px] w-[500px] glass-effect dropdown-shadow border border-gray-100 rounded-2xl p-4 z-[10000] grid grid-cols-2 gap-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300 before:content-[''] before:absolute before:-top-2 before:left-0 before:w-full before:h-2">
+                                <div class="absolute left-0 top-full mt-2 min-w-[240px]  glass-effect dropdown-shadow border border-gray-100 rounded-2xl p-4 z-[10000] grid grid-cols-1 gap-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300 before:content-[''] before:absolute before:-top-2 before:left-0 before:w-full before:h-2">
                                     @foreach ($category->children as $sub)
                                         <a href="{{ route('category.show', $sub->slug) }}"
-                                           class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-pink-500 transition-all duration-300 transform hover:scale-105">
+                                           class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:text-white  hover:bg-primary transition-all duration-300 transform hover:scale-105">
                                             {{ $sub->name }}
                                         </a>
                                     @endforeach

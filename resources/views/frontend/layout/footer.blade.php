@@ -88,14 +88,39 @@
 
             <!-- Categories -->
             <div>
+                @php
+                    $parentcategories = getParent();
+                @endphp
                 <h3 class="text-lg font-semibold mb-4">Categories</h3>
                 <ul class="space-y-3">
-                    @foreach ($categories ?? [] as $category)
+                    @foreach ($parentcategories ?? [] as $category)
                         <li>
-                            <a href="{{ route('category.show', $category->slug) }}"
-                                class="text-white hover:text-white transition-colors">
-                                {{ $category->name }}
-                            </a>
+                            @php
+                                $subcategories = getchildren($category->id);
+                            @endphp
+                            <div class=" items-center gap-2">
+                                <a href="{{ route('category.show', $category->slug) }}"
+                                    class="text-white hover:text-white transition-colors">
+                                    {{ $category->name }}
+                                </a>
+
+                                @if ($subcategories->count() > 0)
+                                    <div class="">
+                                        {{-- <span class="text-gray-500">:</span> --}}
+                                        @foreach ($subcategories as $subcategory)
+                                            <a href="{{ route('category.show', $subcategory->slug) }}"
+                                                class="text-gray-400 hover:text-white transition-colors text-sm">
+                                                {{ $subcategory->name }}
+                                            </a>
+                                            @if (!$loop->last)
+                                                <span class="text-gray-600">•</span>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </li>
+                        </a>
                         </li>
                     @endforeach
                     <!-- <li>
@@ -109,21 +134,7 @@
             <!-- Newsletter Signup -->
             <div>
                 <h3 class="text-lg font-semibold mb-4">Stay Updated</h3>
-                <p class="text-white mb-4">
-                    Subscribe to our newsletter for the latest articles and updates.
-                </p>
-                <form action="{{ route('newsletter.subscribe') }}" method="POST" class="space-y-3">
-                    @csrf
-                    <div>
-                        <input type="email" name="email" placeholder="Enter your email"
-                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none text-white placeholder-gray-400"
-                            required>
-                    </div>
-                    <button type="submit"
-                        class="w-full bg-primary text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity">
-                        Subscribe
-                    </button>
-                </form>
+
 
                 <!-- Contact Info -->
                 <div class="mt-6 space-y-2">
