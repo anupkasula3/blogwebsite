@@ -16,7 +16,7 @@ function getParent()
     return $parent;
 }
 
-function getLatestPosts($limit = 3)
+function getLatestPosts($limit = 4)
     {
         return Post::with(['category', 'user', 'admin'])
             ->published()

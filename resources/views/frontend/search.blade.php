@@ -1,38 +1,45 @@
 @extends('frontend.layout.main')
 @section('content')
     <!-- Hero Section (Match Categories Banner) -->
-    <section class="bg-gradient-to-r from-[#ff2953] to-[#c51f42] text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">Search Results</h1>
-            <p class="text-xl text-white leading-relaxed max-w-3xl mx-auto">
-                Showing results for "<span class="font-semibold text-white">{{ $query }}</span>"
-            </p>
+ <section class="bg-white text-gray-900 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Title -->
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-2 text-gray-900">
+            Search Results
+        </h1>
+        <!-- Accent line under title -->
+        <div class="w-20 h-1 bg-[#ff2953] rounded mx-auto mb-6"></div>
 
-            <!-- Search Form -->
-            <div class="mt-8 max-w-2xl mx-auto">
-                <div class="bg-white/95 backdrop-blur rounded-xl border border-white/20 shadow-2xl">
-                    <form action="{{ route('search') }}" method="GET" class="p-2 sm:p-3 flex flex-col sm:flex-row gap-3">
-                        <div class="relative flex-1">
-                            <span
-                                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" name="q" value="{{ $query }}"
-                                placeholder="Search articles..."
-                                class="w-full h-12 pl-11 pr-4 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ff2953]/40 focus:border-[#ff2953] transition" />
-                        </div>
-                        <button type="submit"
-                            class="h-12 px-6 rounded-lg bg-[#ff2953] text-white font-semibold shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#ff2953]/40 active:scale-[0.99] transition">
-                            <i class="fas fa-search mr-2"></i>Search
-                        </button>
-                    </form>
-                </div>
+        <p class="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto text-gray-700 mb-8">
+            Showing results for "<span class="font-semibold text-[#ff2953]">{{ $query }}</span>"
+        </p>
+
+        <!-- Search Form -->
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                <form action="{{ route('search') }}" method="GET" class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" name="q" value="{{ $query }}"
+                            placeholder="Search articles..."
+                            class="w-full h-12 pl-11 pr-4 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ff2953]/40 focus:border-[#ff2953] transition" />
+                    </div>
+                    <button type="submit"
+                        class="h-12 px-6 rounded-lg bg-[#ff2953] text-white font-semibold shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#ff2953]/40 active:scale-[0.99] transition">
+                        <i class="fas fa-search mr-2"></i>Search
+                    </button>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
 
     <!-- Search Results -->
-    <section class="py-16 bg-white">
+    <section class="pt-16 bg-white">
         <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
             @if ($posts->count() > 0)
                 <div class="mb-8">

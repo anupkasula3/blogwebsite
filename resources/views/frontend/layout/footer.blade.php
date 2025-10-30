@@ -55,8 +55,9 @@
 
             <!-- Quick Links -->
             <div>
-                <h3 class="text-lg font-bold mb-4">QUICK LINKS</h3>
-                <ul class="space-y-3">
+<h3 class="text-lg font-bold mb-4 uppercase inline-block border-b-4 border-[#ff2953] pb-0.5">
+  QUICK LINKS
+</h3>                <ul class="space-y-3">
                     <li>
                         <a href="{{ route('home') }}" class="text-white hover:text-white transition-colors">
                             Home
@@ -79,7 +80,7 @@
                     </li>
                     <li>
                         <a href="{{ route('terms') }}" class="text-white hover:text-white transition-colors">
-                            Terms of Service
+                            Terms and Conditions
                         </a>
                     </li>
 
@@ -91,8 +92,9 @@
                 @php
                     $parentcategories = getParent();
                 @endphp
-                <h3 class="text-lg font-bold mb-4">CATEGORIES</h3>
-                <ul class="space-y-3">
+<h3 class="text-lg font-bold mb-4 uppercase inline-block border-b-4 border-[#ff2953] pb-0.5">
+  CATEGORIES
+</h3>                <ul class="space-y-3">
                     @foreach ($parentcategories ?? [] as $category)
                         <li>
                             @php
@@ -133,7 +135,9 @@
 
             <!-- Newsletter Signup -->
       <div>
-    <h3 class="text-lg font-bold mb-4  uppercase">LATEST POST</h3>
+<h3 class="text-lg font-bold mb-4 uppercase inline-block border-b-4 border-[#ff2953] pb-0.5">
+  LATEST POST
+</h3>
 
     <div class="space-y-4">
         @foreach (getLatestPosts() as $post)
@@ -158,6 +162,14 @@
             </a>
         @endforeach
     </div>
+   <!-- Explore More Button -->
+<div class="mt-4 text-left">
+    <a href="{{ route('latest') }}"
+       class="inline-block px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-[#ff2953] to-[#ff4d6d] rounded-lg shadow-md hover:shadow-lg hover:from-[#e0244b] hover:to-[#ff2a4f] transition-all duration-300">
+        Explore More
+    </a>
+</div>
+
 </div>
 
         </div>

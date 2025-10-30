@@ -30,7 +30,7 @@
 
 
                         <!-- Featured & Secondary Posts -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <!-- Featured -->
                             @foreach ($latestPosts->take(1) as $post)
                                 <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}"
@@ -56,7 +56,7 @@
                             @endforeach
 
                             <!-- Secondary -->
-                            <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-3">
                                 @foreach ($latestPosts->skip(1)->take(3) as $post)
                                     <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}"
                                         class="text-[#ff2953] text-xs font-medium">
@@ -84,14 +84,11 @@
                             </div>
                         </div>
 
-                        <!-- Advertisement -->
-                        <div class="w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm ">
-                            <script src="https://adnebyte.nepbyte.com/ads/embed/dc780e7a-2551-4c5a-8268-1c69982382ec.js?count=1"></script>
-                        </div>
 
-                        <!-- List Posts -->
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            @foreach ($latestPosts->skip(4)->take(2) as $post)
+
+   <!-- List Posts -->
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            @foreach ($latestPosts->skip(4)->take(4) as $post)
                                 <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}">
 
                                     <div
@@ -99,15 +96,15 @@
                                         <img src="{{ asset('uploads/' . $post->featured_image) }}"
                                             alt="{{ $post->title }}" class="w-28 h-24 object-cover rounded-lg">
                                         <div>
-                                            <span class="text-[#ff2953] text-xs font-semibold uppercase tracking-wide">
+                                            {{-- <span class="text-[#ff2953] text-xs font-semibold uppercase tracking-wide">
                                                 {{ $post->category->name ?? 'General' }}
-                                            </span>
+                                            </span> --}}
                                             <h4
                                                 class="text-sm font-semibold text-gray-800 mt-1 hover:text-[#ff2953] transition-colors">
                                                 {{ Str::limit($post->title, 60) }}
                                             </h4>
                                             <p class="text-gray-400 text-xs mt-1">
-                                                {{ $post->published_at->diffForHumans() }}
+                                                {{ $post->published_at->format('M j, Y') }}
                                             </p>
                                             <p class="text-gray-600 text-sm leading-relaxed flex-1">
                                                 {{ Str::limit(html_entity_decode(strip_tags($post->excerpt)), 90) }}
@@ -118,16 +115,23 @@
                                 </a>
                             @endforeach
                         </div>
+
+                        <!-- Advertisement -->
+                        <div class="w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm ">
+                            <script src="https://adnebyte.nepbyte.com/ads/embed/dc780e7a-2551-4c5a-8268-1c69982382ec.js?count=1"></script>
+                        </div>
+
+
                     </div>
 
                     <!-- Right Sidebar -->
-                    <aside class="space-y-8">
+                    <aside class="space-y-6">
 
                         <div
                             class="overflow-hidden rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
                             <a href="https://nepbyte.com/contact" target="_blank" rel="noopener noreferrer">
                                 <img src="{{ asset('images/ads.gif') }}" alt="Tihar"
-                                    class="w-full h-64 object-cover rounded">
+                                    class="w-full h-72 object-cover rounded">
                             </a>
                         </div>
                         <!-- Trending -->
