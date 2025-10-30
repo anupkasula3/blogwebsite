@@ -15,6 +15,17 @@ function getParent()
     $parent = Category::where('parent_id', 0)->get();
     return $parent;
 }
+
+function getLatestPosts($limit = 3)
+    {
+        return Post::with(['category', 'user', 'admin'])
+            ->published()
+            ->featured()
+            ->latest('published_at')
+            ->take($limit)
+            ->get();
+    }
+
 function getMetas($segment1, $segment2)
 {
 

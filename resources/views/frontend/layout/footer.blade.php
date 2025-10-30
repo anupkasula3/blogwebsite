@@ -55,7 +55,7 @@
 
             <!-- Quick Links -->
             <div>
-                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <h3 class="text-lg font-bold mb-4">QUICK LINKS</h3>
                 <ul class="space-y-3">
                     <li>
                         <a href="{{ route('home') }}" class="text-white hover:text-white transition-colors">
@@ -91,7 +91,7 @@
                 @php
                     $parentcategories = getParent();
                 @endphp
-                <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                <h3 class="text-lg font-bold mb-4">CATEGORIES</h3>
                 <ul class="space-y-3">
                     @foreach ($parentcategories ?? [] as $category)
                         <li>
@@ -132,26 +132,34 @@
             </div>
 
             <!-- Newsletter Signup -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Stay Updated</h3>
+      <div>
+    <h3 class="text-lg font-bold mb-4  uppercase">LATEST POST</h3>
 
+    <div class="space-y-4">
+        @foreach (getLatestPosts() as $post)
+            <a href="{{ route('post.show', $post->url_slug ?? $post->slug) }}"
+                class="flex items-start group transition-all duration-300">
 
-                <!-- Contact Info -->
-                <div class="mt-6 space-y-2">
-                    <div class="flex items-center space-x-3 text-white">
-                        <i class="fas fa-envelope"></i>
-                        <span>{{ \App\Models\Setting::get('contact_email', 'contact@NepBlog.com') }}</span>
-                    </div>
-                    <div class="flex items-center space-x-3 text-white">
-                        <i class="fas fa-phone"></i>
-                        <span>{{ \App\Models\Setting::get('contact_phone', '+1 (555) 123-4567') }}</span>
-                    </div>
-                    <div class="flex items-center space-x-3 text-white">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>{{ \App\Models\Setting::get('contact_address', '123 Blog Street, Content City') }}</span>
+                <!-- Left: Image -->
+                <img src="{{ asset('uploads/' . $post->featured_image) }}"
+                    alt="{{ $post->title }}"
+                    class="w-20 h-16 object-cover rounded-md flex-shrink-0 opacity-90 group-hover:opacity-100 transition duration-300">
+
+                <!-- Right: Text -->
+                <div class="ml-3">
+                    <h4 class="text-[15px] font-semibold text-white leading-snug group-hover:text-[#ff2953] transition-colors">
+                        {{ Str::limit($post->title, 100) }}
+                    </h4>
+                    <div class="flex items-center text-gray-400 text-xs mt-1">
+                        <i class="far fa-clock mr-1"></i>
+                        <span>{{ $post->published_at->format('F d, Y') }}</span>
                     </div>
                 </div>
-            </div>
+            </a>
+        @endforeach
+    </div>
+</div>
+
         </div>
 
         <!-- Bottom Footer -->
